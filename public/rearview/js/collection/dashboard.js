@@ -1,0 +1,1 @@
+define(["jquery","underscore","backbone","model/dashboard"],function(e,n,t,i){var o=t.Collection.extend({model:i,url:"/dashboards.json",comparator:function(e){return e.get("name").toLowerCase()},initialize:function(e,n){n&&(this.cb=n.cb),this.fetch({success:function(){this.cb&&this.cb(),t.Mediator.pub("collection:dashboard:init",this)}.bind(this),async:!1})}});return o});

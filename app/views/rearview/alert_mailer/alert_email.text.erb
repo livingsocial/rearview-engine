@@ -1,0 +1,7 @@
+ALERT: <%= @result[:message] ? @result[:message] : "Job did not provide an error description" %>
+
+Monitor: <%= @job.name %>
+Description: <%= @job.description.nil? ? "None" : @job.description %>
+
+Alerted On: <%= @job.last_run %>
+Direct Link: <%= Rearview::UriHelper.rearview_uri(@job) %>

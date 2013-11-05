@@ -1,0 +1,221 @@
+/* ecosystem/dashboard styles */
+.ecosystem-dashboard-wrap {
+    margin     : 0 20px 0 0;
+    padding    : 0;
+    text-align : center;
+    position   : relative;
+    top        : 8em;
+    z-index    : 0;
+
+    -webkit-perspective : 0px;
+       -moz-perspective : 0px;
+         -o-perspective : 0px;
+            perspective : 0px;
+
+    .btn {
+        .rounded(4px);
+    }
+
+    .dashboard-tile {
+        margin        : 0 0 20px 20px;
+        display       : inline-block;
+        width         : 200px;
+        height        : 200px;
+        cursor        : pointer;
+        border-radius : 4px;
+        box-shadow    : 0 0 12px #222;
+
+        -webkit-transition       : -webkit-transform 1s;
+           -moz-transition       :    -moz-transform 1s;
+             -o-transition       :      -o-transform 1s;
+                transition       :         transform 1s;
+        -webkit-transform-style  : preserve-3d;
+           -moz-transform-style  : preserve-3d;
+             -o-transform-style  : preserve-3d;
+                transform-style  : preserve-3d;
+        -webkit-transform-origin : right center;
+           -moz-transform-origin : right center;
+             -o-transform-origin : right center;
+                transform-origin : right center;
+    }
+
+    .dashboard-tile.flipped {
+        .transform(translateX( -100% ) rotateY( -180deg ));
+    }
+
+    .dashboard-tile figure {
+        margin        : 0;
+        display       : block;
+        height        : 100%;
+        width         : 100%;
+        border-radius : 4px;
+        position      : absolute;
+
+        -webkit-backface-visibility : hidden;
+           -moz-backface-visibility : hidden;
+             -o-backface-visibility : hidden;
+                backface-visibility : hidden;
+    }
+
+    .dashboard-tile .front {
+        padding    : 12px;
+        background : #545954;
+
+        .box-sizing(border-box);
+
+        p {
+          line-height    : 40px;
+          text-align     : center;
+          color          : #fff;
+          text-transform : uppercase;
+
+          .proxima-regular(18px);
+        }
+
+        fieldset {
+            margin   : 0;
+            display  : block;
+            position : absolute;
+            bottom   : 0;
+            left     : 0;
+            width    : 100%;
+            float    : right;
+            opacity  : 0;
+
+            -webkit-transition : opacity 0.3s ease-in-out;
+               -moz-transition : opacity 0.3s ease-in-out;
+                    transition : opacity 0.3s ease-in-out;
+
+            button {
+                margin-bottom : 5px;
+                margin-right  : 5px;
+                float         : right;
+            }
+        }
+    }
+
+    .dashboard-tile .front:hover {
+        fieldset {
+          opacity : 1;
+        }
+        /* -moz-transform:scale(1.1); just an idea atm */
+    }
+
+    .dashboard-tile .back {
+        background : #f5f4ee;
+        cursor     : default;
+        .transform(rotateY( 180deg ));
+
+        fieldset {
+            margin : 5px;
+
+            input {
+                width : 176px;
+            }
+
+            .btn-wrap {
+                position : absolute;
+                bottom   : 0;
+                right    : 0;
+                width    : 100%;
+            }
+
+            button {
+                margin-bottom : 5px;
+                margin-right  : 5px;
+                float         : right;
+            }
+        }
+    }
+
+    .dashboard-tile.flipped .front,
+    .dashboard-tile.flipped .front:hover {
+        button {
+          visibility : hidden;
+          opacity : 0;
+        }
+    }
+
+    .dashboard-tile.red {
+        .front {
+            background : #735854;
+        }
+    }
+}
+
+/* delete/reset monitor styles */
+.reset-monitor,
+.delete-monitor {
+    .hero-unit {
+        margin-top : 20px;
+    }
+}
+
+/* add dashboard styles */
+.add-dashboard {
+    .dashboard-name,
+    .dashboard-description {
+        width : 100%;
+    }
+}
+
+/* delete/reset monitor styles */
+.reset-monitor,
+.delete-monitor {
+    .hero-unit {
+        margin-top : 20px;
+    }
+}
+
+/* add dashboard styles */
+.add-dashboard {
+    .dashboard-name,
+    .dashboard-description {
+        width : 100%;
+    }
+}
+
+/* delete/reset monitor styles */
+.reset-monitor,
+.delete-monitor {
+    .hero-unit {
+        margin-top : 20px;
+    }
+}
+
+/* add dashboard styles */
+.add-dashboard {
+    .dashboard-name,
+    .dashboard-description {
+        width : 100%;
+    }
+}
+
+/* add dashboard styles */
+.add-category {
+    .category-name,
+    .category-description {
+        width : 100%;
+    }
+}
+
+.nav-tabs.nav-stacked {
+    li {
+        margin-left : 0; 
+    }
+
+    & > li > a,
+    & > li > a:hover, {
+        color : #adabac;
+        background : #333;
+        border : 1px solid #b6b3a6;
+        cursor:default;
+    }
+}
+
+.existing-categories {
+    p, a {
+        margin : 0;
+        .proxima-regular(14px);
+    }
+}

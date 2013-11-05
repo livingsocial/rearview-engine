@@ -1,0 +1,22 @@
+{{#dashboard}}
+<div class='dashboard{{this.id}} dashboard-tile'>
+    <figure class='front'>
+        <p>{{this.name}}</p>
+        <fieldset>
+            <div class='btn-wrap'>
+                <button class='settings btn btn-large btn-inverse'><i class='icon-cog icon-white'></i></button>
+            </div>
+        </fieldset>
+    </figure>
+    <figure class='back'>
+        <fieldset>
+            <input id='dashboardName{{this.id}}' name='dashboardName{{this.id}}' class='dashboard-name' type='text' value='{{this.name}}'>
+            <div class='btn-wrap'>
+                <button class='cancel btn btn-large btn-inverse'><i class='icon-remove icon-white'></i></button>
+                <button class='add btn btn-large btn-inverse'><i class='icon-plus icon-white'></i></button>
+                <button class='save btn btn-large btn-primary'><i class='icon-ok icon-white'></i></button>
+            </div>
+        </fieldset>
+    </figure>
+</div>
+{{/dashboard}}

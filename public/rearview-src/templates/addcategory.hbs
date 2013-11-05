@@ -1,0 +1,38 @@
+<!-- Add Category Modal -->
+<div id='addCategory' class='add-category modal hide fade'>
+    <div class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal' aria-hidden='true'><i class='icon-remove-circle'></i></button>
+        <h1 id='addCategoryLabel'>Add A New Category</h1>
+    </div>
+    <div class='modal-body'>
+        <h2>This will be added to the '{{toUpperCase dashboard.name}}' Dashboard</h2>
+        <div class='hero-unit'>
+            <form id='addCategoryForm' class='clearfix'>
+                <fieldset class='category-name control-group'>
+                    <label for='categoryName' class='control-label'>Name:</label>
+                    <input type='text' id='categoryName' name='categoryName' class='input-block-level'>
+                </fieldset>
+                <fieldset class='category-description control-group'>
+                    <label for='categoryDescription' class='control-label'>Description:</label>
+                    <textarea id='categoryDescription' name='categoryDescription' class='input-block-level'></textarea>
+                </fieldset>
+            </form>
+        </div>
+        <h2>Existing categories...</h2>
+        <div class='existing-categories hero-unit'>
+            {{#if dashboard.children}}
+            <ul class='nav nav-tabs nav-stacked'>
+                {{#each dashboard.children}}
+                <li><a href='/#dash/{{dashboardId}}/category/{{id}}'>{{name}}</a></li>
+                {{/each}}
+            </ul>
+            {{else}}
+            <p>There are no categories for this dashboard currently.</p>
+            {{/if}}
+        </div>
+    </div>
+    <div class='modal-footer'>
+        <button class='saveCategory btn'>Save</button>
+        <button class='saveCloseCategory btn btn-primary'>Save &amp; Close</button>
+    </div>
+</div>

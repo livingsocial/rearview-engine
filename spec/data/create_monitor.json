@@ -1,0 +1,17 @@
+{
+  "id":null,
+  "appId":1,
+  "userId":111,
+  "name":"TEST MONITOR ",
+  "active":true,
+  "jobType":"monitor",
+  "version":2,
+  "alertKeys":[],
+  "cronExpr":"0 * * * * ?",
+  "errorTimeout":60,
+  "minutes":1,
+  "metrics":["stats_counts.cupcake.web_traffic.impression"],
+  "monitorExpr":"puts \"hi\"",
+  "toDate":"now",
+  "description":""
+}

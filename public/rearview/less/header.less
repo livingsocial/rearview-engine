@@ -1,0 +1,76 @@
+/* main header */
+.header-wrap {
+    z-index : 0;
+}
+
+.header {
+    margin     : 0;
+    padding    : 0 20px 0 20px;
+    background : #f5f4ee;
+
+    box-shadow         : 0px 18px 60px #000;
+    -moz-box-shadow    : 0px 18px 60px #000;
+    -webkit-box-shadow : 0px 18px 60px #000;
+
+    hr {
+        margin        : 0;
+        border-top    : 1px solid #b7b3a6;
+        border-bottom : 1px solid #b7b3a6;
+        border-radius : 4px;
+    }
+
+    .current-dashboard-title {
+        float       : left;
+        width       : 80%;
+        overflow    : hidden;
+        white-space : nowrap;
+
+        h2 {
+            text-transform : uppercase;
+        }
+
+        h2,
+        h3 {
+            display        : inline;
+            vertical-align : baseline;
+            color          : #444240;
+
+            .proxima-bold(30px);
+        }
+
+        h3 {
+            color          : #7f7c78;
+            .proxima-regular(20px);
+        }
+    }
+
+    .go-back {
+        line-height     : 38px;
+        text-decoration : none;
+        cursor          : pointer;
+
+        .proxima-regular(18px);
+
+        strong {
+            font-weight    : normal;
+            font-size      : 38px;
+            vertical-align : sub;
+        }
+    }
+
+    .date {
+        padding     : 16px 0 0 0;
+        float       : right;
+        text-align  : right;
+        width       : 20%;
+        color       : #666;
+
+        .proxima-regular();
+    }
+
+    .date strong {
+        color : #444;
+
+        .proxima-bold();
+    }
+}

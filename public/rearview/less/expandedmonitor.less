@@ -1,0 +1,283 @@
+/* expanded monitor widget styles */
+.expanded-monitor {
+    margin        : 0 2%;
+    padding       : 2px;
+    position      : relative;
+    background    : #545954;
+    border-radius : 5px;
+    color         : #fff;
+    min-height    : 400px;
+    min-width     : 1140px;
+
+    .proxima-regular();
+
+    .expressions {
+        width : 50%;
+    }
+
+    .metrics-test {
+        width : 48%;
+
+        .metrics {
+            margin-bottom : 10px;
+            display : block;
+            clear   : both;
+            width   : 100%;
+        }
+
+        .test-in-graph {
+            margin-right : 0;
+        }
+
+        .save-changes hr {
+            border-color : #B6B3A6;
+        }
+    }
+
+    .data-view {
+        margin        : 3px 3px 10px 3px;
+        padding       : 3px;
+        float         : left;
+        width         : 66%;
+        background    : #767a76;
+        border-radius : 4px;
+    }
+
+    .metrics-schedule {
+        margin : 3px;
+
+        fieldset.pager-duty {
+            margin-right : 0;
+            float : right;
+            width : 48%;
+        }
+
+        fieldset.description {
+            float: left;
+            width : 50%;
+        }
+
+        .day-month-picker {
+            clear : left;
+
+            .btn-group {
+                margin-bottom : 10px;
+            }
+        }
+
+        .tab-content {
+            overflow   : auto;
+            max-height : 221px;
+        }
+        
+
+        .button-view {
+            margin        : 10px 0 0 0;
+            padding       : 3px 10px;
+            background    : #767a76;
+            border-radius : 4px;
+        }
+
+        .form-horizontal {
+            .control-group {
+                margin : 0 20px 10px 0;
+                float : left;
+
+            }
+        }
+
+        .monitor-schedule {
+            float : left;
+        }
+
+        .monitor-meta {
+            textarea {
+                margin-bottom : 0;
+                height        : 124px;
+                width         : 98%;
+            }
+        }
+    }
+
+    label {
+        margin-bottom  : 3px;
+        color          : #b6b3a6;
+        font-size      : 14px;
+        text-transform : uppercase;
+
+        i {
+            font-size  : 10px;
+            font-style : normal;
+        }
+    }
+
+    .name-field {
+        margin-bottom : 3px;
+        display       : none;
+        input {
+            margin-bottom : 0;
+        }
+    }
+
+    /* different highlighting on expanded view fields */
+    textarea:focus,
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="datetime"]:focus,
+    input[type="datetime-local"]:focus,
+    input[type="date"]:focus,
+    input[type="month"]:focus,
+    input[type="time"]:focus,
+    input[type="week"]:focus,
+    input[type="number"]:focus,
+    input[type="email"]:focus,
+    input[type="url"]:focus,
+    input[type="search"]:focus,
+    input[type="tel"]:focus,
+    input[type="color"]:focus,
+    .uneditable-input:focus {
+        border-color : #b6b3a6;
+        box-shadow   : 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(182, 179, 166, 0.7);
+        outline      : 0 none;
+    }
+
+    .authentication-stats {
+        margin : 0 auto;
+        width  : 100%;
+
+        label {
+            padding : 5px 7px;
+            display : inline-block;
+            cursor  : text; 
+        }
+
+        label:hover {
+            padding       : 4px 6px;
+            border        : 1px solid #b6b3a6;
+            min-width     : 220px;
+            background    : #333;
+            border-radius : 3px;
+            color         : #adabac;
+
+        }
+
+        .graph {
+            margin        : 2px -3px -3px -3px;
+            padding       : 3px;
+            height        : 200px;
+            border-radius : 0 0 4px 4px;
+            background    : #000;
+            overflow      : hidden;
+            clear         : both;
+        }
+    }
+
+    .alerts-output {
+        padding : 3px;
+        float   : right;
+        width   : 32%;
+
+        .output-view {
+            border        : none;
+            border-radius : 0 0 4px 4px !important;
+            display       : block;
+            margin        : 0 -10px -10px;
+            width         : 102%;
+            width         : -moz-available;
+            min-height    : 151px;
+        }
+    }
+
+    .alerts-history {
+        color      : #f5f4ed;
+        min-height : 133px;
+
+        ul {
+            margin        : 0 -10px -10px -10px;
+            padding       : 6px;
+            overflow      : auto;
+            min-height    : 133px;
+            border-radius : 0 0 4px 4px;
+            background    : #373737;
+        }
+
+        li {
+            margin-bottom : 26px;
+            position : relative;
+        }
+
+        button {
+            margin-top : 4px;
+            position: absolute;
+            top : 0;
+            right : 0;
+
+        }
+
+        h1 {
+            margin         : 0;
+            line-height    : 30px;
+
+            .proxima-regular(16px);
+        }
+
+        h2,
+        p {
+            margin         : 0;
+            line-height    : 16px;
+
+            .proxima-regular(12px);
+        }
+
+        label {
+            background-image: url("/public/img/alerts_icon.png");
+            background-repeat: no-repeat;
+            text-indent: 25px;
+        }
+    }
+
+    /* flat design ideas */
+    /*.btn.btn-inverse {
+        background   : #222;
+        border-color : #222;
+        box-shadow   : none;
+    }
+
+    .btn.btn-inverse:hover {
+        background   : #2A2A2A;
+        border-color : #2A2A2A;
+    }
+
+    .btn.btn-inverse.active {
+        background   : #444;
+        border-color : #444;
+    }
+
+    .btn.btn-large.btn-primary {
+        background   : #3A87AD;
+        border-color : #3A87AD;
+        box-shadow   : none;
+    }
+
+    .btn.btn-large.btn-primary:hover {
+        background   : #6496B6;
+        border-color : #6496B6;
+        box-shadow   : none;
+    }
+
+    .btn.btn-success {
+        background   : #51A351;
+        border-color : #51A351;
+        box-shadow   : none;
+    }
+
+    .btn.btn-success:hover {
+        background   : #52B452;
+        border-color : #52B452;
+        box-shadow   : none;
+    }
+
+    input, select, textarea {
+        border : none;
+    }*/
+}

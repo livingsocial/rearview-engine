@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>Rearview</title>
+        <meta charset='utf-8' />
+        <meta name='description' content='Real-Time Monitoring'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta name='robots' content='noindex'>
+        <%= rearview_link_tag('/login/icons/rearview.svg',rel: 'icon', type: 'image/png') %>
+        <%= rearview_link_tag('/login/icons/icons/tools/rearview.svg',rel: 'apple-touch-icon', type: 'image/png') %>
+        <%= rearview_link_tag('/vendor/jquery/plugins/jquery-ui/css/dark-hive/jquery-ui-1.10.3.custom.css',rel: 'stylesheet') %>
+        <%= rearview_link_tag('/vendor/jquery/plugins/timepicker-ui/css/jquery.timepicker.css',rel: 'stylesheet') %>
+        <%= rearview_link_tag('/vendor/bootstrap/css/bootstrap.css',rel: 'stylesheet') %>
+        <%= rearview_link_tag('/vendor/bootstrap/css/bootstrap-responsive.css',rel: 'stylesheet') %>
+        <%= rearview_link_tag('/vendor/bootstrap/plugins/bootstrap-datepicker/css/datepicker.css',rel: 'stylesheet') %>
+        <%= rearview_link_tag('/vendor/bootstrap/plugins/font-awesome/css/font-awesome.css',rel: 'stylesheet') %>
+        <%= rearview_link_tag('/vendor/codemirror/lib/codemirror.css',rel: 'stylesheet') %>
+        <%= rearview_link_tag('/vendor/codemirror/theme/ambiance.css',rel: 'stylesheet') %>
+        <%= rearview_link_tag('/vendor/timeline/timeline.css',rel: 'stylesheet') %>
+        <%= rearview_link_tag('/less/rearview.less',rel: 'stylesheet/less', type: 'text/css') %>
+        <%= javascript_include_tag(rearview_static_path('/vendor/less/js/less.js'),type: 'text/javascript') %>
+        <!-- <link href='/public/css/rearview.css' rel='stylesheet' /> -->
+        <!--[if lt IE 9]>
+          <script src='http://html5shim.googlecode.com/svn/trunk/html5.js'></script>
+        <![endif]-->
+    </head>
+    <body class='ls-rearview'>
+        <header class='navbar-fixed-top'>
+            <section class='primary-nav-wrap clearfix'></section>
+            <section class='header-wrap clearfix'></section>
+            <section class='timeline-wrap clearfix'></section>
+        </header>
+        <section class='alert-wrap clearfix'></section>
+        <section class='ecosystem-dashboard-wrap'></section>
+        <section class='add-dashboard-wrap'></section>
+        <section class='add-category-wrap'></section>
+        <section class='monitor-wrap'>
+            <div class='monitor-panel container clearfix'></div>
+            <div class='edit-monitor-wrap clearfix'></div>
+        </section>
+        <section class='delete-monitor-wrap'></section>
+        <section class='reset-monitor-wrap'></section>
+        <section class='add-monitor-wrap'></section>
+        <section class='secondary-nav-wrap'></section>
+        <script type='text/javascript'>
+            var rearview     = {};
+            rearview.version = '<%= Rearview::VERSION %>';
+            <% if Rails.env.development? %>
+            rearview.cache   = false;
+            <% end %>
+        </script>
+        <%= javascript_include_tag(rearview_static_path('/vendor/require/js/require.js'),'data-main'=>rearview_static_path('/js/main')) %>
+    </body>
+</html>

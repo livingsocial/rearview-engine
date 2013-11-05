@@ -1,0 +1,35 @@
+<div id='dashboardCarousel' class='carousel slide' data-interval='false'>
+    <ol class='carousel-indicators middle'>
+        {{#categories}}
+        <li data-target='#dashboardCarousel' data-slide-to='{{@index}}' {{#unless @index}}class='active'{{/unless}}></li>
+        {{/categories}}
+    </ol>
+    <!-- carousel items -->
+    <div class='carousel-inner'>             
+        {{#categories}}
+        <div class='dashboard-{{id}} item{{#unless @index}} active{{/unless}}'>
+        	<ul class='monitor-grid'>
+			{{#monitors}}
+                {{#mod @index}}
+                <li class='row-fluid'>
+                {{/mod}}
+                    <div class='small-monitor-drag span4' data-order='{{@index}}'>
+                        <div class='small-monitor-wrap small-monitor-{{id}}'></div>
+                    </div>
+            {{else}}
+                <li></li>
+            {{/monitors}}
+			</ul>
+            {{#if description}}
+            <div class='carousel-caption'>
+                <p>{{nl2br description}}</p>
+            </div>
+            {{/if}}
+        </div>
+        {{/categories}}
+    </div>
+    <!-- carousel nav -->
+    <a class='carousel-control left' href='#myCarousel' data-slide='prev'><i class='icon-chevron-sign-left'></i></a>
+    <a class='carousel-control right' href='#myCarousel' data-slide='next'><i class='icon-chevron-sign-right'></i></a>
+</div>
+

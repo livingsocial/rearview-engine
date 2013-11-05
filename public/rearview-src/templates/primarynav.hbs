@@ -1,0 +1,50 @@
+<div class='nav-primary navbar'>
+    <div class='navbar-inner'>
+        <div class='container' style='width: auto; padding: 0 20px;'>
+            <a class='brand' href='#'><img src='rearview/img/rearview.svg' alt='rearviewlogo' width='29px' />rearview</a>
+            <ul class='main nav'>
+                <!-- <li class='active'><a href='#'>Ecosystem</a></li> -->
+                <li class='active'><a href='#ecosystem'>Ecosystem</a></li>
+                <li class='dropdown'>
+                    <a href='#' class='dropdown-toggle' data-toggle='dropdown'>
+                        Dashboards
+                        <b class='caret'></b>
+                    </a>
+                    <ul class='dropdown-menu'>
+                    {{#nav}}
+                        {{#if children}}
+                        <li class='dropdown-submenu'>
+                            <a href='#dash/{{id}}'>{{name}}</a>
+                            <ul class='dropdown-menu'>
+                            {{#each children}}
+                                <li><a href='#dash/{{../id}}/category/{{this.id}}'>{{this.name}}</a></li>
+                            {{/each}}
+                            </ul>
+                        </li>
+                        {{else}}
+                        <li><a href="#dash/{{id}}">{{name}}</a></li>
+                        {{/if}}
+                    {{/nav}}
+                    </ul>
+                </li>
+            </ul>
+            <ul class='nav pull-right'>
+                <li>
+                    <div class="btn-group">
+                        <a class="user btn btn-inverse disabled" rel='tooltip' data-delay='1000' data-toggle="tooltip" data-original-title="{{user.email}}">
+                            <i class="icon-user icon-white"></i> {{user.firstName}} {{user.lastName}}
+                        </a>
+                        <a class="btn btn-inverse dropdown-toggle disabled" data-toggle="dropdown">
+                            <span class="caret" style='border-top-color: #B6B3A6 !important;
+border-bottom-color: #B6B3A6 !important;'></span>
+                        </a>
+                        <!-- <ul class="dropdown-menu" style='right:0; left:auto; min-width:133px;'>
+                            <li><a href="#"><i class="icon-cog icon-white"></i> Settings</a></li>
+                            <li><a href="#"><i class="icon-signout icon-white"></i> Logout</a></li>
+                        </ul> -->
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

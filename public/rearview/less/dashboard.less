@@ -1,0 +1,173 @@
+.monitor-panel {
+    position : relative;
+    top      : @top-adjustment;
+    width    : 90%;
+
+    .carousel {
+        top : 22px;
+
+        .active .btn {
+            display : inline-block;
+        }
+    }
+
+    .carousel-indicators.middle {
+		left       : 0;
+		right      : 0;
+		top        : -30px;
+		text-align : center;
+	
+		li {
+			float         : none;
+			display       : inline-block;
+			background    : #000;
+			border        : 2px solid #F5F4EE;
+			border-radius : 7px;
+
+			&.active {
+				background : #f5f4ee;
+			}
+		}
+	}
+
+	.carousel-control {
+		border     : none;
+		background : none;
+		height     : auto;
+		width      : 53px;
+		z-index    : 11;
+		top        : 50%;
+        position   : fixed;
+
+		.proxima-regular;
+	
+		&.left {
+			left : 0.5%;
+		}
+		&.right {
+			right : 0.5%;
+		}
+	}
+
+	.carousel-inner {
+		overflow : visible;
+
+        & > .prev {
+            left: -106%;
+        }
+
+        & > .next {
+            left: 106%;
+        }
+
+		.item {
+			min-height : 1184px;
+		}
+
+		.carousel-caption {
+            background : rgba(0,0,0,0.3);
+            position   : fixed;
+            bottom     : 41px;
+            z-index    : 10;
+            opacity    : 1;
+			.proxima-regular;
+
+			h4 {
+				font-weight : normal;
+			}
+		}
+
+		.item.active .carousel-caption {
+			-webkit-transition : opacity 0.5s ease-out 5s;
+               -moz-transition : opacity 0.5s ease-out 5s;
+                 -o-transition : opacity 0.5s ease-out 5s;
+                    transition : opacity 0.5s ease-out 5s;
+            opacity : 0;
+		}
+	}
+}
+
+.monitor-wrap {
+    margin        : 0;
+    padding       : 0;
+    overflow      : visible;
+    width         : 100%;
+    position      : relative;
+    z-index       : 1;
+
+    -webkit-perspective : 0px;
+       -moz-perspective : 0px;
+            perspective : 0px;
+
+    .monitor-grid {
+        margin : 0 0 2em 0;
+        font-size : 16px;
+
+        .row-fluid {
+            display : block;
+        }
+
+        .small-monitor:last {
+            margin-right  : 0;
+            padding-right : 0;
+        }
+    }
+
+    .edit-monitor-wrap {
+        display  : block;
+        height   : inherit;
+        width    : 100%;
+        z-index  : 100;
+        top      : @top-adjustment;
+        right    : 4000px;
+        position : absolute;
+
+        transition         : right 0.4s;
+        -moz-transition    : right 0.4s;
+        -webkit-transition : right 0.4s;
+
+        .edit-monitor {
+            background    : #545954;
+            border-radius : 7px;
+            margin        : 0 6%;
+            padding       : 8px 7px;
+            min-height    : 500px;
+
+            .data-view {
+                background    : #767a76;
+                border-radius : 4px;
+                float         : left;
+                width         : 66%;
+            }
+
+            .metrics-schedule {
+                background    : #767a76;
+                border-radius : 4px;
+            }
+        }
+    }
+
+    .edit-monitor-wrap.active {
+        right : 0;
+    }
+}
+
+.small-monitor-drag {
+    margin-bottom: 34px;    
+}
+
+.small-monitor-wrap {
+    position : relative;
+    z-index  : 1;
+}
+
+/* styles for drag & drop */
+.active-drop {
+    outline : 2px dashed #f5f4ee;
+}
+
+@-moz-document url-prefix() { /* HACK: for jquery UI & border not working right */
+    .active-drop {
+        overflow : hidden;
+    }
+}

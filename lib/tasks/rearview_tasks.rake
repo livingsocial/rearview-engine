@@ -1,4 +1,3 @@
-# desc "Explaining what the task does"
-# task :rearview do
-#   # Task goes here
-# end
+# Tasks made available to engine host..
+namespace :rearview do
+end

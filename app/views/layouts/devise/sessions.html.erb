@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Rearview</title>
+    <meta name='description' content='Real-Time Monitoring'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta name='robots' content='noindex'>
+    <%= rearview_link_tag('/vendor/bootstrap/css/bootstrap.css',rel: 'stylesheet') %>
+    <%= rearview_link_tag('/vendor/bootstrap/css/bootstrap-responsive.css',rel: 'stylesheet') %>
+    <%= rearview_link_tag('/login/icons/rearview.svg',rel: 'icon', type: 'image/png') %>
+    <%= rearview_link_tag('/login/icons/icons/tools/rearview.svg',rel: 'apple-touch-icon', type: 'image/png') %>
+    <%= rearview_link_tag('/less/login.less',rel: 'stylesheet/less', type: 'text/css') %>
+    <%= javascript_include_tag(rearview_static_path('/vendor/less/js/less.js'),type: 'text/javascript') %>
+</head>
+<body class='login rearview'>
+  <!--[if lt IE 8]><p class=chromeframe>Your browser is <em>ancient!</em> <a href='http://browsehappy.com/'>Upgrade to a different browser</a> or <a href='http://www.google.com/chromeframe/?redirect=true'>install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+    <div id='main' role='main' class='nest' style='height: 0px;'>
+        <section id='content' class=''>
+            <section class='login-info'>
+                <header>
+                    <%= rearview_img_tag('/login/company-logo.svg',width: '200px') %>
+                    <%= rearview_img_tag('/rearview.svg',alt: 'Rearview',id: 'product-logo') %>
+                    <hgroup>
+                        <h1>Rearview</h1>
+                        <h2>Real-Time Monitoring</h2>
+                    </hgroup>
+                </header>
+                <div class='authentication-box'>
+                  <% if notice.present? %>
+                    <p class="notice"><%= notice %></p>
+                  <% end %>
+                  <% if alert.present? %>
+                    <p class="alert"><%= alert %></p>
+                  <% end %>
+                  <%= yield %>
+                </div>
+            </section>
+        </section>
+    </div>
+</body>
+</html>
+
