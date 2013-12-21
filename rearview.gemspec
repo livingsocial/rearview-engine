@@ -6,12 +6,14 @@ require "rearview/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "rearview"
+  s.license     = "MIT"
   s.version     = Rearview::VERSION
   s.authors     = ["Trent Albright"]
   s.email       = ["trent.albright@gmail.com"]
   s.homepage    = "https://github.com/livingsocial/rearview"
   s.summary     = "Timeseries data monitoring framework"
-  s.description = "Timeseries data monitoring framework"
+  s.description = "Timeseries data monitoring framework running as a rails engine"
+  s.platform    = "jruby"
   s.required_ruby_version = ">= 1.9.3"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md"]

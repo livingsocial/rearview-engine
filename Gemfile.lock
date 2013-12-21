@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rearview (0.0.1)
+    rearview (1.0.0.rc1)
       ancestry (~> 2.0.0)
       broach (~> 0.3.0)
       celluloid (~> 0.14.1)
@@ -79,7 +79,7 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.6.9)
-    jbuilder (1.5.2)
+    jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
     jdbc-mysql (5.1.27)
