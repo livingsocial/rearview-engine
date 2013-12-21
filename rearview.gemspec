@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.platform    = "jruby"
   s.required_ruby_version = ">= 1.9.3"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md"]
+  s.files = Dir["{app,bin,config,db,lib,public,script,spec,tasks}/**/*"] + ["Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 4.0.2"
