@@ -5,8 +5,8 @@ module Rearview
       :sandbox_timeout, :sandbox_dir, :enable_alerts, :preload_jobs, :logger, :enable_monitor, :verify)
 
     DEFAULTS = {
-      default_from: "rearview@livingsocial.com",
-      graphite_url: "http://graphite.iad.livingsocial.net",
+      default_from: "rearview@localhost",
+      graphite_url: nil,
       pagerduty_url: "https://events.pagerduty.com/generic/2010-04-15/create_event.json",
       sandbox_timeout: 5,
       enable_alerts: true,
