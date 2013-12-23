@@ -5,10 +5,10 @@ Rearview.configure do |config|
   config.logger = Rails.logger
   config.sandbox_dir = Rails.root + "sandbox"
 
-  # Configure the path to a ruby 1.9.3 binary that will be used to excute your
+  # Configure the path to a ruby 1.9.3 binary that will be used to execute your
   # monitor script in the sandbox.
   # ex:
-  # config.sandbox_exec=["/opt/ruby-1.9.3/bin/ruby"]
+  # config.sandbox_exec = ["/bin/env","-i","PATH=/opt/ruby-1.9.3/bin", "bundle", "exec", "ruby"]
   config.sandbox_exec = ["rvm-exec","ruby-1.9.3@rearview-sandbox","ruby"]
 
   # How long to wait for a monitor script to run in seconds. After this time
@@ -27,9 +27,8 @@ Rearview.configure do |config|
     when "test"
       config.preload_jobs = false
     when "production"
-      # Monitor script excutable will likely be different in production.
-      config.sandbox_exec = ["/bin/env","-i","PATH=/opt/ruby-1.9.3/bin", "bundle", "exec", "ruby"]
-      config.verify = true
+      # If you want to make sure your configuration is correct on server startup
+      # config.verify = true
   end
 
   if File.basename($0) == "rake"
