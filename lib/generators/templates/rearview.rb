@@ -15,12 +15,14 @@ Rearview.configure do |config|
   # period the monitor script will be terminated.
   config.sandbox_timeout = 10
 
-  # This must poing to the graphite web server
+  # The url to your graphite web server
   # ex:
   # config.graphite_url="http://graphite.mycompany.com"
   config.graphite_url = nil
 
   # This is the email from: address used when sending alerts
+  # ex:
+  # config.default_from = "rearview@mycompany.com"
   config.default_from = "rearview@localhost"
 
   case Rails.env

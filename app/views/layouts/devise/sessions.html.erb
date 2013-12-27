@@ -12,6 +12,14 @@
     <%= rearview_link_tag('/login/icons/icons/tools/rearview.svg',rel: 'apple-touch-icon', type: 'image/png') %>
     <%= rearview_link_tag('/less/login.less',rel: 'stylesheet/less', type: 'text/css') %>
     <%= javascript_include_tag(rearview_static_path('/vendor/less/js/less.js'),type: 'text/javascript') %>
+    <style>
+      .control-group .control-label {
+        width: 120px;
+      }
+      .control-group .controls {
+        margin-left: 135px;
+      }
+    </style>
 </head>
 <body class='login rearview'>
   <!--[if lt IE 8]><p class=chromeframe>Your browser is <em>ancient!</em> <a href='http://browsehappy.com/'>Upgrade to a different browser</a> or <a href='http://www.google.com/chromeframe/?redirect=true'>install Google Chrome Frame</a> to experience this site.</p><![endif]-->
