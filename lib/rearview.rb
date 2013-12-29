@@ -15,7 +15,6 @@ require 'rearview/distribute'
 require 'rearview/monitor_supervisor'
 require 'rearview/monitor_service'
 require 'rearview/configuration'
-require 'rearview/sandbox'
 require 'rearview/version'
 
 module Rearview
@@ -50,13 +49,10 @@ module Rearview
   def boot!
     @logger = config.logger if(config.logger.present?)
     logger.info "[#{self}] booting..."
-    logger.info "[#{self}] using configuration: \n#{config}"
+    logger.info "[#{self}] using configuration: \n#{config.dump}"
     if config.verify?
-      logger.info "[#{self}] verifying sandbox..."
-      if Rearview::Sandbox.valid?
-        logger.info "[#{self}] sandbox verified"
-      else
-        logger.error "[#{self}] sandbox verification FAILED"
+      unless config.valid?
+        logger.warn "[#{self}] configuration check FAILED: \n#{config.errors.full_messages.join("\n")}"
       end
     end
     Celluloid.logger = @logger
