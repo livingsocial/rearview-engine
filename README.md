@@ -2,6 +2,8 @@ Rails engine for ![rearview](http://github.com/livingsocial/rearview). This proj
 
 # Development Guide
 
+Before developing please read how to ![contribute](https://github.com/livingsocial/rearview-engine/blob/master/CONTRIBUTING.md).
+
 ## Intro
 
 Before contributing you should read ![Getting Started with Engine](http://guides.rubyonrails.org/engines.html) guide to familiarize yourself with rails engines.
