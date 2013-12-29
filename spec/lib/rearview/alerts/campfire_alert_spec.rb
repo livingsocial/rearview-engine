@@ -19,7 +19,7 @@ describe Rearview::Alerts::CampfireAlert do
         let(:result) { { message: "alert alert!"} }
 
         it "notifies campfire" do
-          Broach.expects(:speak).with("nyan", "alert alert! #{Rearview::UriHelper.rearview_uri(job)}")
+          Broach.expects(:speak).with("nyan", "alert alert! #{Rearview::UrlHelper.job_url(job)}")
           campfire_alert.alert(job, result)
         end
       end
@@ -28,7 +28,7 @@ describe Rearview::Alerts::CampfireAlert do
         let(:result) { { } }
 
         it "notifies campfire" do
-          Broach.expects(:speak).with("nyan", "Job did not provide an error description #{Rearview::UriHelper.rearview_uri(job)}")
+          Broach.expects(:speak).with("nyan", "Job did not provide an error description #{Rearview::UrlHelper.job_url(job)}")
           campfire_alert.alert(job, result)
         end
       end

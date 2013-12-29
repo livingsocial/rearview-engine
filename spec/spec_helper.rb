@@ -18,6 +18,7 @@ Rearview.configure do |config|
   config.sandbox_timeout = 10
   config.preload_jobs = false
   config.enable_monitor = false
+  config.default_url_options = {:host=>'localhost', :port=>'3000'}
 end
 
 Rearview.boot!

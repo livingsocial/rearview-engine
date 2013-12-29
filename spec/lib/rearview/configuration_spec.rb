@@ -15,6 +15,7 @@ describe Rearview::Configuration do
     it { should validate_presence_of(:sandbox_dir) }
     it { should validate_presence_of(:sandbox_exec) }
     it { should validate_presence_of(:sandbox_timeout) }
+    it { should validate_presence_of(:default_url_options) }
     it { should validate_numericality_of(:sandbox_timeout).is_greater_than(4) }
     it "should requre sandbox_dir to be a directory" do
       config.sandbox_dir="/__not_likely__"

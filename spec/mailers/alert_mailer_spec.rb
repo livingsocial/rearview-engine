@@ -29,7 +29,7 @@ describe Rearview::AlertMailer do
       expect(mail.body.encoded).to match(/Alerted On: .*/)
     end
     it 'has a direct link' do
-      expect(mail.body.encoded).to match(%r{Direct Link: https://rearview.livingsocial.net/#dash/#{job.app_id}/expand/#{job.id}})
+      expect(mail.body.encoded).to match(%r{Direct Link: http://localhost:3000/rearview/#dash/#{job.app_id}/expand/#{job.id}})
     end
   end
 

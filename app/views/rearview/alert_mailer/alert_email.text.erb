@@ -4,4 +4,4 @@ Monitor: <%= @job.name %>
 Description: <%= @job.description.nil? ? "None" : @job.description %>
 
 Alerted On: <%= @job.last_run %>
-Direct Link: <%= Rearview::UriHelper.rearview_uri(@job) %>
+Direct Link: <%= Rearview::UrlHelper.job_url(@job) %>

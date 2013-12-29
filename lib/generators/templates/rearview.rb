@@ -25,6 +25,12 @@ Rearview.configure do |config|
   # config.default_from = "rearview@mycompany.com"
   config.default_from = "rearview@localhost"
 
+  # The url options for rearview application host. Required to generate
+  # proper monitor alerts.
+  # ex:
+  # config.default_url_options = {:host=>'rearview.mycomopany.com', :protocol=>'https'}
+  config.default_url_options = {:host=>'localhost', :port=>'3000'}
+
   case Rails.env
     when "test"
       config.preload_jobs = false

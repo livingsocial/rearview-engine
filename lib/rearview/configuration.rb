@@ -44,13 +44,15 @@ module Rearview
     end
 
     ATTRIBUTES = [:default_from, :graphite_url, :pagerduty_url, :sandbox_exec,
-      :sandbox_timeout, :sandbox_dir, :enable_alerts, :preload_jobs, :logger, :enable_monitor, :verify]
+                  :sandbox_timeout, :sandbox_dir, :enable_alerts, :preload_jobs,
+                  :logger, :enable_monitor, :verify, :default_url_options]
 
     attr_accessor *ATTRIBUTES
 
     validates :graphite_url, presence: true, url: { reachable: true }
     validates :pagerduty_url, presence: true, url: true
     validates :default_from, presence: true
+    validates :default_url_options, presence: true
     validates :sandbox_dir, presence: true, directory: true
     validates :sandbox_exec, presence: true
     validates :sandbox_timeout, presence: true, numericality: { greater_than: 4 }

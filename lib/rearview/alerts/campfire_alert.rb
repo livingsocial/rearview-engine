@@ -19,7 +19,7 @@ module Rearview
 
       def alert_msg(job, result)
         msg = result[:message] ? result[:message] : "Job did not provide an error description"
-        "#{msg} #{Rearview::UriHelper.rearview_uri(job)}"
+        "#{msg} #{Rearview::UrlHelper.job_url(job)}"
       end
 
       def self.params(key)

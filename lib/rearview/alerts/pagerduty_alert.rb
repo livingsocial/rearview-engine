@@ -10,7 +10,7 @@ module Rearview
           if PagerDutyAlert.key?(params)
             logger.info "#{self} send alert for #{job.inspect} and key #{key} with params #{params}"
             pagerduty_uri = Rearview.config.pagerduty_url
-            job_uri       = Rearview::UriHelper.rearview_uri(job)
+            job_uri       = Rearview::UrlHelper.job_url(job)
             msg           = result[:message]
 
             description = if msg
