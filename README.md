@@ -1,12 +1,12 @@
-Rails engine for ![rearview](http://github.com/livingsocial/rearview). This project is for rearview developers only. For users please go to ![rearview](http://github.com/livingsocial/rearview) project for installation, configuration, and other details.
+Rails engine for [rearview](http://github.com/livingsocial/rearview). This project is for rearview developers only. For users please go to [rearview](http://github.com/livingsocial/rearview) project for installation, configuration, and other details.
 
 # Development Guide
 
-Before developing please read how to ![contribute](https://github.com/livingsocial/rearview-engine/blob/master/CONTRIBUTING.md).
+Before developing please read how to [contribute](https://github.com/livingsocial/rearview-engine/blob/master/CONTRIBUTING.md).
 
 ## Intro
 
-Before contributing you should read ![Getting Started with Engine](http://guides.rubyonrails.org/engines.html) guide to familiarize yourself with rails engines.
+Before contributing you should read [Getting Started with Engine](http://guides.rubyonrails.org/engines.html) guide to familiarize yourself with rails engines.
 
 Rearview consists of two components:
 
@@ -51,7 +51,7 @@ To point to the path you cloned the engine too, for example
     
 ## User Interface Guide
 
-Rearview does not use the asset pipeline. Instead you'll need to take a look at ![public/rearview-src](https://github.com/livingsocial/rearview-engine/tree/master/public/rearview-src). In development mode javascript, css, etc is loaded directly from here. When rearview-engine is bundled as a Gem the various elements are pre-compiled (manually before **gem build**) using require and are loaded from ![public/rearview](https://github.com/livingsocial/rearview-engine/tree/master/public/rearview).
+Rearview does not use the asset pipeline. Instead you'll need to take a look at [public/rearview-src](https://github.com/livingsocial/rearview-engine/tree/master/public/rearview-src). In development mode javascript, css, etc is loaded directly from here. When rearview-engine is bundled as a Gem the various elements are pre-compiled (manually before **gem build**) using require and are loaded from [public/rearview](https://github.com/livingsocial/rearview-engine/tree/master/public/rearview).
 
 To compile the ui before distribution, run the following rake task from inside rearview-engine:
 
