@@ -27,9 +27,9 @@ module Rearview
     end
     def run
       debug "#{self} run"
+      @initial_delay = 0
+      result = Rearview::MonitorRunner.run(@job.metrics, @job.monitor_expr, @job.minutes)
       ActiveRecord::Base.connection_pool.with_connection do
-        @initial_delay = 0
-        result = Rearview::MonitorRunner.run(@job.metrics, @job.monitor_expr, @job.minutes)
         @job.last_run = Time.now.utc
         Rearview::ResultsHandler.new(@job,result).run
       end
