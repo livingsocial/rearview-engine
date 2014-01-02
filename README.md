@@ -6,7 +6,7 @@ Before developing please read how to [contribute](https://github.com/livingsocia
 
 ## Intro
 
-Before contributing you should read [Getting Started with Engine](http://guides.rubyonrails.org/engines.html) guide to familiarize yourself with rails engines.
+Before contributing you should read [Getting Started with Engines](http://guides.rubyonrails.org/engines.html) guide to familiarize yourself with rails engines.
 
 Rearview consists of two components:
 
