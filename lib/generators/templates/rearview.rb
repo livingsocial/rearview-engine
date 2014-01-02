@@ -5,6 +5,20 @@ Rearview.configure do |config|
   config.logger = Rails.logger
   config.sandbox_dir = Rails.root + "sandbox"
 
+  # Authentication support
+  # Support for authentication in rearview is via devise, so while any devise supported
+  # strategies will work, pre-wired support for the following strategies is included:
+  #
+  # :database - authenticate against the database
+  # :google_oauth2 - authenticate using google oauth2
+  # :custom - if you want to configure devise and Rearview::User model to use a different strategy
+  #
+  # For :google_oauth2 you need to include an option for matching email addresses/domains
+  # ex:
+  # config.authentication = { strategy: :google_oauth2, matching_emails: /@mycompany\.com$/ }
+  #
+  config.authentication = { strategy: :database }
+
   # Configure the path to a ruby 1.9.3 binary that will be used to execute your
   # monitor script in the sandbox.
   # ex:
@@ -35,7 +49,8 @@ Rearview.configure do |config|
     when "test"
       config.preload_jobs = false
     when "production"
-      # If you want to make sure your configuration is correct on server startup
+      # If you want to make sure your configuration is correct on server startup. This
+      # will make http requests that will slow down startup.
       # config.verify = true
   end
 

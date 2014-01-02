@@ -1,21 +1,10 @@
-<form class="form-horizontal" method="post" action="<%= session_path(:user) %>">
-<div class="control-group">
-    <label class="control-label" for="inputEmail">Email</label>
-    <div class="controls">
-      <input type="text" id="inputEmail" placeholder="Email" name="user[email]" autofocus="autofocus">
-    </div>
-</div>
-<div class="control-group">
-    <label class="control-label" for="inputPassword">Password</label>
-    <div class="controls">
-      <input type="password" id="inputPassword" placeholder="Password" name="user[password]">
-    </div>
-</div>
-<div class="control-group">
-  <div class="controls">
-    <button type="submit" class="btn">Sign in</button>
-  </div>
-</div>
-</form>
-
+<% case Rearview.config.authentication[:strategy] %>
+<% when :database  %>
+<%= render "database_auth" %>
+<% when :google_oauth2 %>
+<%= render "google_oauth2_auth" %>
+<% else %>
+<h2>Rearview configuration for authentication strategy &quot;<%=  Rearview.config.authentication[:strategy] %>&quot;
+requires configuring devise, customizing Rearview::User, and overriding views as appropriate</h2>
+<% end %>
 <%# <%= render "devise/shared/links" %>
