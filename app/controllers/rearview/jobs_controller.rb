@@ -37,7 +37,7 @@ module Rearview
     end
 
     def data
-      @job_data = Rearview::Job.find(params[:id]).try(:job_data)
+      @job_data = Rearview::JobData.find_by(:job_id,params[:id])
       unless @job_data.present?
         head :status => 404
       end
