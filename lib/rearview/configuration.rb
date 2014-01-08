@@ -46,7 +46,7 @@ module Rearview
     ATTRIBUTES = [:default_from, :graphite_url, :pagerduty_url, :sandbox_exec,
                   :sandbox_timeout, :sandbox_dir, :enable_alerts, :preload_jobs,
                   :logger, :enable_monitor, :verify, :default_url_options,
-                  :authentication]
+                  :authentication, :enable_stats, :statsd_connection]
 
     attr_accessor *ATTRIBUTES
 
@@ -58,6 +58,7 @@ module Rearview
     validates :sandbox_exec, presence: true
     validates :sandbox_timeout, presence: true, numericality: { greater_than: 4 }
     validates :authentication, presence: true
+    validates :statsd_connection, presence: true, if: -> { self.stats_enabled? }
 
     validate :validate_sandbox_execution
 
@@ -69,6 +70,8 @@ module Rearview
       @verify = false
       @enable_monitor = true
       @authentication = { strategy: :database }
+      @enable_stats = false
+      @default_url_options = {:host=>"localhost",:port=>"3000"}
       @pagerduty_url = "https://events.pagerduty.com/generic/2010-04-15/create_event.json"
       super
     end
@@ -83,6 +86,10 @@ module Rearview
 
     def preload_jobs?
       preload_jobs
+    end
+
+    def stats_enabled?
+      enable_stats
     end
 
     def verify?

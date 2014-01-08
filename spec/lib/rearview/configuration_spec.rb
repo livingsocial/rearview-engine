@@ -59,6 +59,14 @@ describe Rearview::Configuration do
       config.valid?
       expect(config.errors[:graphite_url]).to be_empty
     end
+    it "should require statsd_connection to be present if stats are enabled" do
+      config.enable_stats = false
+      config.valid?
+      expect(config.errors[:statsd_connection]).to be_empty
+      config.enable_stats = true
+      config.valid?
+      expect(config.errors[:statsd_connection]).to include("can't be blank")
+    end
     pending "should require sanbox_exec to be executable"
   end
 
@@ -70,8 +78,10 @@ describe Rearview::Configuration do
       expect(config.enable_alerts).to be_true
       expect(config.preload_jobs).to be_true
       expect(config.enable_monitor).to be_true
+      expect(config.enable_stats).to be_false
       expect(config.verify).to be_false
       expect(config.authentication).to eq({strategy: :database})
+      expect(config.default_url_options).to eq({:host=>"localhost", :port=>"3000"})
     end
   end
 

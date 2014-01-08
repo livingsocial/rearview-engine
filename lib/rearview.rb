@@ -1,6 +1,7 @@
 require "rearview/engine"
 require "rearview/concerns"
 require "rearview/ext/state_machine"
+require "rearview/ext/numeric"
 require "rearview/constants_module_maker"
 require 'rearview/logger'
 require 'rearview/cron_helper'
@@ -15,13 +16,17 @@ require 'rearview/distribute'
 require 'rearview/monitor_supervisor'
 require 'rearview/monitor_service'
 require 'rearview/configuration'
+require 'rearview/vm'
+require 'rearview/statsd'
+require 'rearview/stats_task'
+require 'rearview/stats_service'
 require 'rearview/version'
 
 module Rearview
   include Rearview::Logger
 
   class << self
-    attr_accessor :monitor_service,:alert_clients
+    attr_accessor :monitor_service,:stats_service,:alert_clients
   end
 
   module_function
@@ -64,6 +69,12 @@ module Rearview
     else
       logger.warn "[#{self}] monitor disabled"
     end
+    if config.stats_enabled?
+      logger.info "[#{self}] starting up stats service"
+      @stats_service = Rearview::StatsService.supervise
+      @stats_service.actors.first.startup
+    end
+
     @alert_clients = Rearview::Alerts.registry.values
     @booted = true
   end

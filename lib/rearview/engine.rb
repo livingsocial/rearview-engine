@@ -7,6 +7,7 @@ require 'protected_attributes'
 require 'httparty'
 require 'celluloid'
 require 'jbuilder'
+require 'statsd'
 
 jar_dir =  File.expand_path('../../jar',  __FILE__)
 for jar in Dir["#{jar_dir}/*.jar"]
@@ -31,6 +32,8 @@ module Rearview
     initializer 'devise.use_rearview_helpers' do |app|
       Devise::SessionsController.class_eval { helper Rearview::ApplicationHelper }
     end
-    Jbuilder.key_format :camelize => :lower
+    initializer 'jbuilder.key_format' do |app|
+      Jbuilder.key_format :camelize => :lower
+    end
   end
 end

@@ -40,10 +40,20 @@ Rearview.configure do |config|
   config.default_from = "rearview@localhost"
 
   # The url options for rearview application host. Required to generate
-  # proper monitor alerts.
+  # monitor alerts with correct URL references.
   # ex:
-  # config.default_url_options = {:host=>'rearview.mycomopany.com', :protocol=>'https'}
-  config.default_url_options = {:host=>'localhost', :port=>'3000'}
+  # config.default_url_options = { host: 'rearview.mycomopany.com', protocol: 'https'}
+  config.default_url_options = { host: 'localhost', port: '3000'}
+
+  # Enable collection of stats for rearview itself. This will send JVM and monitor related
+  # stats to graphite using statsd.
+  #
+  config.enable_stats=false
+
+  # The connection information for the stats service. Only necessary if enable_stats is true.
+  # ex:
+  # config.statsd_connection = { host: 'statsd.mycompany.com', port: 8125 , namespace: 'rearview' }
+  #
 
   case Rails.env
     when "test"

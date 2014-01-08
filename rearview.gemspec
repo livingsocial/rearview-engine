@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency "celluloid", "~> 0.14.1"
   s.add_dependency "broach", "~> 0.3.0"
   s.add_dependency "jbuilder", "~> 1.5.2"
+  s.add_dependency "statsd-ruby", "~> 1.2.1"
 
   s.add_development_dependency "activerecord-jdbcmysql-adapter"
   s.add_development_dependency "foreman"
