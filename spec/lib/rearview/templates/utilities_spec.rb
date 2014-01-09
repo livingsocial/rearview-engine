@@ -66,14 +66,13 @@ describe "utility method" do
       monitor_expr = <<-'eos'
         puts @a
       eos
-      result = collect_aberrations(all_created, 1)
-      expect(result[0]).to eq("All Purchases Created in the last hour experienced a standard deviation shift of 1.03, which is greater than the threshold of 1.")
+      result = collect_aberrations(all_created, 0)
+      expect(result).to eq({"All Purchases Created in the last hour"=>0.3505384991636653})
     end
   
     it "returns correct errors for multiple metrics" do
-      result = collect_aberrations(all_created, local_created, 1)
-      expect(result[0]).to eq("All Purchases Created in the last hour experienced a standard deviation shift of 1.03, which is greater than the threshold of 1.")
-      expect(result[1]).to be_empty
+      result = collect_aberrations(all_created, local_created, 0.36)
+      expect(result).to eq({"Local Purchases Created in the last hour"=>0.40808960944909956})
     end
   end
 end

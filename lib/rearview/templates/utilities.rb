@@ -59,9 +59,9 @@ module MonitorUtilities
   # checks for a deployment and if found returns data before and after the deploy along with the delta
   def deploy_check(num_points, deploy, metric)
     if metric == deploy
-      raise "You've passed the deploy metric to be analyzed against itself, which is not a valid analysis."
+      raise "Error: You've passed the deploy metric to be analyzed against itself, which is not a valid analysis."
     elsif metric.values.size < (num_points * 2) + 1
-      raise "Not enough data to evaluate. There must be #{num_points} data points before and after a deploy."
+      raise "Error: Not enough data to evaluate. There must be #{num_points} data points before and after a deploy."
     else
       results = []
       last_deploy = deploy.values.rindex { |v| !v.nil? }
@@ -83,18 +83,21 @@ module MonitorUtilities
     end
   end
   
-  def form_error(metric, tolerance, actual)
-    "#{metric.label} experienced a standard deviation shift of #{actual.round(2)}, which is greater than the threshold of #{tolerance}."
-  end
-
+  # determines delta in standard deviation between 2 data sets
   def collect_comparisons(metric)
-    five_minute_sv = metric.values.each_slice(5).to_a.map { |pair| pair.stdev  }
-    five_minute_sv.each_slice(2).to_a.map { |pair| pair.sort }.map { |pair| pair[1] - pair[0] }
+    five_minute_sv = metric.values.each_slice(metric.values.length / 2).to_a.map { |pair| pair.stdev  }
+    five_minute_sv.each_slice(2).to_a.map { |pair| pair.sort }.map { |pair| pair[1].to_f - pair[0].to_f }
   end
 
+  # checks standard deviation delta for metric(s) and returns metric label delta if > deviation
   def collect_aberrations(*metrics, deviation)
-    metrics.map do |m|
-      collect_comparisons(m).inject([]) { |accum, shift| shift >= deviation ? form_error(m, deviation, shift) : "" }
+    if metrics.first.values.length % 2 == 1
+      raise "ERROR: collect_aberrations expects an even number of data points and you passed in #{metrics.first.values.length}"
     end
+    aberrations = {}
+    metrics.each do |m|
+      collect_comparisons(m).inject(aberrations) { |hash, delta| hash[m.label] = delta if delta >= deviation; hash }
+    end
+    aberrations
   end
 end # Class end
