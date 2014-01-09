@@ -66,6 +66,7 @@ Rearview.configure do |config|
 
   if File.basename($0) == "rake"
     config.enable_monitor = false
+    config.enable_stats = false
   end
 
   # Options passed via environment will override anything else set to this point...
