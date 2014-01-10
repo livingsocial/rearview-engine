@@ -6,20 +6,13 @@ describe Rearview::Alerts::CampfireAlert do
 
   context "alert" do
     context "valid key" do
-      let(:job) { stub(alert_keys: ["alert_key"], app_id: 1, id: 42) }
-      let(:params) { { "room" => "nyan" } }
-
-      before(:each ) do
-        Rearview::Alerts::CampfireAlert.expects(:params).with("alert_key").returns(params)
-        Rearview::Alerts::CampfireAlert.expects(:key?).returns(true)
-        Broach.expects(:settings=).with(params)
-      end
+      let(:job) { FactoryGirl.create(:job, alert_keys: ["campfire://mycompany.com?token=abc&room=myroom"]) }
 
       context "with provided error message" do
         let(:result) { { message: "alert alert!"} }
 
         it "notifies campfire" do
-          Broach.expects(:speak).with("nyan", "alert alert! #{Rearview::UrlHelper.job_url(job)}")
+          Broach.expects(:speak).with("myroom", "alert alert! #{Rearview::UrlHelper.job_url(job)}")
           campfire_alert.alert(job, result)
         end
       end
@@ -28,7 +21,7 @@ describe Rearview::Alerts::CampfireAlert do
         let(:result) { { } }
 
         it "notifies campfire" do
-          Broach.expects(:speak).with("nyan", "Job did not provide an error description #{Rearview::UrlHelper.job_url(job)}")
+          Broach.expects(:speak).with("myroom", "Job did not provide an error description #{Rearview::UrlHelper.job_url(job)}")
           campfire_alert.alert(job, result)
         end
       end
