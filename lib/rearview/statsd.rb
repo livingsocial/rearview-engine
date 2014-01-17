@@ -6,6 +6,16 @@ module Rearview
       self.namespace = Rearview.config.statsd_connection[:namespace]
     end
 
+    def self.statsd
+      @@statsd ||= Rearview::Statsd.new
+    end
+
+    def self.report
+      if block_given? && Rearview.config.stats_enabled?
+        yield self.statsd
+      end
+    end
+
   end
 end
 

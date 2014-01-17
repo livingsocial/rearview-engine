@@ -12,7 +12,7 @@ describe Rearview::StatsTask do
     it "sets the batch size correctly" do
       Rearview::StatsTask.any_instance.stubs(:schedule)
       statsd = mock
-      statsd.expects(:batch_size=).with(11)
+      statsd.expects(:batch_size=).with(12)
       Rearview::Statsd.stubs(:new).returns(statsd)
       stats_task = Rearview::StatsTask.new
     end

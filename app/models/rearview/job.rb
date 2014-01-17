@@ -140,6 +140,7 @@ module Rearview
 
     def create_associated_event(transition)
       logger.debug "#{self}#create_associated_event for transition #{transition.inspect}"
+      report_transition(transition)
       job_error_attrs = {}
       job_error_attrs.merge!(event_data[:job_error]) if event_data.try(:[],:job_error)
       job_error = job_errors.create(job_error_attrs)
@@ -148,6 +149,7 @@ module Rearview
 
     def update_associated_event(transition)
       logger.debug "#{self}#update_associated_event for transition #{transition.inspect}"
+      report_transition(transition)
       job_error = Rearview::JobError.latest_entry(self)
       if job_error.present?
         job_error.fire_event(translate_associated_event(transition),event_data)
@@ -155,6 +157,15 @@ module Rearview
     end
 
     protected
+
+    def report_transition(transition)
+      Rearview::Statsd.report do |stats|
+        metric = ( transition.event.to_s == 'success' ?  'success' : 'failure' )
+        stats.increment("monitor.#{metric}")
+      end
+    rescue
+      logger.error "#{self} report_transition failed: #{$!}\n#{$@.join("\n")}"
+    end
 
     def translate_associated_event(transition)
       if transition.event.to_s == Status::SECURITY_ERROR

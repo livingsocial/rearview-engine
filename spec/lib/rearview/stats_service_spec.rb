@@ -6,6 +6,20 @@ describe Rearview::StatsService do
     Celluloid.boot
     @service = Rearview::StatsService.new
   end
+  context '#statsd' do
+    it "will yield to the block if stats are enabled" do
+      Rearview.config.stubs(:stats_enabled?).returns(true)
+      block_yielded = false
+      @service.statsd { |stats| block_yielded = true }
+      expect(block_yielded).to be_true
+    end
+    it "will not yield to the block if stats are disabled" do
+      Rearview.config.stubs(:stats_enabled?).returns(false)
+      block_yielded = false
+      @service.statsd { |stats| block_yielded = true }
+      expect(block_yielded).to be_false
+    end
+  end
   context '#startup' do
     it "can only be started if stopped" do
       Rearview::StatsTask.stubs(:supervise).returns(mock)

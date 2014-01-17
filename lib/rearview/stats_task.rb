@@ -15,7 +15,7 @@ module Rearview
       # safest max UDP message size is 512.
       #
       # So make sure that batch_size * 8bytes/per int < 512
-      @statsd.batch_size = 11
+      @statsd.batch_size = 12
       schedule if start
     end
 
@@ -39,6 +39,7 @@ module Rearview
         batch.gauge('vm.non_heap.init',vm.non_heap.init.bytes_to_kilobytes)
         batch.gauge('vm.non_heap.max',vm.non_heap.max.bytes_to_kilobytes)
         batch.gauge('vm.non_heap.used',vm.non_heap.used.bytes_to_kilobytes)
+        batch.gauge('monitor.total',( Rearview.config.monitor_enabled? ? Rearview.monitor_service.jobs.keys.count : 0 ))
       end
     rescue
       error "#{self} run failed: #{$!}\n#{$@.join("\n")}"

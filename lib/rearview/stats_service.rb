@@ -5,6 +5,10 @@ module Rearview
     include Rearview::Logger
     def statsd
       @statsd ||= Rearview::Statsd.new
+      if block_given? && Rearview.config.stats_enabled?
+        yield @statsd
+      end
+      @statsd
     end
     def started?
       @started

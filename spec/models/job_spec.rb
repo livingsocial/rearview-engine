@@ -56,7 +56,7 @@ describe Rearview::Job do
       end
     end
   end
-  describe 'reset' do
+  describe '#reset' do
     it "should reset the job" do
       job = create(:job,:status=>Rearview::Job::Status::SUCCESS)
       job_data = create(:job_data,:job=>job)
@@ -82,7 +82,7 @@ describe Rearview::Job do
       expect(job.job_errors.size).to eq(0)
     end
   end
-  describe 'destroy' do
+  describe '#destroy' do
     it "should unschedule the job" do
       job = create(:job)
       monitor_service = mock
@@ -91,7 +91,7 @@ describe Rearview::Job do
       job.destroy
     end
   end
-  describe 'schedulable' do
+  describe '.schedulable' do
     it "should only return jobs eligible for scheduling" do
       j1 = create(:job,:active=>false)
       j2 = create(:job,:active=>true)
@@ -100,7 +100,7 @@ describe Rearview::Job do
       expect(schedulable.first).to eq(j2)
     end
   end
-  describe 'schedule' do
+  describe '#schedule' do
     let(:monitor_service) { mock }
     let(:job) { create(:job) }
     it "should invoke the monitoring service to schedule the job" do
@@ -109,7 +109,7 @@ describe Rearview::Job do
       job.schedule
     end
   end
-  describe 'unschedule' do
+  describe '#unschedule' do
     let(:monitor_service) { mock }
     let(:job) { create(:job) }
     it "should invoke the monitoring service to unschedule the job" do
@@ -118,7 +118,7 @@ describe Rearview::Job do
       job.unschedule
     end
   end
-  describe 'sync_monitor_service' do
+  describe '#sync_monitor_service' do
     let(:monitor_service) { mock }
     it "should schedule an active job" do
       Rearview.stubs(:monitor_service).returns(monitor_service)
@@ -131,6 +131,16 @@ describe Rearview::Job do
       inactive_job = create(:job,:active=>false)
       monitor_service.expects(:unschedule).with(inactive_job)
       inactive_job.sync_monitor_service
+    end
+  end
+  describe '#report_transition' do
+    context 'success event' do
+      it "should increment monitor.success" do
+      end
+    end
+    context 'failure event' do
+      it "should increment monitor.failure" do
+      end
     end
   end
   context 'event' do
