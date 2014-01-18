@@ -53,29 +53,27 @@ module Rearview
   end
 
   def boot!
-    @logger = config.logger if(config.logger.present?)
-    logger.info "[#{self}] booting..."
-    logger.info "[#{self}] using configuration: \n#{config.dump}"
+    Celluloid.logger = @logger = config.logger if(config.logger.present?)
+    logger.info "booting..."
+    logger.info "using configuration: \n#{config.dump}"
     if config.verify?
       unless config.valid?
-        logger.warn "[#{self}] configuration check FAILED: \n#{config.errors.full_messages.join("\n")}"
+        logger.warn "configuration check FAILED: \n#{config.errors.full_messages.join("\n")}"
       end
     end
-    Celluloid.logger = @logger
     jobs = ( config.preload_jobs? ? Job.schedulable : [] )
-    logger.info "[#{self}] starting up monitor service for (#{jobs.count}) job(s)"
+    logger.info "starting up monitor service for (#{jobs.count}) job(s)"
     @monitor_service = Rearview::MonitorService.new(jobs)
     if config.monitor_enabled?
       @monitor_service.startup
     else
-      logger.warn "[#{self}] monitor disabled"
+      logger.warn "monitor disabled!"
     end
     if config.stats_enabled?
-      logger.info "[#{self}] starting up stats service"
+      logger.info "starting up stats service"
       @stats_service = Rearview::StatsService.supervise
       @stats_service.actors.first.startup
     end
-
     @alert_clients = Rearview::Alerts.registry.values
     @booted = true
   end
