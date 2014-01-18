@@ -101,14 +101,12 @@ module Rearview
     end
 
     def create_alert(transition)
-      logger.debug "#{self}#create_alert for transition #{transition.inspect}"
       Rearview::AlertsHandler.new(self.job,event_data[:monitor_results]).run
       self.last_alerted_at = Time.now.utc
       save!
     end
 
     def update_alert(transition)
-      logger.debug "#{self}#update_alert for transition #{transition.inspect}"
       if !self.last_alerted_at || Time.now.utc >= self.last_alerted_at.utc + self.job.error_timeout.minutes
         Rearview::AlertsHandler.new(self.job,event_data[:monitor_results]).run
         self.last_alerted_at = Time.now.utc

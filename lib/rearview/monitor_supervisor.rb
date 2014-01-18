@@ -46,9 +46,6 @@ module Rearview
     def self.task_sym(job)
       "job_#{job.id}".to_sym
     end
-    def to_s
-      "#{super.to_s} [threadId:#{java.lang.Thread.currentThread.getId} threadName:#{java.lang.Thread.currentThread.getName}]"
-    end
   end
 end
 

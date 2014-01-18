@@ -139,7 +139,6 @@ module Rearview
     end
 
     def create_associated_event(transition)
-      logger.debug "#{self}#create_associated_event for transition #{transition.inspect}"
       report_transition(transition)
       job_error_attrs = {}
       job_error_attrs.merge!(event_data[:job_error]) if event_data.try(:[],:job_error)
@@ -148,7 +147,6 @@ module Rearview
     end
 
     def update_associated_event(transition)
-      logger.debug "#{self}#update_associated_event for transition #{transition.inspect}"
       report_transition(transition)
       job_error = Rearview::JobError.latest_entry(self)
       if job_error.present?

@@ -32,7 +32,4 @@ module Rearview
       self
     end
   end
-  def to_s
-    "#{super.to_s} [jobId:#{@job.id} threadId:#{java.lang.Thread.currentThread.getId} threadName:#{java.lang.Thread.currentThread.getName}]"
-  end
 end

@@ -1,9 +1,10 @@
-require "rearview/engine"
-require "rearview/concerns"
-require "rearview/ext/state_machine"
-require "rearview/ext/numeric"
-require "rearview/constants_module_maker"
+require 'rearview/engine'
+require 'rearview/concerns'
+require 'rearview/ext/state_machine'
+require 'rearview/ext/numeric'
+require 'rearview/constants_module_maker'
 require 'rearview/logger'
+require 'rearview/log_formatter'
 require 'rearview/cron_helper'
 require 'rearview/graphite_parser'
 require 'rearview/results_handler'

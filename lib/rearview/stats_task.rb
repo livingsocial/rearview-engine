@@ -4,7 +4,7 @@ module Rearview
   class StatsTask
     class StatsTaskError < StandardError; end;
     include Celluloid
-    include Celluloid::Logger
+    include Rearview::Logger
     attr_reader :delay, :statsd
     def initialize(delay=120,start=true)
       @delay = delay
@@ -20,12 +20,12 @@ module Rearview
     end
 
     def schedule
-      debug "#{self} schedule"
+      logger.debug "#{self} schedule"
       @timer = after(@delay) { self.run }
     end
 
     def run
-      debug "#{self} run"
+      logger.debug "#{self} run"
       vm = Rearview::Vm.new
       @statsd.batch do |batch|
         batch.gauge('vm.total_memory',vm.total_memory.bytes_to_kilobytes)
@@ -42,7 +42,7 @@ module Rearview
         batch.gauge('monitor.total',( Rearview.config.monitor_enabled? ? Rearview.monitor_service.jobs.keys.count : 0 ))
       end
     rescue
-      error "#{self} run failed: #{$!}\n#{$@.join("\n")}"
+      logger.error "#{self} run failed: #{$!}\n#{$@.join("\n")}"
     ensure
       schedule
     end
