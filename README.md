@@ -1,4 +1,5 @@
 [![Build Status](https://secure.travis-ci.org/livingsocial/rearview-engine.png?branch=master)](http://travis-ci.org/livingsocial/rearview-engine)
+[![Code Climate](https://codeclimate.com/github/livingsocial/rearview-engine.png)](https://codeclimate.com/github/livingsocial/rearview-engine)
 
 Rails engine for [rearview](http://github.com/livingsocial/rearview). This project is for rearview developers only. For users please go to the [rearview](http://github.com/livingsocial/rearview) project for installation, configuration, and other details.
 
