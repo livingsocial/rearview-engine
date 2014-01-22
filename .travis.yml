@@ -1,3 +1,4 @@
+script: bundle exec rake SPEC_OPTS="--tag ~travis" spec
 before_script: bundle exec rake ci:before
 language: ruby
 services: mysql

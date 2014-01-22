@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Rearview::MonitorRunner do
+describe Rearview::MonitorRunner, :travis=>true do
 
   artifact1 = Rearview::GraphiteParser.parse open("spec/data/monitor.dat").read
   artifact2 = Rearview::GraphiteParser.parse open("spec/data/test.dat").read
