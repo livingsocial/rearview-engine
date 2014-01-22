@@ -1,3 +1,4 @@
 language: ruby
+services: mysql
 rvm:
   - jruby-19mode
