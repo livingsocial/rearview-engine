@@ -2,5 +2,10 @@ script: bundle exec rake SPEC_OPTS="--tag ~travis" spec
 before_script: bundle exec rake ci:before
 language: ruby
 services: mysql
+notifications:
+  email:
+    recipients:
+      - trent.albright@hungrymachine.com
+      - rearview@hungrymachine.com
 rvm:
   - jruby-19mode
