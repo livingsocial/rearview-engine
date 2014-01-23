@@ -1,3 +1,3 @@
 module Rearview
-  VERSION = "1.0.3.rc.4"
+  VERSION = "1.1.0"
 end
