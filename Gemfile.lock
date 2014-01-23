@@ -14,7 +14,7 @@ PATH
       statsd-ruby (~> 1.2.1)
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actionmailer (4.0.2)
       actionpack (= 4.0.2)
