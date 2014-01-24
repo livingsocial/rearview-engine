@@ -5,11 +5,11 @@ Rails engine for [rearview](http://github.com/livingsocial/rearview). This proje
 
 # Development Guide
 
-Before developing please read how to [contribute](https://github.com/livingsocial/rearview-engine/blob/master/CONTRIBUTING.md).
+Be sure to read the contribution guidelines [contribute](https://github.com/livingsocial/rearview-engine/blob/master/CONTRIBUTING.md).
 
 ## Intro
 
-Before contributing you should read [Getting Started with Engines](http://guides.rubyonrails.org/engines.html) guide to familiarize yourself with rails engines.
+Before contributing you should read [Getting Started with Engines](http://guides.rubyonrails.org/engines.html) guide to familiarize yourself with rails engines. This [blog post](http://trentalbright.info/ruby/open-sourcing-with-engines/) also provides some more in-depth details of rails engines.
 
 Rearview consists of two components:
 
