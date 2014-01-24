@@ -1,3 +1,9 @@
+## 1.1.2 (2014-01-24)
+
+Bugfixes:
+
+- remove crypto related initializer (rearview/#20)
+
 ## 1.1.1 (2014-01-23)
 
 Bugfixes:
