@@ -5,8 +5,13 @@ services: mysql
 notifications:
   email:
     recipients:
-      - trent.albright@hungrymachine.com
-      - trent.albright@gmail.com
-      - rearview@hungrymachine.com
+    - trent.albright@hungrymachine.com
+    - trent.albright@gmail.com
+    - rearview@hungrymachine.com
+    on_failure: always
+    on_success: change
+  campfire:
+    rooms:
+      secure: PI3J/fICz+blrAawbr0ldpTdvI/8DHApxwXaB8PysY8O9cqOa7OfDfFM5JM60+QzI7nvWLB/t1irdsrcbsY+9lHRv5QisGG52sX2+pVVAmrSWqiUaADXWtmP6PQPkIbHgEnwFmGvwsJCgDVFK+UjN72EpvZ58ok75jJVoeeO8x4=
 rvm:
-  - jruby-19mode
+- jruby-19mode
