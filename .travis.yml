@@ -6,6 +6,7 @@ notifications:
   email:
     recipients:
       - trent.albright@hungrymachine.com
+      - trent.albright@gmail.com
       - rearview@hungrymachine.com
 rvm:
   - jruby-19mode
