@@ -3,4 +3,7 @@ before_script: bundle exec rake ci:before
 language: ruby
 services: mysql
 rvm:
-- jruby-19mode
+  - jruby-19mode
+jdk:
+  - openjdk6
+  - openjdk7
