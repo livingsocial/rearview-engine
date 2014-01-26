@@ -19,6 +19,7 @@ namespace :rearview do
   desc "Setup Rearview"
   task :setup => [:environment,"db:create","db:migrate","db:seed"] do
     Kernel.system("bin/rails generate rearview:install")
+    puts "setup done"
   end
 
 end
