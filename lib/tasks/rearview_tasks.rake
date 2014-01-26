@@ -1,8 +1,8 @@
 # Tasks made available to engine host..
 
 namespace :rearview do
-  namespace :config do
 
+  namespace :config do
     desc "Verify configuration"
     task :verify => [:environment] do
       puts "using \"#{Rails.env}\" configuration:\n#{Rearview.config.dump}"
@@ -14,6 +14,11 @@ namespace :rearview do
         puts Rearview.config.errors.full_messages.join("\n")
       end
     end
-
   end
+
+  desc "Setup Rearview"
+  task :setup => [:environment,"db:create","db:migrate","db:seed"] do
+    Kernel.system("bin/rails generate rearview:install")
+  end
+
 end
