@@ -1,11 +1,10 @@
-module Rearview
-  class GraphiteParser
+module Graphite
+  class RawParser
     ## returns an array of arrays of pairs with 2 elements timestamp and value (may be nil)
     def self.parse(lines)
       lines.strip.split("\n").map do |line|
         metric, startTime, endTime, interval, dataStr = /(.*),(\d+),(\d+),(\d+)\|(.*)/.match(line)[1..-1]
         data = dataStr.split(",")
-
         0.upto(data.length - 1).map do |i|
           value = data[i]
           {

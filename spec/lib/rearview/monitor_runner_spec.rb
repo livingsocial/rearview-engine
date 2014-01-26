@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Rearview::MonitorRunner, :travis=>true do
 
-  artifact1 = Rearview::GraphiteParser.parse open("spec/data/monitor.dat").read
-  artifact2 = Rearview::GraphiteParser.parse open("spec/data/test.dat").read
-  artifact3 = Rearview::GraphiteParser.parse open("spec/data/large_set.dat").read
+  artifact1 = Graphite::RawParser.parse open("spec/data/monitor.dat").read
+  artifact2 = Graphite::RawParser.parse open("spec/data/test.dat").read
+  artifact3 = Graphite::RawParser.parse open("spec/data/large_set.dat").read
 
   context 'create_from_to_dates' do
     before do

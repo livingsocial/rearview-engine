@@ -1,0 +1,51 @@
+grammar TargetGrammer
+
+  rule target
+    ( expression / path )* <Graphite::TargetGrammer::Target>
+  end
+
+  rule expression
+    identifier '(' args ')' <Graphite::TargetGrammer::Expression>
+  end
+
+  rule args
+    arg ( space* ',' space* arg )*
+  end
+
+  rule arg
+    ( expression / path / string / integer / float / space )?
+  end
+
+  rule path
+    path_segment_no_glob ( '.' path_segment )* <Graphite::TargetGrammer::Path>
+  end
+
+  rule path_segment
+    [a-zA-Z0-9_\*\-]+ <Graphite::TargetGrammer::PathSegment>
+  end
+
+  rule path_segment_no_glob
+    [a-zA-Z0-9_\-]+ <Graphite::TargetGrammer::PathSegment>
+  end
+
+  rule integer
+    ('+' / '-')? [0-9]+ <Graphite::TargetGrammer::IntegerLiteral>
+  end
+
+  rule float
+    ('+' / '-')? [0-9]+ (('.' [0-9]+) / ('e' [0-9]+)) <Graphite::TargetGrammer::FloatLiteral>
+  end
+
+  rule string
+    '"' ('\"' / !'"' .)* '"' <Graphite::TargetGrammer::StringLiteral>
+  end
+
+  rule identifier
+    [a-zA-Z0-9_]* <Graphite::TargetGrammer::Identifier>
+  end
+
+  rule space
+    [\s]+
+  end
+
+end

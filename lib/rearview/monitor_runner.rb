@@ -71,7 +71,7 @@ module Rearview
 
           case response.code
           when 200
-            Rearview::GraphiteParser.parse(response.body)
+            Graphite::RawParser.parse(response.body)
           else
             message = response.body
             logger.error("Graphite request failure: #{message}")
