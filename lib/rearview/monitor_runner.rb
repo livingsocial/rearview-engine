@@ -67,7 +67,7 @@ module Rearview
         logger.debug("#{self} fetch_data #{uri}")
 
         begin
-          response = HTTParty.get(uri)
+          response = Graphite::Client.get(uri)
 
           case response.code
           when 200

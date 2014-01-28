@@ -117,7 +117,6 @@ module Rearview
           url_validator = UrlValidator.new({ attributes: [:graphite_connection], message: "does not contain a valid URL" })
           if url_validator.validate_each(self,:graphite_connection,graphite_connection[:url])
             client = Graphite::Client.new(graphite_connection)
-            binding.pry
             unless(client.reachable?)
               self.errors.add(:graphite_connection, "graphite cannot be reached")
             end
