@@ -41,7 +41,7 @@ module Graphite
       { message: @parser.failure_reason, line: @parser.failure_line, column: @parser.failure_column }
     end
     def self.grammer
-      File.expand_path("lib/graphite/target_grammer.treetop")
+      File.expand_path("../target_grammer.treetop",__FILE__)
     end
   end
 end

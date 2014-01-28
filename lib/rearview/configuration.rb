@@ -8,49 +8,38 @@ module Rearview
 
     class UrlValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
+        passed = true
         if value.present?
           uri = URI.parse(value) rescue nil
           unless uri.present? && uri.scheme.present? && (uri.scheme.downcase=="http" || uri.scheme.downcase=="https")
             record.errors.add attribute, (options[:message] || "is not a valid URL")
-          else
-            if options[:reachable]
-              reachable = ReachableValidator.new(options.dup.merge(attributes: @attributes))
-              reachable.validate_each(record,attribute,value)
-            end
+            passed = false
           end
         end
-      end
-    end
-
-    class ReachableValidator < ActiveModel::EachValidator
-      def validate_each(record, attribute, value)
-        if value.present?
-          response = HTTParty.get(value) rescue nil
-          unless response.present? && response.code == 200
-            record.errors.add attribute, (options[:message] || "is not a reachable URL")
-          end
-        end
+        passed
       end
     end
 
     class DirectoryValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
+        passed = true
         if value.present?
           unless File.directory?(value)
             record.errors.add attribute, (options[:message] || "is not a directory")
+            passed = false
           end
         end
       end
     end
 
-    ATTRIBUTES = [:default_from, :graphite_url, :pagerduty_url, :sandbox_exec,
+    ATTRIBUTES = [:default_from, :graphite_connection, :pagerduty_url, :sandbox_exec,
                   :sandbox_timeout, :sandbox_dir, :enable_alerts, :preload_jobs,
                   :logger, :enable_monitor, :verify, :default_url_options,
                   :authentication, :enable_stats, :statsd_connection]
 
     attr_accessor *ATTRIBUTES
 
-    validates :graphite_url, presence: true, url: { reachable: true }
+    validates :graphite_connection, presence: true
     validates :pagerduty_url, presence: true, url: true
     validates :default_from, presence: true
     validates :default_url_options, presence: true
@@ -61,6 +50,7 @@ module Rearview
     validates :statsd_connection, presence: true, if: -> { self.stats_enabled? }
 
     validate :validate_sandbox_execution
+    validate :validate_graphite_connection
 
     def initialize(attributes={})
       @default_from = "rearview@localhost"
@@ -73,6 +63,7 @@ module Rearview
       @enable_stats = false
       @default_url_options = {:host=>"localhost",:port=>"3000"}
       @pagerduty_url = "https://events.pagerduty.com/generic/2010-04-15/create_event.json"
+      @graphite_connection = {}
       super
     end
 
@@ -116,6 +107,23 @@ module Rearview
        exit_code = process.waitFor
        output = process.get_input_stream.to_io.read
        exit_code == 0
+    end
+
+    def validate_graphite_connection
+      if graphite_connection.present?
+        if !graphite_connection[:url].present?
+          self.errors.add(:graphite_connection, "graphite URL can't be blank")
+        else
+          url_validator = UrlValidator.new({ attributes: [:graphite_connection], message: "does not contain a valid URL" })
+          if url_validator.validate_each(self,:graphite_connection,graphite_connection[:url])
+            client = Graphite::Client.new(graphite_connection)
+            binding.pry
+            unless(client.reachable?)
+              self.errors.add(:graphite_connection, "graphite cannot be reached")
+            end
+          end
+        end
+      end
     end
 
     def dump

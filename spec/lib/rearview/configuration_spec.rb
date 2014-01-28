@@ -9,65 +9,66 @@ describe Rearview::Configuration do
   let(:config) { Rearview::Configuration.new }
 
   context 'validation' do
-    it { should validate_presence_of(:graphite_url) }
-    it { should validate_presence_of(:pagerduty_url) }
     it { should validate_presence_of(:default_from) }
-    it { should validate_presence_of(:sandbox_dir) }
     it { should validate_presence_of(:sandbox_exec) }
     it { should validate_presence_of(:sandbox_timeout) }
     it { should validate_presence_of(:default_url_options) }
     it { should validate_presence_of(:authentication) }
     it { should validate_numericality_of(:sandbox_timeout).is_greater_than(4) }
-    it "should requre sandbox_dir to be a directory" do
-      config.sandbox_dir="/__not_likely__"
-      config.valid?
-      expect(config.errors[:sandbox_dir]).to include("is not a directory")
-      config.sandbox_dir = File.dirname(__FILE__)
-      config.valid?
-      expect(config.errors[:sandbox_dir]).to be_empty
+    context 'sandbox_dir' do
+      it { should validate_presence_of(:sandbox_dir) }
+      it "should be a directory" do
+        config.sandbox_dir="/__not_likely__"
+        config.valid?
+        expect(config.errors[:sandbox_dir]).to include("is not a directory")
+        config.sandbox_dir = File.dirname(__FILE__)
+        config.valid?
+        expect(config.errors[:sandbox_dir]).to be_empty
+      end
     end
-    it "should require graphite_url to be a url" do
-      response = stub(code: 200)
-      HTTParty.stubs(:get).returns(response)
-      config.graphite_url="ssh://fooblah"
-      config.valid?
-      expect(config.errors[:graphite_url]).to include("is not a valid URL")
-      config.graphite_url="fooblah"
-      config.valid?
-      expect(config.errors[:graphite_url]).to include("is not a valid URL")
-      config.graphite_url="http://fooblah.com"
-      config.valid?
-      expect(config.errors[:graphite_url]).to be_empty
+    context 'graphite_connection' do
+      it { should validate_presence_of(:graphite_connection) }
+      it "should require url option to be a valid url" do
+        config.graphite_connection = { url: 'ssh://fooblah' }
+        config.valid?
+        expect(config.errors[:graphite_connection]).to include("does not contain a valid URL")
+      end
+      it "should require url option to be present" do
+        config.graphite_connection = { url: nil }
+        config.valid?
+        expect(config.errors[:graphite_connection]).to include("graphite URL can't be blank")
+      end
+      pending do
+        it "should require url option to be reachable" do
+          config.graphite_connection = { url: 'http://graphite6.graphitehosting.com' }
+          config.valid?
+          mock_client = mock(:reachable? => false)
+          Graphite::Client.expects(:new).returns(mock_client)
+          expect(config.errors[:graphite_connection]).to include("graphite cannot be reached")
+        end
+      end
     end
-    it "should require pagerduty_url to be a url" do
-      config.pagerduty_url="ftp://fooblah"
-      config.valid?
-      expect(config.errors[:pagerduty_url]).to include("is not a valid URL")
-      config.pagerduty_url="HTTPS://fooblah"
-      config.valid?
-      expect(config.errors[:pagerduty_url]).to be_empty
+    context 'pagerduty_url' do
+      it { should validate_presence_of(:pagerduty_url) }
+      it "should require pagerduty_url to be a url" do
+        config.pagerduty_url="ftp://fooblah"
+        config.valid?
+        expect(config.errors[:pagerduty_url]).to include("is not a valid URL")
+        config.pagerduty_url="HTTPS://fooblah"
+        config.valid?
+        expect(config.errors[:pagerduty_url]).to be_empty
+      end
     end
-    it "should require graphite_url to be reachable" do
-      response = stub(code: 400)
-      HTTParty.expects(:get).with("http://graphite.mycompany-unreachable.com").returns(response)
-      config.graphite_url="http://graphite.mycompany-unreachable.com"
-      config.valid?
-      expect(config.errors[:graphite_url]).to include("is not a reachable URL")
-      response = stub(code: 200)
-      HTTParty.expects(:get).with("http://graphite.mycompany.com").returns(response)
-      config.graphite_url="http://graphite.mycompany.com"
-      config.valid?
-      expect(config.errors[:graphite_url]).to be_empty
+    context 'statsd_connection' do
+      it "should be present if stats are enabled" do
+        config.enable_stats = false
+        config.valid?
+        expect(config.errors[:statsd_connection]).to be_empty
+        config.enable_stats = true
+        config.valid?
+        expect(config.errors[:statsd_connection]).to include("can't be blank")
+      end
     end
-    it "should require statsd_connection to be present if stats are enabled" do
-      config.enable_stats = false
-      config.valid?
-      expect(config.errors[:statsd_connection]).to be_empty
-      config.enable_stats = true
-      config.valid?
-      expect(config.errors[:statsd_connection]).to include("can't be blank")
-    end
-    pending "should require sanbox_exec to be executable"
   end
 
   context '.new' do
@@ -80,6 +81,7 @@ describe Rearview::Configuration do
       expect(config.enable_monitor).to be_true
       expect(config.enable_stats).to be_false
       expect(config.verify).to be_false
+      expect(config.graphite_connection).to eq({})
       expect(config.authentication).to eq({strategy: :database})
       expect(config.default_url_options).to eq({:host=>"localhost", :port=>"3000"})
     end
