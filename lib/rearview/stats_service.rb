@@ -16,11 +16,11 @@ module Rearview
     def startup
       raise StatsServiceError.new("service already started") if started?
       @started = true
-      @stats_task = Rearview::StatsTask.supervise
+      @task = Rearview::StatsTask.supervise
     end
     def shutdown
       raise StatsServiceError.new("service not started") unless started?
-      @stats_task.actors.first.terminate
+      @task.actors.first.terminate
     end
   end
 end

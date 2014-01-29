@@ -4,7 +4,7 @@ module Rearview
       if value.present? && value.respond_to?(:each)
         value.each do |metric|
           unless metric_valid?(metric)
-            record.errors.add attribute,(options[:message] || "contains an invalid metric: #{metric}")
+            record.errors.add(attribute,(options[:message] || "contains an invalid metric: #{metric}"))
           end
         end
       end

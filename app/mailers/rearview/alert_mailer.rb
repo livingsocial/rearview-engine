@@ -1,5 +1,3 @@
-java_import "org.apache.commons.validator.EmailValidator"
-
 module Rearview
   class AlertMailer < ActionMailer::Base
     default from: Rearview.config.default_from

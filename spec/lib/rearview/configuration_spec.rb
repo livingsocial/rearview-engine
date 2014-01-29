@@ -69,6 +69,19 @@ describe Rearview::Configuration do
         expect(config.errors[:statsd_connection]).to include("can't be blank")
       end
     end
+    context 'metrics_validator_schedule' do
+      it { should_not allow_value('abc').for(:metrics_validator_schedule) }
+      it { should allow_value('0 * * * * ?').for(:metrics_validator_schedule) }
+      it "should be present if metrics_validator is enabled" do
+        config.enable_metrics_validator = false
+        config.valid?
+        expect(config.errors[:metrics_validator_schedule]).to be_empty
+        config.enable_metrics_validator = true
+        config.metrics_validator_schedule = nil
+        config.valid?
+        expect(config.errors[:metrics_validator_schedule]).to include("can't be blank")
+      end
+    end
   end
 
   context '.new' do

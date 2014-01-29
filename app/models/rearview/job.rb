@@ -28,7 +28,7 @@ module Rearview
     before_destroy :unschedule
 
     validates :app_id, :cron_expr, :name, :metrics, :presence => true
-    validate :valid_cron_expression
+    validates :cron_expr, :'rearview/cron_expression' => true
     validate :valid_alert_keys
 
     scope :schedulable, -> { where(:active=>true) }
@@ -110,12 +110,6 @@ module Rearview
         schedule
       else
         unschedule
-      end
-    end
-
-    def valid_cron_expression
-      if cron_expr.present? && !Rearview::CronHelper.valid_expression?(cron_expr)
-        errors.add(:cron_expr, "not a valid cron expression")
       end
     end
 
