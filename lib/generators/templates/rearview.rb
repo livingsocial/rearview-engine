@@ -29,10 +29,20 @@ Rearview.configure do |config|
   # period the monitor script will be terminated.
   config.sandbox_timeout = 10
 
-  # The url to your graphite web server
+  # The connection information for your graphite web server
   # ex:
-  # config.graphite_url="http://graphite.mycompany.com"
-  config.graphite_url = nil
+  # config.graphite_connection = { url: 'http://graphite.mycom.com' }
+  # config.graphite_connection = {
+  #   url: 'http://graphite.mycompany.com'
+  #   ssl: {
+  #     verify: true,
+  #   }
+  #   basic_auth: {
+  #     user: 'admin',
+  #     password: 'xyzzy'
+  #   }
+  #  }
+  config.graphite_connection = { url: nil }
 
   # This is the email from: address used when sending alerts
   # ex:
@@ -42,7 +52,7 @@ Rearview.configure do |config|
   # The url options for rearview application host. Required to generate
   # monitor alerts with correct URL references.
   # ex:
-  # config.default_url_options = { host: 'rearview.mycomopany.com', protocol: 'https'}
+  # config.default_url_options = { host: 'rearview.mycompany.com', protocol: 'https'}
   config.default_url_options = { host: 'localhost', port: '3000'}
 
   # Enable collection of stats for rearview itself. This will send JVM and monitor related
@@ -51,9 +61,15 @@ Rearview.configure do |config|
   config.enable_stats=false
 
   # The connection information for the stats service. Only necessary if enable_stats is true.
-  # ex:
-  # config.statsd_connection = { host: 'statsd.mycompany.com', port: 8125 , namespace: 'rearview' }
-  #
+  config.statsd_connection = { host: 'statsd.mycompany.com', port: 8125 , namespace: 'rearview' }
+
+  # Enable periodic checking for invalid metrics used in monitors.
+  config.enable_metrics_validator = false
+
+  # Set schedule for checking for invalid metrics (cron expression). Recommended only once per day.
+  # see http://quartz-scheduler.org/api/2.0.0/org/quartz/CronExpression.html. Only necessary if
+  # enable_metrics_validator is true.
+  config.metrics_validator_schedule = '0 0 * * *'
 
   case Rails.env
     when "test"
