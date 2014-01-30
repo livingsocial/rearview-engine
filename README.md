@@ -44,6 +44,10 @@ Change the line simliar to this
 To point to the path you cloned the engine too, for example
 
     gem 'rearview', :path => '~/clone/path/rearview-engine'
+    
+Update your gems with bundler
+
+    bundle install
 
 #### sync the engine host database
 
