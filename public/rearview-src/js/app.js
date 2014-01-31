@@ -284,10 +284,12 @@ define([
                                'setmetrics',
                                'smallmonitor'
                            ], {
+                             url     : rearview.path + '/templates/',
                              version : ( _.isUndefined(rearview.version) ? '0.0.1' : rearview.version ),
                                cache : ( _.isUndefined(rearview.cache) ? true : false )
                            })
                          : this.templar;
+                         console.log("path: "+rearview.path)
         }
     });
 
