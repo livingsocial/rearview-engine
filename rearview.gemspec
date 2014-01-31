@@ -38,4 +38,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "shoulda"
   s.add_development_dependency "mocha"
   s.add_development_dependency "timecop"
+  s.add_development_dependency "coveralls"
 end

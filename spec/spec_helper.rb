@@ -6,6 +6,9 @@ require 'mocha/setup'
 require 'factory_girl_rails'
 require 'shoulda'
 require 'timecop'
+require 'coveralls'
+
+Coveralls.wear!
 
 Rails.backtrace_cleaner.remove_silencers!
 
