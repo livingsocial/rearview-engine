@@ -32,16 +32,16 @@
                 <li>
                     <div class="btn-group">
                         <a class="user btn btn-inverse disabled" rel='tooltip' data-delay='1000' data-toggle="tooltip" data-original-title="{{user.email}}">
-                            <i class="icon-user icon-white"></i> {{user.firstName}} {{user.lastName}}
+                            <i class="icon-user icon-white"></i> {{user.email}}
                         </a>
-                        <a class="btn btn-inverse dropdown-toggle disabled" data-toggle="dropdown">
+                        <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
                             <span class="caret" style='border-top-color: #B6B3A6 !important;
 border-bottom-color: #B6B3A6 !important;'></span>
                         </a>
-                        <!-- <ul class="dropdown-menu" style='right:0; left:auto; min-width:133px;'>
-                            <li><a href="#"><i class="icon-cog icon-white"></i> Settings</a></li>
-                            <li><a href="#"><i class="icon-signout icon-white"></i> Logout</a></li>
-                        </ul> -->
+                        <ul class="dropdown-menu" style='right:0; left:auto; min-width:133px;'>
+                            <!-- <li><a href="#"><i class="icon-cog icon-white"></i> Settings</a></li> -->
+                            <li><a href="/users/sign_out"><i class="icon-signout icon-white"></i> Logout</a></li>
+                        </ul>
                     </div>
                 </li>
             </ul>
