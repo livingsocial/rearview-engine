@@ -45,6 +45,7 @@
         <script type='text/javascript'>
             var rearview     = {};
             rearview.version = '<%= Rearview::VERSION %>';
+            rearview.path = '<%= rearview_static_path %>';
             <% if Rails.env.development? %>
             rearview.cache   = false;
             <% end %>

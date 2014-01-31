@@ -1,6 +1,6 @@
 module Rearview
   module ApplicationHelper
-    def rearview_static_path(segment)
+    def rearview_static_path(segment=nil)
       prefix = if Rails.env.development?
                "/rearview-src"
                else
