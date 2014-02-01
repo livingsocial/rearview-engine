@@ -1,5 +1,5 @@
 [![Build Status](https://secure.travis-ci.org/livingsocial/rearview-engine.png?branch=master)](http://travis-ci.org/livingsocial/rearview-engine)
-[![Coverage Status](https://coveralls.io/repos/livingsocial/rearview-engine/badge.png)](https://coveralls.io/r/livingsocial/rearview-engine)
+[![Coverage Status](https://coveralls.io/repos/livingsocial/rearview-engine/badge.png?branch=master)](https://coveralls.io/r/livingsocial/rearview-engine?branch=master)
 [![Code Climate](https://codeclimate.com/github/livingsocial/rearview-engine.png)](https://codeclimate.com/github/livingsocial/rearview-engine)
 [![Gem Version](https://badge.fury.io/rb/rearview.png)](http://badge.fury.io/rb/rearview)
 
