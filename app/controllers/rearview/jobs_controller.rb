@@ -1,6 +1,8 @@
 module Rearview
   class JobsController < ApplicationController
     respond_to :json
+    before_action :underscore_params, only: [:create,:update]
+    before_action :clean_emptiness, only: [:create,:update]
 
     def index
       @jobs = if params[:dashboard_id].present?
@@ -11,13 +13,30 @@ module Rearview
     end
 
     def create
-      upsert(allowed_create_params)
-      render :show
+      dashboard_id = params.delete("dashboard_id")
+      @job = Rearview::Job.new(job_create_params)
+      @job.user_id = current_user.id
+      @job.dashboard = Rearview::Dashboard.find(dashboard_id.to_i)
+      if @job.save
+        @job.sync_monitor_service
+        render :show
+      else
+        render :show, status: 422
+      end
     end
 
     def update
-      upsert(allowed_update_params)
-      render :show
+      @job = Rearview::Job.find(params[:id])
+      dashboard_id = params.delete("dashboard_id")
+      if dashboard_id.present? && dashboard_id.to_i!=@job.app_id
+        @job.dashboard = Rearview::Dashboard.find(dashboard_id.to_i)
+      end
+      if @job.update_attributes(job_update_params)
+        @job.sync_monitor_service
+        render :show
+      else
+        render :show, status: 422
+      end
     end
 
     def destroy
@@ -49,32 +68,21 @@ module Rearview
 
     private
 
-    def upsert(filtered_params)
-      @job = Rearview::Job.find_or_initialize_by(id: params[:id])
-      dashboard_id = filtered_params.delete("dashboard_id")
-      if dashboard_id.present? && dashboard_id.to_i!=@job.app_id
-        @job.dashboard = Rearview::Dashboard.find(dashboard_id.to_i)
-      end
-      @job.update_attributes!(filtered_params)
-      @job.sync_monitor_service
-    end
-
-    def allowed_create_params
-      filtered_params = underscore_params
-      filtered_params.delete_if { |k,v|
-        ["controller","job_type","version","action","job","id","format","created_at","modified_at"].include?(k)
-      }
-    end
-
-    def allowed_update_params
-      filtered_params = underscore_params
-      filtered_params.delete_if { |k,v|
-        !["dashboard_id","name","active","alert_keys","cron_expr","error_timeout","minutes","metrics","monitor_expr","to_date","description"].include?(k)
-      }
-    end
-
     def underscore_params
-      params.inject({}.with_indifferent_access) { |a,(k,v)| a[k.to_s.underscore] = v; a }
+      self.params = self.params.inject({}.with_indifferent_access) { |a,(k,v)| a[k.to_s.underscore] = v; a }
+    end
+
+    def job_update_params
+      params.permit(:name,:active,{ :alert_keys => []},:cron_expr,:error_timeout,:minutes,{ :metrics => [] },:monitor_expr,:to_date,:description)
+    end
+
+    def job_create_params
+      params.permit(:dashboard_id,:name,:active,{ :alert_keys => []},:cron_expr,:error_timeout,:minutes,{ :metrics => [] },:monitor_expr,:to_date,:description)
+    end
+
+    def clean_emptiness
+      params[:metrics].reject! { |m| !m.present? } if params[:metrics].present?
+      params[:alert_keys].reject! { |k| !k.present? } if params[:alert_keys].present?
     end
 
   end

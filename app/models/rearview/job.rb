@@ -10,7 +10,10 @@ module Rearview
     make_constants_module :status,
       :constants => [:success,:failed,:error,:graphite_error,:graphite_metric_error,:security_error]
 
-    attr_accessible :created_at, :updated_at, :name, :active, :last_run, :cron_expr, :status, :user_id, :alert_keys, :deleted_at, :error_timeout, :next_run, :description, :app_id, :metrics, :monitor_expr, :minutes, :to_date
+    attr_accessible :created_at, :updated_at, :name, :active, :last_run,
+      :cron_expr, :status, :user_id, :alert_keys, :deleted_at, :error_timeout,
+      :next_run, :description, :app_id, :metrics, :monitor_expr, :minutes,
+      :to_date
 
     belongs_to :dashboard, :foreign_key => :app_id
     belongs_to :user
@@ -131,8 +134,8 @@ module Rearview
                 errors.add(:alert_keys,"#{scheme} URI is invalid")
               end
             end
-          rescue URI::InvalidURIError
-            errors.add(:alert_keys,"invalid URI")
+          rescue URI::InvalidURIError, URI::InvalidComponentError
+            errors.add(:alert_keys,"#{key} is an invalid URI")
           end
         end
       end

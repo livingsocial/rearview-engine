@@ -21,7 +21,8 @@ describe "rearview/jobs/show" do
      "alertKeys",
      "errorTimeout",
      "createdAt",
-     "modifiedAt"]
+     "modifiedAt",
+     "errors"]
   }
   it "renders job json" do
     assign(:job,job)

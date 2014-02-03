@@ -23,7 +23,7 @@ describe Rearview::Job do
         keys = ["htptptptpt://not_a_uri"]
         job.alert_keys=keys
         expect(job.valid?).to be_false
-        expect(job.errors[:alert_keys]).to include("invalid URI")
+        expect(job.errors[:alert_keys]).to include("#{keys.first} is an invalid URI")
       end
       it "should require it to be one of the supported schemes" do
         keys = ["http://www.google.com"]
