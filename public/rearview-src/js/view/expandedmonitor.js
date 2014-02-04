@@ -194,7 +194,7 @@ define([
             var self     = this,
             $content = '';
             $alertContent = '';
-
+            //TODO fix this path
             $.ajax({
                 url     : '/help/quick.html',
                 async   : false,
@@ -203,6 +203,7 @@ define([
                 }
             });
 
+            //TODO fix this path
             $.ajax({
                 url     : '/help/alert.html',
                 async   : false,

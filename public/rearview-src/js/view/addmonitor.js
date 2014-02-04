@@ -42,9 +42,9 @@ define([
             // use debounce to throttle resize events and set the height when
             // the viewport changes.
             var resize = _.debounce(this.adjustModalLayout, 500);
+
             // Add the event listener
             $(window).resize(resize);
-            //
             this.render();
         },
 
@@ -60,7 +60,9 @@ define([
             this.templar.render({
                 path : 'schedulemonitor',
                 el   : this.$el.find('.content-wrap'),
-                data : {}
+                data : {
+                  'user' : this.user.toJSON()
+                }
             });
 
             this.scheduleViewInitialized = true;

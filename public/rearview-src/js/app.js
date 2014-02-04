@@ -13,6 +13,7 @@ define([
     'view/addcategory',
     'view/ecosystem',
     'view/secondarynav',
+    'view/settings',
     'model/user',
     'model/dashboard',
     'collection/monitor',
@@ -35,6 +36,7 @@ define([
     AddCategoryView,
     EcosystemView,
     SecondaryNavView,
+    SettingsView,
     UserModel,
     DashboardModel,
     MonitorCollection,
@@ -102,6 +104,11 @@ define([
             new PrimaryNavView({
                 'el'         : $('.primary-nav-wrap'),
                 'collection' : this.dashboardCollection,
+                'user'       : this.user,
+                'templar'    : this.templar
+            }).render();
+            new SettingsView({
+                'el'         : $('.settings-wrap'),
                 'user'       : this.user,
                 'templar'    : this.templar
             }).render();
@@ -282,6 +289,7 @@ define([
                                'schedulemonitor',
                                'secondarynav',
                                'setmetrics',
+                               'settings',
                                'smallmonitor'
                            ], {
                              url     : rearview.path + '/templates/',
@@ -289,7 +297,6 @@ define([
                                cache : ( _.isUndefined(rearview.cache) ? true : false )
                            })
                          : this.templar;
-                         console.log("path: "+rearview.path)
         }
     });
 
