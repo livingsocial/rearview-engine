@@ -127,11 +127,11 @@ module Rearview
             uri = URI(key)
             scheme = uri.scheme
             unless scheme.present? && schemes.include?(scheme)
-              errors.add(:alert_keys,"unsupported scheme")
+              errors.add(:alert_keys,"#{key} is not a supported alert type")
             else
               scheme_class = Rearview::Alerts.registry[scheme]
               unless scheme_class.key?(key)
-                errors.add(:alert_keys,"#{scheme} URI is invalid")
+                errors.add(:alert_keys,"#{key} is invalid for supported alert type")
               end
             end
           rescue URI::InvalidURIError, URI::InvalidComponentError

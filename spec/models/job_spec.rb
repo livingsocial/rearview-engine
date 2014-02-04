@@ -29,7 +29,7 @@ describe Rearview::Job do
         keys = ["http://www.google.com"]
         job.alert_keys=keys
         expect(job.valid?).to be_false
-        expect(job.errors[:alert_keys]).to include("unsupported scheme")
+        expect(job.errors[:alert_keys]).to include("#{keys.first} is not a supported alert type")
       end
       it "should validate the scheme against the corresponding alert" do
         keys = ["pagerduty:10101010101010101010101010101010","mailto:first.last@hungrymachine.com","campfire://first.last@hungrymachine.com?token=123&room=text"]
@@ -40,19 +40,19 @@ describe Rearview::Job do
         keys = ["pagerduty:abcdefg"]
         job.alert_keys=keys
         expect(job.valid?).to be_false
-        expect(job.errors[:alert_keys]).to include("pagerduty URI is invalid")
+        expect(job.errors[:alert_keys]).to include("#{keys.first} is invalid for supported alert type")
       end
       it "should detect an invalid mail URI" do
         keys = ["mailto:abcdefg"]
         job.alert_keys=keys
         expect(job.valid?).to be_false
-        expect(job.errors[:alert_keys]).to include("mailto URI is invalid")
+        expect(job.errors[:alert_keys]).to include("#{keys.first} is invalid for supported alert type")
       end
       it "should detect an invalid campfire URI" do
         keys = ["campfire://first.last@hungrymachine.com"]
         job.alert_keys=keys
         expect(job.valid?).to be_false
-        expect(job.errors[:alert_keys]).to include("campfire URI is invalid")
+        expect(job.errors[:alert_keys]).to include("#{keys.first} is invalid for supported alert type")
       end
     end
   end

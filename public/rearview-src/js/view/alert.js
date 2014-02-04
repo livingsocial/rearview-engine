@@ -24,13 +24,12 @@ define([
         },
 
         render : function(data) {
-            //Until we can make sure all responses are json with an errors
-            //attribute, parse the data.message and try to extract them...
-            try {
-              if ( JSON.parse(data.message) ) {
-                data.messages = JSON.parse(data.message).errors;
+            if( data.tryJSON ) {
+              try {
+                data.errors = JSON.parse(data.tryJSON).errors;
+              } catch(e) {
+                data.raw = data.tryJSON;
               }
-            } catch(e) {
             }
             this.templar.render({
                 path   : 'alert',

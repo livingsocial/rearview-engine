@@ -666,7 +666,7 @@ define([
                 error : function(model, xhr, options) {
                     Backbone.Mediator.pub('view:addmonitor:save', {
                         'model'     : model,
-                        'message'   : xhr.responseText,
+                        'tryJSON'   : xhr.responseText,
                         'attention' : 'Monitor Save Error!',
                         'status'    : 'error'
                     });

@@ -22,7 +22,7 @@ define([
 
         initialize : function(options) {
             _.bindAll(this);
-            
+
             var self = this;
             this.user    = options.user;
             this.router  = options.router;
@@ -47,7 +47,7 @@ define([
             this.categories  = categories;
             this.categoryId  = categoryId;
             this.dashboardId = dashboardId;
-            
+
             this.initMonitor();
         },
         /**
@@ -377,9 +377,9 @@ define([
                     self.updateGraph(monitor);
                 },
                 error : function(model, xhr, options) {
-                    Backbone.Mediator.pub('view:expandedmonitor:save', { 
+                    Backbone.Mediator.pub('view:expandedmonitor:save', {
                         'model'     : self.model,
-                        'message'   : "The monitor '" + model.get('name') + "' caused an error on saving, please try again.",
+                        'tryJSON'   : xhr.responseText,
                         'attention' : 'Monitor Saved Error!',
                         'status'    : 'error'
                     });
@@ -464,8 +464,8 @@ define([
             var windowOffSet = 580,
                 alertsOffset = 6,
                 outputOffset = 4,
-                tabHeight    = ( this.$el.find('#viewMetrics') ) 
-                             ? this.$el.find('#viewMetrics').height() 
+                tabHeight    = ( this.$el.find('#viewMetrics') )
+                             ? this.$el.find('#viewMetrics').height()
                              : null;
 
             // tab height fixing
