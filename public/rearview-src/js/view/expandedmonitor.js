@@ -196,7 +196,7 @@ define([
             $alertContent = '';
             //TODO fix this path
             $.ajax({
-                url     : '/help/quick.html',
+                url     : rearview.path + '/help/quick.html',
                 async   : false,
                 success : function( response ) {
                     $content = response;
@@ -205,7 +205,7 @@ define([
 
             //TODO fix this path
             $.ajax({
-                url     : '/help/alert.html',
+                url     : rearview.path + '/help/alert.html',
                 async   : false,
                 success : function( response ) {
                     $alertContent = response;

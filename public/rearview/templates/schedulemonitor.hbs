@@ -12,7 +12,8 @@
             </fieldset>
             <fieldset class='pager-duty control-group'>
                 <label for='pagerDuty' class='control-label'>Add Alert URIs (Not Required):</label>
-                <textarea rows='3' id='pagerDuty' name='pagerDuty' placeholder='Multiple alert URIs can be entered (separated by a space, comma or new line).'></textarea>
+                <textarea rows='3' id='pagerDuty' name='pagerDuty' placeholder='Multiple alert URIs can be entered (separated by a space, comma or new line).'>{{#user.preferences.alertKeys}}{{this}}
+{{/user.preferences.alertKeys}}</textarea>
             </fieldset>
         </form>
     </div>

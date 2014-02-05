@@ -375,7 +375,7 @@ define([
             var $content = '';
 
             $.ajax({
-                url     : '/help/quick.html',
+                url     : rearview.path + '/help/quick.html',
                 async   : false,
                 success : function( response ) {
                     $content = response;
@@ -447,7 +447,7 @@ define([
          **/
         _getTemplateMetaData : function(cb) {
             $.ajax({
-                url     : '/monitors/index.json',
+                url     : rearview.path + '/monitors/index.json',
                 success : function( response ) {
                     if ( typeof cb === 'function' ) {
                         cb(response);
