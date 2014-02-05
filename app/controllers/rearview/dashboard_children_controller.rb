@@ -1,6 +1,6 @@
 
 module Rearview
-  class DashboardChildrenController < ApplicationController
+  class DashboardChildrenController < Rearview::ApplicationController
     def index
       @dashboards = if params[:dashboard_id]
                       Rearview::Dashboard.find(params[:dashboard_id]).children

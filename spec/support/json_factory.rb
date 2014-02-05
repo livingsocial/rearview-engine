@@ -31,7 +31,7 @@ module JsonFactory
     class << self
       def create
         {}.tap do |json|
-          json["metrics"] = "blah.blah.blah"
+          json["metrics"] = ["blah.blah.blah"]
           json["format"] = :json
           json["monitorExpr"] = "abc"
           json["minutes"] = 1

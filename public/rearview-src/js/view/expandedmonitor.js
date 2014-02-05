@@ -292,9 +292,21 @@ define([
                             self.$el.find('textarea.output-view').val(result.output);
                         }
 
+                        if(result.status === 'error') {
+                            Backbone.Mediator.pub('view:expandedmonitor:test', {
+                                'model'     : this.model,
+                                'errors'    : result.errors,
+                                'raw'       : result.output,
+                                'attention' : 'Monitor Test Error!',
+                                'status'    : 'error'
+                            });
+                        }
+
                         if(typeof cb === 'function') {
                             cb(result.output);
                         }
+                    },
+                    failure : function(result) {
                     }
                 });
             }

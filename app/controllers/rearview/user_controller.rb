@@ -1,7 +1,7 @@
 require_dependency "rearview/application_controller"
 
 module Rearview
-  class UserController < ApplicationController
+  class UserController < Rearview::ApplicationController
     respond_to :json
     def show
       @user = current_user

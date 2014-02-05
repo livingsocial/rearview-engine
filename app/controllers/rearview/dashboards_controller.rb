@@ -1,7 +1,7 @@
 require_dependency "rearview/application_controller"
 
 module Rearview
-  class DashboardsController < ApplicationController
+  class DashboardsController < Rearview::ApplicationController
     respond_to :json
 
     def index

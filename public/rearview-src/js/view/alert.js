@@ -13,6 +13,7 @@ define([
             'view:addmonitor:test'        : 'render',
             'view:expandedmonitor:delete' : 'render',
             'view:expandedmonitor:save'   : 'render',
+            'view:expandedmonitor:test'   : 'render',
             'view:smallmonitor:save'      : 'render',
             'view:dashboard:save'         : 'render',
             'view:resetmonitor:reset'     : 'render'

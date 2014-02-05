@@ -5,6 +5,7 @@ describe Rearview::JobsController do
   before do
     sign_in_as create(:user)
     @routes = Rearview::Engine.routes
+    Rearview::MetricsValidator.any_instance.stubs(:validate_each)
   end
 
   context "GET /jobs" do

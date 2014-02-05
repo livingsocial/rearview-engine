@@ -3,7 +3,6 @@ module Graphite
     extend Forwardable
     attr_reader :connection
     def_delegators :@connection, :get, :post
-    # https://github.com/google/google-api-ruby-client/blob/master/lib/google/api_client.rb
     def initialize(options={})
       default_options = {}
       default_options[:ssl] = {

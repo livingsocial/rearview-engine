@@ -10,6 +10,8 @@ module Rearview
     make_constants_module :status,
       :constants => [:success,:failed,:error,:graphite_error,:graphite_metric_error,:security_error]
 
+    attr_writer :deep_validation
+
     attr_accessible :created_at, :updated_at, :name, :active, :last_run,
       :cron_expr, :status, :user_id, :alert_keys, :deleted_at, :error_timeout,
       :next_run, :description, :app_id, :metrics, :monitor_expr, :minutes,
@@ -28,8 +30,9 @@ module Rearview
     before_destroy :unschedule
 
     validates :app_id, :cron_expr, :name, :metrics, :presence => true
-    validates :cron_expr, :'rearview/cron_expression' => true
-    validate :valid_alert_keys
+    validates :cron_expr, :'rearview/cron_expression' => true, :if => :deep_validation?
+    validates :metrics, :'rearview/metrics' => true, :if => :deep_validation?
+    validate :valid_alert_keys, :if => :deep_validation?
 
     scope :schedulable, -> { where(:active=>true) }
 
@@ -149,6 +152,10 @@ module Rearview
       if job_error.present?
         job_error.fire_event(translate_associated_event(transition),event_data)
       end
+    end
+
+    def deep_validation?
+      @deep_validation
     end
 
     protected

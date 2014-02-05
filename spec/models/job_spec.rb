@@ -10,15 +10,28 @@ describe Rearview::Job do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:cron_expr) }
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:metrics) }
     it { should validate_presence_of(:app_id) }
-    it { should_not allow_value('abc').for(:cron_expr) }
-    it { should allow_value('0 * * * * ?').for(:cron_expr) }
     it { should ensure_inclusion_of(:status).in_array(Rearview::Job::Status.values) }
+    describe 'cron_expr' do
+      before do
+        Rearview::MetricsValidator.any_instance.stubs(:validate_each)
+        Rearview::Job.any_instance.stubs(:deep_validation?).returns(true)
+      end
+      it { should validate_presence_of(:cron_expr) }
+      it { should_not allow_value('abc').for(:cron_expr) }
+      it { should allow_value('0 * * * * ?').for(:cron_expr) }
+    end
     describe 'alert_keys' do
-      let(:job) { create(:job) }
+      before do
+        Rearview::MetricsValidator.any_instance.stubs(:validate_each)
+      end
+      let(:job) {
+        job = create(:job)
+        job.deep_validation = true
+        job
+      }
       it "should require a valid URI" do
         keys = ["htptptptpt://not_a_uri"]
         job.alert_keys=keys

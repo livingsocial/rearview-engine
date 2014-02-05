@@ -299,7 +299,8 @@ define([
                 if(result.status === 'error') {
                     Backbone.Mediator.pub('view:addmonitor:test', {
                         'model'     : this.model,
-                        'message'   : "The monitor '" + this.model.get('name') + "' produced an error after testing.",
+                        'errors'    : result.errors,
+                        'raw'       : result.output,
                         'attention' : 'Monitor Test Error!',
                         'status'    : 'error'
                     });
@@ -308,7 +309,8 @@ define([
             .error(function(result) {
                 Backbone.Mediator.pub('view:addmonitor:test', {
                     'model'     : this.model,
-                    'message'   : "The monitor '" + this.model.get('name') + "' produced an error after testing.",
+                    'errors'    : result.errors,
+                    'raw'       : result.output,
                     'attention' : 'Monitor Test Error!',
                     'status'    : 'error'
                 });
