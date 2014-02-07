@@ -102,7 +102,9 @@ define([
          **/
         initMonitors : function() {
             this.getCategories();
-
+            if(this.categories.length && this.categoryId==null) {
+              Backbone.Mediator.pub('view:dashboard:category', this.setCategoryId(this.categories[this.carouselIndex].id));
+            }
             // publish dashboard information for the header view
             this.getDashboardInfo(this.dashboardId, function(title) {
                 Backbone.Mediator.pub('view:dashboard:render', {
