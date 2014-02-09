@@ -60,7 +60,9 @@ Update your gems with bundler
     
 ## User Interface Guide
 
-Rearview does not use the asset pipeline. Instead you'll need to take a look at [public/rearview-src](https://github.com/livingsocial/rearview-engine/tree/master/public/rearview-src). In development mode javascript, css, etc is loaded directly from here. When rearview-engine is bundled as a Gem the various elements are pre-compiled (manually before **gem build**) using require and are loaded from [public/rearview](https://github.com/livingsocial/rearview-engine/tree/master/public/rearview).
+The Rearview UI is built using bootstrap and require.
+
+Rearview does not use the asset pipeline. Instead you'll need to take a look at [public/rearview-src](https://github.com/livingsocial/rearview-engine/tree/master/public/rearview-src). In development mode javascript, css, etc are loaded directly from here. When rearview-engine is bundled as a Gem the various elements are pre-compiled (manually before **gem build**) using require.js and are loaded from [public/rearview](https://github.com/livingsocial/rearview-engine/tree/master/public/rearview).
 
 To compile the ui before distribution, run the following rake task from inside rearview-engine:
 
