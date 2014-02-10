@@ -146,13 +146,73 @@ describe Rearview::Job do
       inactive_job.sync_monitor_service
     end
   end
+  describe '#set_defaults' do
+    context 'alert_keys' do
+      it "should set it to an empty array if not present" do
+        job = create(:job, { alert_keys: nil})
+        job.save!
+        expect(job.alert_keys).to eq([])
+        job = create(:job)
+        expect(job.alert_keys).not_to eq([])
+      end
+    end
+  end
+  describe '#delay' do
+    before do
+      now = Time.now
+      Timecop.freeze(Time.local(now.year,now.mon,now.day))
+    end
+    after do
+      Timecop.return
+    end
+    it "cron expression '0 * * * * ?' to be 60.0" do
+      job = build(:job,cron_expr: '0 * * * * ?')
+      expect(job.delay).to eq(60.0)
+    end
+    it "any cron expression other than '0 * * * * ?' to be calculated by Rearview::CronHelper" do
+      job = build(:job,cron_expr: '0 30 * * * ?')
+      Rearview::CronHelper.expects(:next_valid_time_after).with('0 30 * * * ?')
+      job.delay
+    end
+  end
+  describe '#translate_associated_event' do
+    let(:transition) { mock }
+    let(:job) { create(:job) }
+    it 'echos back any non-security error' do
+      transition.stubs(:event).returns(:foo)
+      expect(job.send(:translate_associated_event,transition)).to eq(:foo)
+    end
+    it 'translates it to an :error' do
+      transition.stubs(:event).returns(:security_error)
+      expect(job.send(:translate_associated_event,transition)).to eq(:error)
+    end
+  end
   describe '#report_transition' do
+    let(:transition) { mock }
+    let(:job) { create(:job) }
+    before do
+      @statsd = mock
+      Rearview.config.stubs(:stats_enabled?).returns(true)
+      Rearview::Statsd.stubs(:statsd).returns(@statsd)
+    end
     context 'success event' do
       it "should increment monitor.success" do
+        transition.stubs(:event).returns(:success)
+        @statsd.expects(:increment).with("monitor.success") 
+        job.send(:report_transition,transition)
       end
     end
     context 'failure event' do
       it "should increment monitor.failure" do
+        transition.stubs(:event).returns(:error)
+        @statsd.expects(:increment).with("monitor.failure") 
+        job.send(:report_transition,transition)
+      end
+    end
+    context 'exception' do
+      it "should not raise" do
+        transition.stubs(:event).raises
+        expect{job.send(:report_transition,transition)}.not_to raise_error
       end
     end
   end
