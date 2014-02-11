@@ -39,6 +39,27 @@ describe Rearview::StatsTask do
       stats_task.statsd.expects(:batch)
       stats_task.run
     end
+    it "sends the correct stats" do
+      statsd = mock
+      batch = mock
+      statsd.expects(:batch_size=)
+      Rearview::Statsd.stubs(:new).returns(statsd)
+      stats_task = Rearview::StatsTask.new(120,false)
+      statsd.expects(:batch).yields(batch)
+      batch.expects(:gauge).with('vm.total_memory',any_parameters)
+      batch.expects(:gauge).with('vm.free_memory',any_parameters)
+      batch.expects(:gauge).with('vm.max_memory',any_parameters)
+      batch.expects(:gauge).with('vm.heap.committed',any_parameters)
+      batch.expects(:gauge).with('vm.heap.init',any_parameters)
+      batch.expects(:gauge).with('vm.heap.max',any_parameters)
+      batch.expects(:gauge).with('vm.heap.used',any_parameters)
+      batch.expects(:gauge).with('vm.non_heap.committed',any_parameters)
+      batch.expects(:gauge).with('vm.non_heap.init',any_parameters)
+      batch.expects(:gauge).with('vm.non_heap.max',any_parameters)
+      batch.expects(:gauge).with('vm.non_heap.used',any_parameters)
+      batch.expects(:gauge).with('monitor.total',any_parameters)
+      stats_task.run
+    end
   end
 
 end
