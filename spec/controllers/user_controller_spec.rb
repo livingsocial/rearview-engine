@@ -16,8 +16,11 @@ describe Rearview::UserController do
   end
   context "PUT /user" do
     it "renders the show view" do
-      JSON.stubs(:parse).returns({})
-      put :update, JsonFactory::User.update(user)
+      controller.stubs(:current_user).returns(user)
+      json = JsonFactory::User.update(user)
+      JSON.stubs(:parse).returns(preferences: json["preferences"])
+      user.expects(:save!)
+      put :update, json 
       render_template(:show)
     end
   end

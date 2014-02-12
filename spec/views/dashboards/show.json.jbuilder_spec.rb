@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe "rearview/dashboards/show" do
   let(:dashboard) {
-    create(:dashboard)
+    parent = create(:dashboard)
+    child = FactoryGirl.create(:dashboard,parent: parent)
+    parent
   }
   let(:dashboard_keys) {
     ["id",

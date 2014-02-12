@@ -13,8 +13,8 @@ module Rearview
       @user = current_user
       if preferences.present?
         @user.preferences = preferences
-        @user.save!
       end
+      @user.save!
       render :show
     end
   end
