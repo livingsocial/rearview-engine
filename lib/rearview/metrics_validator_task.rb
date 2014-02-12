@@ -38,6 +38,7 @@ module Rearview
     end
 
     def alert_validation_failed(job)
+      logger.debug "#{self} alerting on invalid metrics for #{job}"
       Rearview::MetricsValidationMailer.validation_failed_email(job.user.email,job).deliver
     end
 

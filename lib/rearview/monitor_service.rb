@@ -18,6 +18,7 @@ module Rearview
       @started
     end
     def startup
+      logger.info "#{self} starting up service..."
       raise MonitorServiceError.new("service already started") if started?
       # TODO actor could die, need to reference by name in registry and/or create link
       @supervisor = Rearview::MonitorSupervisor.run!
@@ -25,6 +26,7 @@ module Rearview
       @started = true
     end
     def shutdown
+      logger.info "#{self} shutting down service..."
       raise MonitorServiceError.new("service not started") unless started?
       @supervisor.remove_all_tasks
       @supervisor.terminate
