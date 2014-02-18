@@ -32,7 +32,7 @@ module Rearview
   include Rearview::Logger
 
   class << self
-    attr_accessor :monitor_service,:stats_service,:alert_clients
+    attr_accessor :monitor_service,:stats_service,:validator_service,:alert_clients
   end
 
   module_function
@@ -75,9 +75,12 @@ module Rearview
       logger.warn "monitor disabled!"
     end
     if config.stats_enabled?
-      logger.info "starting up stats service"
       @stats_service = Rearview::StatsService.supervise
       @stats_service.actors.first.startup
+    end
+    if config.metrics_validator_enabled?
+      @validator_service = Rearview::MetricsValidatorService.supervise
+      @validator_service.actors.first.startup
     end
     @alert_clients = Rearview::Alerts.registry.values
     @booted = true

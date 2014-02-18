@@ -6,7 +6,7 @@ Description: <%= @job.description.nil? ? "None" : @job.description %>
 Alerted On: <%= Time.now.utc %>
 Direct Link: <%= Rearview::UrlHelper.job_url(@job) %>
 
-The following <%= "metric".pluralize(@job.errors[:metrics].count) %> are no longer valid in graphite:
+The following metric(s) are no longer valid in graphite:
 
 <% @job.errors[:metrics].each do |metric_error| %>
 <%= metric_error.match(/metric: (.*)$/).try(:[],1) %>
