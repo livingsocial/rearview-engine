@@ -101,6 +101,16 @@ module Rearview
         opts.on("--[no-]alerts", "Enable/disable alerts")  { |v| self.enable_alerts = v }
         opts.on("--[no-]monitor", "Enable/disable monitor")  { |v| self.enable_monitor = v }
         opts.on("--[no-]verify", "Enable/disable verification")  { |v| self.verify = v }
+        opts.on("--[no-]stats-service", "Enable/disable stats service")  { |v| self.enable_stats = v }
+        opts.on("--[no-]validation-service", "Enable/disable validation service")  { |v| self.enable_metrics_validator = v }
+        opts.on("--[no-]soft-boot", "Enable/disable soft boot") { |v|
+          if v 
+            self.preload_jobs = false
+            self.enable_stats = false
+            self.enable_metrics_validator = false
+            self.enable_alerts = false
+          end
+        }
       end.parse!(argv)
     end
 
