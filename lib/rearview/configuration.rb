@@ -66,7 +66,7 @@ module Rearview
       @default_url_options = {:host=>"localhost",:port=>"3000"}
       @pagerduty_url = "https://events.pagerduty.com/generic/2010-04-15/create_event.json"
       @graphite_connection = {}
-      @enable_metrics_validator = true
+      @enable_metrics_validator = false
       @metrics_validator_schedule = nil
       super
     end
