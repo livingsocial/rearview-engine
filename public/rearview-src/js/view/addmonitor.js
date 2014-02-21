@@ -19,7 +19,8 @@ define([
         el : '.add-monitor-wrap',
 
         subscriptions : {
-            'view:dashboard:category' : 'updateDashboardId'
+            'view:dashboard:category' : 'updateDashboardId',
+            'view:settings:save'      : 'render'
         },
 
         events : {

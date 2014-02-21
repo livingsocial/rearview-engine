@@ -57,9 +57,13 @@ function(
             }
         },
 
-        updatePrefs : function(preferences) {
+        applyPrefs : function(preferences) {
             var existingPreferences = this.get('preferences');
             this.set('preferences', _.extend(existingPreferences, preferences));
+        },
+
+        updatePrefs : function(preferences) {
+            this.applyPrefs(preferences);
             this.save();
         },
 
