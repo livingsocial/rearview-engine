@@ -69,7 +69,7 @@ Rearview.configure do |config|
   # Set schedule for checking for invalid metrics (cron expression). Recommended only once per day.
   # see http://quartz-scheduler.org/api/2.0.0/org/quartz/CronExpression.html. Only necessary if
   # enable_metrics_validator is true.
-  config.metrics_validator_schedule = '0 0 * * *'
+  config.metrics_validator_schedule = '* * 23 * *'
 
   case Rails.env
     when "test"
@@ -83,6 +83,7 @@ Rearview.configure do |config|
   if File.basename($0) == "rake"
     config.enable_monitor = false
     config.enable_stats = false
+    config.enable_metrics_validator = false
   end
 
   # Options passed via environment will override anything else set to this point...
