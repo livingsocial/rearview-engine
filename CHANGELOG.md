@@ -1,3 +1,29 @@
+## 1.2.0 (unreleased)
+
+Features:
+
+- improved UI for validation of a monitor (@talbright)
+- add validation of monitor metrics, cron expression, and alert keys during test, edit, and create monitor (@talbright)
+- added user prefs panel (@talbright)
+- added user prefs for default alert key(s) (@talbright)
+- add link to sign-out (@talbright)
+- added support for travis on github (@talbright)
+- added support for coveralls on github (@talbright)
+- various improvements to configuration (@talbright)
+- make setup script idempotent (@talbright)
+- stats service that sends VM metrics to graphite for self-monitoring (@talbright)
+- metrics validation service that checks for missing metrics daily and emails monitor owner (@talbright)
+
+Bugfixes:
+
+- remove hard coded URL paths in JS; paths should be dynamic based on engine mount path (@talbright)
+- remove initializer duplicated in engine and host (@talbright)
+- fix for issue where newly created monitor disappeared from dashboard (@talbright)
+- fix for postgresql schema incompatibility (@talbright)
+- fix monitor link in alert that was incorrect in some cases (@talbright)
+- improve test coverage (@talbright)
+- login screen looks bad after refreshing, especially in chrome (@steveakers)
+
 ## 1.1.2 (2014-01-24)
 
 Bugfixes:
