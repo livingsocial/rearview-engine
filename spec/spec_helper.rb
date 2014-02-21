@@ -30,7 +30,7 @@ Rearview.configure do |config|
   config.enable_monitor = false
   config.default_url_options = { host: 'localhost', port: '3000' }
   config.statsd_connection = { host: '127.0.0.1', port: 8125, namespace: 'rearview' }
-  config.metrics_validator_schedule = '0 * * * * ?'
+  config.enable_metrics_validator = false
 end
 
 Rearview.boot!

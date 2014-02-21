@@ -70,8 +70,14 @@ describe Rearview::Configuration do
       end
     end
     context 'metrics_validator_schedule' do
-      it { should_not allow_value('abc').for(:metrics_validator_schedule) }
-      it { should allow_value('0 * * * * ?').for(:metrics_validator_schedule) }
+      it { 
+        Rearview::Configuration.any_instance.stubs(:metrics_validator_enabled?).returns(true)
+        should_not allow_value('abc').for(:metrics_validator_schedule) 
+      }
+      it { 
+        Rearview::Configuration.any_instance.stubs(:metrics_validator_enabled?).returns(true)
+        should allow_value('0 * * * * ?').for(:metrics_validator_schedule) 
+      }
       it "should be present if metrics_validator is enabled" do
         config.enable_metrics_validator = false
         config.valid?
