@@ -1,7 +1,7 @@
 grammar TargetGrammer
 
   rule target
-    ( expression / path )* <Graphite::TargetGrammer::Target>
+    ( comment / expression / path )* <Graphite::TargetGrammer::Target>
   end
 
   rule expression
@@ -17,15 +17,15 @@ grammar TargetGrammer
   end
 
   rule path
-    path_segment_no_glob ( '.' path_segment )* <Graphite::TargetGrammer::Path>
+    path_segment ( '.' path_segment )* <Graphite::TargetGrammer::Path>
   end
 
   rule path_segment
     [a-zA-Z0-9_\*\-]+ <Graphite::TargetGrammer::PathSegment>
   end
 
-  rule path_segment_no_glob
-    [a-zA-Z0-9_\-]+ <Graphite::TargetGrammer::PathSegment>
+  rule comment
+    '#' ( . )* <Graphite::TargetGrammer::Comment>
   end
 
   rule integer
@@ -37,7 +37,9 @@ grammar TargetGrammer
   end
 
   rule string
-    '"' ('\"' / !'"' .)* '"' <Graphite::TargetGrammer::StringLiteral>
+    '"' ('\"' / !'"' .)* '"' <Graphite::TargetGrammer::StringLiteral> 
+    / 
+    "'" ('\"' / !"'" .)* "'" <Graphite::TargetGrammer::StringLiteral>
   end
 
   rule identifier

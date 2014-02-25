@@ -14,6 +14,9 @@ module Graphite
       def expression?
         elements[0].kind_of?(Graphite::TargetGrammer::Expression)
       end
+      def comment?
+        elements[0].kind_of?(Graphite::TargetGrammer::Comment)
+      end
       def unknown?
         !path? && !expression?
       end
@@ -101,6 +104,9 @@ module Graphite
     end
 
     class Arg < SyntaxNode
+    end
+
+    class Comment < SyntaxNode
     end
 
   end

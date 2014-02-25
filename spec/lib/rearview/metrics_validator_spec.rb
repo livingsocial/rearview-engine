@@ -2,10 +2,41 @@ require 'spec_helper'
 
 describe Rearview::MetricsValidator do
 
+  context '#metric_valid?' do
+    let(:metrics_validator) { Rearview::MetricsValidator.new({ attributes: [:metrics] })}
+    context 'true' do
+      it 'when the metric is commented out' do
+        expect(metrics_validator.metric_valid?('#stats_count.foo')).to be_true
+      end
+      it 'when the metric is complex' do
+        mock_client = mock(:metric_exists? => true)
+        metrics_validator.stubs(:client).returns(mock_client)
+        expect(metrics_validator.metric_valid?(%q[alias(summarize(stats_counts.watson.summary_tables.run,"5min"),"Daily Watson Tables so far")])).to be_true
+      end
+    end
+    context 'false' do
+      it 'when the metric is not parseable' do
+        expect(metrics_validator.metric_valid?(%q[alias@(stats.x.y,"processed")])).to be_false
+      end
+      it 'when the metric cannot be extracted' do
+        mock_parser = mock
+        mock_parser.stubs(:parse)
+        mock_parser.stubs(:error?).returns(false)
+        mock_parser.stubs(:tree).returns(mock(:comment? => false,:metric => nil))
+        metrics_validator.stubs(:target_parser).returns(mock_parser)
+        expect(metrics_validator.metric_valid?('stats.garbage.ignored')).to be_false
+      end
+    end
+  end
   context '#validate_each' do
     let(:job) { FactoryGirl.create(:job) }
     let(:metrics_validator) { Rearview::MetricsValidator.new({ attributes: [:metrics] })}
     context 'valid' do
+      it 'parses the metric' do
+        mock_client = mock(:metric_exists? => true)
+        metrics_validator.stubs(:client).returns(mock_client)
+        expect(metrics_validator.metric_valid?(%q[alias(summarize(stats_counts.watson.summary_tables.run,"5min"),"Daily Watson Tables so far")])).to be_true
+      end
       it 'when all metrics exists' do
         mock_client = mock(:metric_exists? => true)
         metrics_validator.stubs(:client).returns(mock_client)
