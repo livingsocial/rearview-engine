@@ -62,12 +62,15 @@ module Rearview
         logger.debug "#{self} fetch_data"
         encMetrics = metrics.delete_if { |m| m.empty? }.map { |m| URI.escape(m) }
         from, to   = create_from_to_dates(minutes, to_date)
-        uri        = "/render?from=#{from}&until=#{to}&format=raw&target=" + encMetrics.join("&target=")
-
-        logger.debug("#{self} fetch_data #{uri}")
+        params = {}.tap do |h|
+          h["from"] = from
+          h["until"] = to
+          h["format"] = "raw"
+          h["target"] = metrics.delete_if { |m| m.empty? }
+        end
 
         begin
-          response = Graphite::Client.new(Rearview.config.graphite_connection).get(uri)
+          response = Graphite::Client.new(Rearview.config.graphite_connection).render(params)
           case response.status
           when 200
             Graphite::RawParser.parse(response.body)
