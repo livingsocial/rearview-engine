@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rearview (1.2.0.rc.9-java)
+    rearview (1.2.0.rc.10-java)
       ancestry (~> 2.0.0)
       broach (~> 0.3.0)
       celluloid (~> 0.14.1)
