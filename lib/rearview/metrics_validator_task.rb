@@ -22,7 +22,10 @@ module Rearview
               else
                 Rearview::CronHelper.next_valid_time_after(cron_expression)
               end
-      logger.debug "#{self} scheduled to run in #{delay}s"
+      logger.info "#{self} scheduled to run next in #{delay}s"
+      if(@timer)
+        @timer.cancel
+      end
       @timer = after(delay) { self.run }
     end
 
