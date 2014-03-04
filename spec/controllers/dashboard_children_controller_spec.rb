@@ -9,18 +9,18 @@ describe Rearview::DashboardChildrenController do
   end
 
   context "GET /children" do
-    it "renders the index view" do
+    it "renders the dashboards index view" do
       get :index, dashboard_id: parent.id, format: :json
-      render_template(:index)
+      expect(response).to render_template("rearview/dashboards/index")
     end
   end
 
   context "POST /children" do
-    it "renders the create view" do
+    it "renders the dashboards show view" do
       json = JsonFactory::Dashboard.create(build(:dashboard))
       json[:dashboard_id] = parent.id
       post :create, json
-      render_template(:create)
+      expect(response).to render_template("rearview/dashboards/show")
     end
     it "creates the child association to the parent" do
       dashboard = build(:dashboard)

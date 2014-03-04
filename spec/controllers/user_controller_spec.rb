@@ -11,7 +11,7 @@ describe Rearview::UserController do
   context "GET /user" do
     it "renders the show view" do
       get :show, format: :json
-      render_template(:show)
+      expect(response).to render_template("rearview/user/show")
     end
   end
   context "PUT /user" do
@@ -21,7 +21,7 @@ describe Rearview::UserController do
       JSON.stubs(:parse).returns(preferences: json["preferences"])
       user.expects(:save!)
       put :update, json 
-      render_template(:show)
+      expect(response).to render_template("rearview/user/show")
     end
   end
 end

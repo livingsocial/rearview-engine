@@ -11,7 +11,7 @@ describe Rearview::JobsController do
   context "GET /jobs" do
     it "renders the index view" do
       get :index, format: :json
-      render_template(:index)
+      expect(response).to render_template("rearview/jobs/index")
     end
   end
 
@@ -19,7 +19,7 @@ describe Rearview::JobsController do
     it "renders the show view" do
       job = create(:job)
       get :show, id: job.id, format: :json
-      render_template(:show)
+      expect(response).to render_template("rearview/jobs/show")
     end
   end
 
@@ -27,7 +27,7 @@ describe Rearview::JobsController do
     it "renders the errors view" do
       job = create(:job)
       get :errors, id: job.id, format: :json
-      render_template(:errors)
+      expect(response).to render_template("rearview/jobs/errors")
     end
   end
 
@@ -36,7 +36,7 @@ describe Rearview::JobsController do
       job = create(:job)
       job_data = create(:job_data,:job=>job)
       get :data, id: job.id, format: :json
-      render_template(:data)
+      expect(response).to render_template("rearview/jobs/data")
     end
     it "returns status 404 if there is no data" do
       job = create(:job)
@@ -46,11 +46,11 @@ describe Rearview::JobsController do
   end
 
   context "POST /jobs" do
-    it "renders the create view" do
+    it "renders the show view" do
       job = build(:job)
       Rearview::Job.any_instance.expects(:sync_monitor_service)
       post :create, JsonFactory::Job.create(job)
-      render_template(:show)
+      expect(response).to render_template("rearview/jobs/show")
     end
   end
 
@@ -59,9 +59,9 @@ describe Rearview::JobsController do
     before do
       Rearview::Job.any_instance.expects(:sync_monitor_service)
     end
-    it "renders the update view" do
+    it "renders the show view" do
       put :update, JsonFactory::Job.update(job)
-      render_template(:show)
+      expect(response).to render_template("rearview/jobs/show")
     end
     it "allows the dashboard to be updated" do
       dashboard = create(:dashboard)
@@ -69,16 +69,17 @@ describe Rearview::JobsController do
       job_json = JsonFactory::Job.update(job)
       job_json["dashboard_id"] = dashboard.id
       put :update, job_json
+      expect(response).to render_template("rearview/jobs/show")
     end
   end
 
   context "DELETE /jobs/:id" do
     let(:job) { create(:job) }
-    it "renders the destroy view" do
+    it "renders the show view" do
       job.expects(:unschedule)
       Rearview::Job.expects(:find).with(job.id.to_s).returns(job)
       delete :destroy, id: job.id, format: :json
-      render_template(:destroy)
+      expect(response).to render_template("rearview/jobs/show")
     end
   end
 
@@ -88,7 +89,7 @@ describe Rearview::JobsController do
       Rearview::Job.stubs(:find).returns(job)
       job.expects(:reset)
       put :reset, JsonFactory::Job.update(job)
-      render_template(:show)
+      expect(response).to render_template("rearview/jobs/show")
     end
   end
 

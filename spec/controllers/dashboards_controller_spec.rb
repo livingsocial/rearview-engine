@@ -10,7 +10,7 @@ describe Rearview::DashboardsController do
   context "GET /dashboards" do
     it "renders the index view" do
       get :index, format: :json
-      render_template(:index)
+      expect(response).to render_template("rearview/dashboards/index")
     end
   end
 
@@ -18,7 +18,7 @@ describe Rearview::DashboardsController do
     it "renders the show view" do
       app = create(:dashboard)
       get :show, id: app.id, format: :json
-      render_template(:show)
+      expect(response).to render_template("rearview/dashboards/show")
     end
   end
 
@@ -26,7 +26,7 @@ describe Rearview::DashboardsController do
     it "renders the errors view" do
       app = create(:dashboard)
       get :errors, id: app.id, format: :json
-      render_template(:errors)
+      expect(response).to render_template("rearview/dashboards/errors")
     end
   end
 
@@ -34,7 +34,7 @@ describe Rearview::DashboardsController do
     it "renders the create view" do
       app = build(:dashboard)
       post :create, JsonFactory::Dashboard.create(app)
-      render_template(:create)
+      expect(response).to render_template("rearview/dashboards/show")
     end
   end
 
@@ -47,15 +47,15 @@ describe Rearview::DashboardsController do
         json["userId"]=app1.user_id
       end
       put :update, params
-      render_template(:update)
+      expect(response).to render_template("rearview/dashboards/show")
     end
   end
 
   context "DELETE /dashboards/:id" do
-    it "renders the destroy view" do
+    it "renders the show view" do
       app = create(:dashboard)
       delete :destroy, id: app.id, format: :json
-      render_template(:destroy)
+      expect(response).to render_template("rearview/dashboards/show")
     end
   end
 
