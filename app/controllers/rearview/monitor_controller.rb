@@ -11,8 +11,12 @@ module Rearview
     # monitor job model instead of custom params
     #
     def create
-      metrics_validator = Rearview::MetricsValidator.new({attributes: [:metrics]})
-      @errors = params[:metrics].inject([]) { |a,v| a << "Metrics contains an invalid metric: #{v}" unless(metrics_validator.metric_valid?(v)); a }
+      @errors = if params[:metrics].empty?
+                  [ "No metrics were provided" ]
+                else
+                  metrics_validator = Rearview::MetricsValidator.new({attributes: [:metrics]})
+                  params[:metrics].inject([]) { |a,v| a << "Metrics contains an invalid metric: #{v}" unless(metrics_validator.metric_valid?(v)); a }
+                end
       results = if @errors.empty?
                   Rearview::MonitorRunner.run(params[:metrics],params[:monitorExpr],params[:minutes],{},false,params[:toDate],true)
                 else
