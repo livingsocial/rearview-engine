@@ -18,7 +18,7 @@
         </form>
     </div>
     <div class='hero-unit'>
-        <form class='clearfix'>
+        <form id='cronScheduleForm' class='clearfix'>
             <fieldset class='set-schedule'>
                 <label>Set Schedule:</label>
             </fieldset>
@@ -26,19 +26,40 @@
                 <div class='control-group'>
                     <label class='control-label' for='inputMinutes'>Minutes</label>
                     <div class='controls'>
-                        <input type='text' id='inputMinutes' name='inputMinutes' value='*' class='input-mini'>
+                        <input  type='text' 
+                                  id='inputMinutes' 
+                                  name='inputMinutes' 
+                                  value='0'
+                                  class='input-mini' 
+                                  data-error-message="Not a valid value for cron field 'minutes'"
+                                  data-cronfield='minute'
+                                  required='required'>
                     </div>
                 </div>
                 <div class='control-group'>
                     <label class='control-label' for='inputHours'>Hours</label>
                     <div class='controls'>
-                        <input type='text' id='inputHours' name='inputHours' value='*' class='input-mini'>
+                        <input  type='text' 
+                                id='inputHours' 
+                                name='inputHours' 
+                                value='*' 
+                                class='input-mini' 
+                                data-error-message="Not a valid value for cron field 'hours'"
+                                data-cronfield='hour'
+                                required='required'>
                     </div>
                 </div>
                 <div class='control-group'>
                     <label class='control-label' for='inputDays'>Days</label>
                     <div class='controls'>
-                        <input type='text' id='inputDays' name='inputDays' value='*' class='input-mini'>
+                        <input  type='text' 
+                                id='inputDays' 
+                                name='inputDays' 
+                                value='*' 
+                                class='input-mini' 
+                                data-error-message="Not a valid value for cron field 'days'"
+                                data-cronfield='day'
+                                required='required'>
                     </div>
                 </div>
             </fieldset>
@@ -70,6 +91,7 @@
                 </div>
             </fieldset>
         </form>
+        <div id='cronScheduleFormErrors'></div>
     </div>
 </div>
 <div class='modal-footer'>

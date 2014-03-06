@@ -3,6 +3,7 @@ define([
     'underscore',
     'backbone',
     'util/templar',
+    'util/cron',
     'route/index',
     'view/alert',
     'view/primarynav',
@@ -26,6 +27,7 @@ define([
     _,
     Backbone,
     Templar,
+    CronUtil,
     IndexRouter,
     AlertView,
     PrimaryNavView,
@@ -55,9 +57,9 @@ define([
 
         initialize : function() {
             _.bindAll(this);
-
             // check authorization
             this.auth();
+            console.log(CronUtil.dayRegex);
 
             // these views are evergreen, so on initialize of the app this is alright
             this.alert();

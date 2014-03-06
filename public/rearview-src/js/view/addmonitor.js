@@ -2,19 +2,23 @@ define([
     'view/base',
     'model/monitor',
     'codemirror',
+    'util/cron',
     'codemirror-ruby',
     'jquery-validate',
     'parsley'
 ], function(
     BaseView,
     MonitorModel,
-    CodeMirror
+    CodeMirror,
+    CronUtil
 ){
 
     var AddMonitorView = BaseView.extend({
         scheduleViewInitialized : false,
         metricsViewInitialized  : false,
         scheduleView            : true,
+        cronScheduleFormValid   : false,
+        namePagerFormValid      : false,
 
         el : '.add-monitor-wrap',
 
@@ -68,8 +72,8 @@ define([
 
             this.scheduleViewInitialized = true;
 
-            // scheduling is the first step in add monitor workflow
-            this.setScheduleValidation();
+            this.setNamePagerValidation();
+            this.setCronScheduleValidation();
 
             // store reference to modal
             this.$modal = this.$el.find('.add-monitor');
@@ -135,8 +139,12 @@ define([
          * view.
          **/
         advanceToMetrics : function() {
-            // validate form
-            this.scheduleForm.parsley('validate');
+            this.namePagerForm.parsley('validate');
+            this.cronScheduleForm.parsley('validate');
+            if(this.namePagerFormValid && this.cronScheduleFormValid) {
+              this._setSchedule();
+              this._setupMetricsView();
+            }
         },
         /**
          * AddMonitorView#backToSchedule()
@@ -177,25 +185,41 @@ define([
             this.expressionsMirror.refresh();
         },
         /**
-         * AddMonitorView#setScheduleValidation()
+         * AddMonitorView#setNamePagerValidation()
          *
          * Sets up the front end form validation for the name field which is required.
          * If name is present, save the sceduling data to the monitor model and setup the
          * next view in the add monitor workflow to set up the metrics data.
          **/
-        setScheduleValidation : function() {
-            this.scheduleForm = $('#namePagerForm');
-
-            var validator = this.scheduleForm.parsley({
+        setNamePagerValidation : function() {
+            this.namePagerForm = $('#namePagerForm');
+            var validator = this.namePagerForm.parsley({
                 listeners: {
                     onFormSubmit : function ( isFormValid, event, ParsleyForm ) {
-                        if (isFormValid) {
-                            this._setSchedule();
-                            this._setupMetricsView();
-                        }
+                      this.namePagerFormValid = isFormValid;
                     }.bind(this)
                 }
             });
+        },
+        setCronScheduleValidation : function() {
+            this.cronScheduleForm = $('#cronScheduleForm');
+            var validator = CronUtil.parsleyValidator();
+            _.extend(validator,{
+                errors: {
+                  container: function (parsleyElement, parsleyTemplate, isRadioOrCheckbox) {
+                    var container = $('#cronScheduleFormErrors');
+                    container.append(parsleyTemplate);
+                    return container;
+                  }
+                },
+                listeners: {
+                    onFormSubmit : function ( isFormValid, event, ParsleyForm ) {
+                      this.cronScheduleFormValid = isFormValid;
+                    }.bind(this)
+                }
+            });
+            this.cronScheduleForm.parsley(validator);
+
         },
         setMetricsValidation : function() {
             $.validator.addMethod('code', function(value, element) {
