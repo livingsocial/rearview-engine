@@ -74,6 +74,7 @@ define([
 
             this.setNamePagerValidation();
             this.setCronScheduleValidation();
+            this.setNameScheduleHelp();
 
             // store reference to modal
             this.$modal = this.$el.find('.add-monitor');
@@ -183,6 +184,41 @@ define([
                 $expressionsEditor.width($expressionsEditor.data('beforeFullscreen').width);
             }
             this.expressionsMirror.refresh();
+        },
+        setNameScheduleHelp : function() {
+            $cronHelpContent = '';
+            $alertHelpContent = '';
+            $.ajax({
+                url     : rearview.path + '/help/cron.html',
+                async   : false,
+                success : function( response ) {
+                    $cronHelpContent = response;
+                }
+            });
+
+            $.ajax({
+                url     : rearview.path + '/help/alert.html',
+                async   : false,
+                success : function( response ) {
+                    $alertHelpContent = response;
+                }
+            });
+
+            this.$el.find('#cronScheduleForm .set-schedule .help.label').tooltip({
+                trigger   : 'click',
+                html      : true,
+                placement : 'left',
+                delay     : { show : 100, hide : 200 },
+                title     : $cronHelpContent
+            });
+
+            this.$el.find('#namePagerForm .pager-duty .help.label').tooltip({
+                trigger   : 'click',
+                html      : true,
+                placement : 'left',
+                delay     : { show : 100, hide : 200 },
+                title     : $alertHelpContent
+            });
         },
         /**
          * AddMonitorView#setNamePagerValidation()
@@ -398,7 +434,7 @@ define([
 
             this.metricsForm.submit();
         },
-        setHelp : function() {
+        setMetricsHelp : function() {
             var $content = '';
 
             $.ajax({
@@ -648,7 +684,7 @@ define([
                     this._initCodeMirror();
                     this._initDatePicker();
                     this.initGraph( modalContainerEl.find('.graph')[0] );
-                    this.setHelp();
+                    this.setMetricsHelp();
                     this.setMetricsValidation();
 
                     // set that metrics view has been initialized to

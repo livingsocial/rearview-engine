@@ -11,7 +11,9 @@
                 <textarea rows='3' id='description' name='description'></textarea>
             </fieldset>
             <fieldset class='pager-duty control-group'>
-                <label for='pagerDuty' class='control-label'>Add Alert URIs (Not Required):</label>
+                <label for='pagerDuty' class='control-label'>Add Alert URIs (Not Required):
+                <span class="help label label-info" data-original-title="" title=""><i class="icon-info-sign"></i></span> 
+                </label>
                 <textarea rows='3' id='pagerDuty' name='pagerDuty' placeholder='Multiple alert URIs can be entered (separated by a space, comma or new line).'>{{#user.preferences.alertKeys}}{{this}}
 {{/user.preferences.alertKeys}}</textarea>
             </fieldset>
@@ -20,7 +22,9 @@
     <div class='hero-unit'>
         <form id='cronScheduleForm' class='clearfix'>
             <fieldset class='set-schedule'>
-                <label>Set Schedule:</label>
+                <label>Set Schedule:
+                <span class="help label label-info" data-original-title="" title=""><i class="icon-info-sign"></i></span>
+                </label>
             </fieldset>
             <fieldset class='form-horizontal'>
                 <div class='control-group'>

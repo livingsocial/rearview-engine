@@ -879,18 +879,60 @@ input, button, select, textarea {
         }
     }
 
+    .add-monitor {
+        .help.label {
+            float  : right;
+            cursor : pointer;
+        }
+        .tooltip {
+            text-transform : none;
 
+            .tooltip-inner {
+                max-width : 500px;
+
+                .proxima-regular(12px);
+
+                table {
+                    margin     : 5px 0;
+                    text-align : left;
+
+                    tr:nth-child(even) {
+                        background : #333
+                    }
+
+                    th {
+                        padding        : 2px;
+                        width          : 200px;
+                        vertical-align : top;
+                        font-weight    : normal;
+                    }
+                    td {
+                        padding        : 2px;
+                        width          : 480px;
+                        vertical-align : top;
+                    }
+                }
+
+                .cron-help-details {
+                  text-align : left; 
+                }
+            }
+        }
+        .tooltip.in {
+            opacity : 0.9 !important;
+        }
+    }
 
     .metrics-schedule {
         .expressions textarea {
             width      : 396px;
             min-height : 200px;
         }
-
         .metrics-test .metrics textarea {
             width : 459px;
         }
     }
+
     /* add monitor code mirrors */
     .CodeMirror.error {
         border-color : #B94A48 !important;

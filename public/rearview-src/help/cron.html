@@ -1,0 +1,34 @@
+<table>
+    <tr>
+        <th>field</th>
+        <td>description</td>
+    </tr>
+    <tr>
+        <th>minutes</th>
+        <td>0-59 [, - * /]</td>
+    </tr>
+    <tr>
+        <th>hours</th>
+        <td>0-23 [, - * /]</td>
+    </tr>
+    <tr>
+        <th>days</th>
+        <td>1-31 [, - * ? / L W]</td>
+    </tr>
+    <tr>
+        <th>weekday</th>
+        <td>select which days to run (otherwise it will run everyday)</td>
+    </tr>
+    <tr>
+        <th>month</th>
+        <td>select which month to run (otherwise it will run everymonth)</td>
+    </tr>
+</table>
+<div class="cron-help-details">
+  <p>The '*' character is used to specify all values. For example, "*" in the minute field means "every minute".</p>
+  <p>The '?' character is allowed for the days field. It is used to specify 'no specific value'. This is useful when you need to specify something in one of the weekday field.</p>
+  <p>The '-' character is used to specify ranges For example "10-12" in the hour field means "the hours 10, 11 and 12".</p>
+  <p>The ',' character is used to specify additional values. For example "MON,WED,FRI" in the day-of-week field means "the days Monday, Wednesday, and Friday".</p>
+  <p>The '/' character is used to specify increments. For example "0/15" in the seconds field means "the seconds 0, 15, 30, and 45".</p>
+<a href="http://quartz-scheduler.org/api/2.1.0/org/quartz/CronExpression.html" target="_new">more about cron schedules</a>
+</div>

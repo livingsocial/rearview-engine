@@ -192,18 +192,26 @@ define([
         },
         setHelp : function() {
             var self     = this,
-            $content = '';
+            $quickContent = '';
             $alertContent = '';
-            //TODO fix this path
+            $cronHelpContent = '';
+
+            $.ajax({
+                url     : rearview.path + '/help/cron.html',
+                async   : false,
+                success : function( response ) {
+                    $cronHelpContent = response;
+                }
+            });
+
             $.ajax({
                 url     : rearview.path + '/help/quick.html',
                 async   : false,
                 success : function( response ) {
-                    $content = response;
+                    $quickContent = response;
                 }
             });
 
-            //TODO fix this path
             $.ajax({
                 url     : rearview.path + '/help/alert.html',
                 async   : false,
@@ -212,15 +220,23 @@ define([
                 }
             });
 
+            self.$el.find('#viewSchedule .help.label').tooltip({
+                trigger   : 'click',
+                html      : true,
+                placement : 'left',
+                delay     : { show : 100, hide : 200 },
+                title     : $cronHelpContent
+            });
+
             self.$el.find('.help:nth-child(2)').tooltip({
                 trigger   : 'click',
                 html      : true,
                 placement : 'right',
                 delay     : { show : 100, hide : 200 },
-                title     : $content
+                title     : $quickContent
             });
 
-            self.$el.find('.help:nth-child(1)').tooltip({
+            self.$el.find('#viewSettings .monitor-meta .pager-duty .help.label').tooltip({
                 trigger   : 'click',
                 html      : true,
                 placement : 'left',
