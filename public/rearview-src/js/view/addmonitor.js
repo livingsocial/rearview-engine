@@ -14,11 +14,13 @@ define([
 ){
 
     var AddMonitorView = BaseView.extend({
-        scheduleViewInitialized : false,
-        metricsViewInitialized  : false,
-        scheduleView            : true,
-        cronScheduleFormValid   : false,
-        namePagerFormValid      : false,
+        scheduleViewInitialized       : false,
+        metricsViewInitialized        : false,
+        scheduleView                  : true,
+        cronScheduleFormValid         : false,
+        cronScheduleWeekdaysSelected  : false,
+        cronScheduleDaysDisabled      : false,
+        namePagerFormValid            : false,
 
         el : '.add-monitor-wrap',
 
@@ -33,6 +35,7 @@ define([
             'click .nameSchedule' : 'backToSchedule',
             'click .saveFinish'   : 'saveFinish',
             'click .back'         : 'exitFullScreen',
+            'click #cronScheduleForm .day-month-picker .day-picker button' : 'cronWeekdayButtonClicked',
             'hide #addMonitor'    : 'modalClose',
             'show #addMonitor'    : 'modalShow',
             'shown #addMonitor'   : 'focusFirst'
@@ -185,6 +188,35 @@ define([
             }
             this.expressionsMirror.refresh();
         },
+
+        setCronScheduleWeekdaysSelected : function() {
+          this.cronScheduleWeekdaysSelected = $('#cronScheduleForm .day-month-picker .day-picker button.active').size() > 0
+        },
+
+        setCronScheduleDaysDisabled : function(disabled) {
+          if(disabled) {
+            if(!this.cronScheduleDaysDisabled) {
+              $('#inputDays').parsley('ParsleyField').reset();
+              $('#inputDays').val('?');
+              $('#inputDays').attr('disabled',"");
+              this.cronScheduleDaysDisabled = true;
+            }
+          }
+          else {
+            if(this.cronScheduleDaysDisabled) {
+              $('#inputDays').val('*');
+              $('#inputDays').removeAttr('disabled');
+              this.cronScheduleDaysDisabled = false;
+            } 
+          }
+        },
+
+        cronWeekdayButtonClicked : function(event) {
+          $(event.target).button('toggle');
+          this.setCronScheduleWeekdaysSelected();
+          this.setCronScheduleDaysDisabled(this.cronScheduleWeekdaysSelected);
+        },
+
         setNameScheduleHelp : function() {
             $cronHelpContent = '';
             $alertHelpContent = '';

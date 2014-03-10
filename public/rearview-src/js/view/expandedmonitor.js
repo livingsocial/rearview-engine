@@ -12,11 +12,14 @@ define([
 ){
     var ExpandedMonitorView = BaseView.extend({
 
-        cronScheduleFormValid : true,
+        cronScheduleFormValid         : true,
+        cronScheduleWeekdaysSelected  : false,
+        cronScheduleDaysDisabled      : false,
 
         events : {
             'click .name-save'            : 'updateMonitorName',
             'click .schedule-tab'         : '_setExpandedViewHeight',
+            'click #cronScheduleFormEdit .day-month-picker .day-picker button' : 'cronWeekdayButtonClicked',
             'change #selectPreviousError' : '_setErrorDropDown'
         },
 
@@ -136,6 +139,34 @@ define([
 
         },
 
+        setCronScheduleWeekdaysSelected : function() {
+          this.cronScheduleWeekdaysSelected = $('#cronScheduleFormEdit .day-month-picker .day-picker button.active').size() > 0
+        },
+
+        setCronScheduleDaysDisabled : function(disabled) {
+          if(disabled) {
+            if(!this.cronScheduleDaysDisabled) {
+              $('#inputDays').parsley('ParsleyField').reset();
+              $('#inputDays').val('?');
+              $('#inputDays').attr('disabled',"");
+              this.cronScheduleDaysDisabled = true;
+            }
+          }
+          else {
+            if(this.cronScheduleDaysDisabled) {
+              $('#inputDays').val('*');
+              $('#inputDays').removeAttr('disabled');
+              this.cronScheduleDaysDisabled = false;
+            } 
+          }
+        },
+
+        cronWeekdayButtonClicked : function(event) {
+            $(event.target).button('toggle');
+            this.setCronScheduleWeekdaysSelected();
+            this.setCronScheduleDaysDisabled(this.cronScheduleWeekdaysSelected);
+        },
+        
         setCronScheduleValidation : function() {
             this.cronScheduleForm = $('#cronScheduleFormEdit');
             var validator = CronUtil.parsleyValidator();

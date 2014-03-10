@@ -886,6 +886,10 @@ input, button, select, textarea {
     }
 
     .add-monitor {
+        input[disabled] {
+           background-color: #EEEEEE;
+           cursor: not-allowed; 
+        }
         .help.label {
             float  : right;
             cursor : pointer;
@@ -1033,6 +1037,12 @@ input, button, select, textarea {
 
     /* edit monitor styles */
     .metrics-schedule {
+
+        input[disabled] {
+           background-color: #7E8079;
+           cursor: not-allowed; 
+        }
+
         .metrics .CodeMirror,
         .expressions .CodeMirror {
             border-radius : 3px;
