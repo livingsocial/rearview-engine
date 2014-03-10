@@ -11,40 +11,68 @@
                 <textarea rows='3' id='description' name='description'></textarea>
             </fieldset>
             <fieldset class='pager-duty control-group'>
-                <label for='pagerDuty' class='control-label'>Add Alert URIs (Not Required):</label>
+                <label for='pagerDuty' class='control-label'>Add Alert URIs (Not Required):
+                <span class="help label label-info" data-original-title="" title=""><i class="icon-info-sign"></i></span> 
+                </label>
                 <textarea rows='3' id='pagerDuty' name='pagerDuty' placeholder='Multiple alert URIs can be entered (separated by a space, comma or new line).'>{{#user.preferences.alertKeys}}{{this}}
 {{/user.preferences.alertKeys}}</textarea>
             </fieldset>
         </form>
     </div>
     <div class='hero-unit'>
-        <form class='clearfix'>
+        <form id='cronScheduleForm' class='clearfix'>
             <fieldset class='set-schedule'>
-                <label>Set Schedule:</label>
+                <label>Set Schedule:
+                <span class="help label label-info" data-original-title="" title=""><i class="icon-info-sign"></i></span>
+                </label>
             </fieldset>
             <fieldset class='form-horizontal'>
                 <div class='control-group'>
                     <label class='control-label' for='inputMinutes'>Minutes</label>
                     <div class='controls'>
-                        <input type='text' id='inputMinutes' name='inputMinutes' value='*' class='input-mini'>
+                        <input  type='text' 
+                                  id='inputMinutes' 
+                                  name='inputMinutes' 
+                                  value='0'
+                                  class='input-mini' 
+                                  data-trigger='blur mouseout'
+                                  data-error-message="Not a valid value for cron field 'minutes'"
+                                  data-cronfield='minute'
+                                  required='required'>
                     </div>
                 </div>
                 <div class='control-group'>
                     <label class='control-label' for='inputHours'>Hours</label>
                     <div class='controls'>
-                        <input type='text' id='inputHours' name='inputHours' value='*' class='input-mini'>
+                        <input  type='text' 
+                                id='inputHours' 
+                                name='inputHours' 
+                                value='*' 
+                                class='input-mini' 
+                                data-trigger='blur mouseout'
+                                data-error-message="Not a valid value for cron field 'hours'"
+                                data-cronfield='hour'
+                                required='required'>
                     </div>
                 </div>
                 <div class='control-group'>
                     <label class='control-label' for='inputDays'>Days</label>
                     <div class='controls'>
-                        <input type='text' id='inputDays' name='inputDays' value='*' class='input-mini'>
+                        <input  type='text' 
+                                id='inputDays' 
+                                name='inputDays' 
+                                value='*' 
+                                class='input-mini' 
+                                data-trigger='blur mouseout'
+                                data-error-message="Not a valid value for cron field 'days'"
+                                data-cronfield='day'
+                                required='required'>
                     </div>
                 </div>
             </fieldset>
             <fieldset class='day-month-picker'>
                 <label>Weekday</label>
-                <div class='day-picker btn-group' data-toggle='buttons-checkbox'>
+                <div class='day-picker btn-group'>
                     <button type='button' class='sun btn' data-value='Sun'>Sun</button>
                     <button type='button' class='mon btn' data-value='Mon'>Mon</button>
                     <button type='button' class='tue btn' data-value='Tue'>Tue</button>
@@ -70,6 +98,7 @@
                 </div>
             </fieldset>
         </form>
+        <div id='cronScheduleFormErrors'></div>
     </div>
 </div>
 <div class='modal-footer'>

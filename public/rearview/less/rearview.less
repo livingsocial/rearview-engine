@@ -109,6 +109,12 @@ input, button, select, textarea {
 
     @import "header.less";
 
+    input.parsley-error {
+      background-color: #F2DEDE !important;
+      border: 1px solid #EED3D7 !important;
+      color: #B94A48 !important;
+    }
+
     /* alert timeline styles */
     .alert-timeline {
         position   : relative;
@@ -879,18 +885,64 @@ input, button, select, textarea {
         }
     }
 
+    .add-monitor {
+        input[disabled] {
+           background-color: #EEEEEE;
+           cursor: not-allowed; 
+        }
+        .help.label {
+            float  : right;
+            cursor : pointer;
+        }
+        .tooltip {
+            text-transform : none;
 
+            .tooltip-inner {
+                max-width : 500px;
+
+                .proxima-regular(12px);
+
+                table {
+                    margin     : 5px 0;
+                    text-align : left;
+
+                    tr:nth-child(even) {
+                        background : #333
+                    }
+
+                    th {
+                        padding        : 2px;
+                        width          : 200px;
+                        vertical-align : top;
+                        font-weight    : normal;
+                    }
+                    td {
+                        padding        : 2px;
+                        width          : 480px;
+                        vertical-align : top;
+                    }
+                }
+
+                .cron-help-details {
+                  text-align : left; 
+                }
+            }
+        }
+        .tooltip.in {
+            opacity : 0.9 !important;
+        }
+    }
 
     .metrics-schedule {
         .expressions textarea {
             width      : 396px;
             min-height : 200px;
         }
-
         .metrics-test .metrics textarea {
             width : 459px;
         }
     }
+
     /* add monitor code mirrors */
     .CodeMirror.error {
         border-color : #B94A48 !important;
@@ -985,6 +1037,12 @@ input, button, select, textarea {
 
     /* edit monitor styles */
     .metrics-schedule {
+
+        input[disabled] {
+           background-color: #7E8079;
+           cursor: not-allowed; 
+        }
+
         .metrics .CodeMirror,
         .expressions .CodeMirror {
             border-radius : 3px;
@@ -1045,6 +1103,10 @@ input, button, select, textarea {
         }
         .tooltip.in {
             opacity : 0.9 !important;
+        }
+        .parsley-error-list li {
+            font-weight : bold;
+            font-size : larger;
         }
     }
 

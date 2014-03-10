@@ -254,6 +254,7 @@ vendor/underscore/js/underscore.js
 vendor/backbone/js/backbone.js
 vendor/backbone/plugins/backbone-localStorage/js/backbone-localStorage.js
 js/util/templar.js
+js/util/cron.js
 vendor/backbone/plugins/backbone-mediator/js/backbone-mediator.js
 js/route/index.js
 vendor/handlebars/js/handlebars.js
@@ -270,7 +271,7 @@ js/model/monitor.js
 vendor/codemirror/lib/codemirror.js
 vendor/codemirror/mode/ruby/ruby.js
 vendor/jquery/plugins/jquery.validate.js
-vendor/parsley/js/parsley.min.js
+vendor/parsley/js/parsley.js
 js/view/addmonitor.js
 js/collection/monitor.js
 js/view/smallmonitor.js
