@@ -10,7 +10,7 @@ function(_){
       //set but does not assert the syntax of cron
       minuteRegex : RegExp(/^[0-9\*\-,\/]+$/),
       hourRegex : RegExp(/^[0-9\*\-,\/]+$/),
-      dayRegex : RegExp(/^[0-9\*\-,\/,LW]+$/i),
+      dayRegex : RegExp(/^[\?0-9\*\-,\/,LW]+$/i),
 
       parsleyValidator : function(cb) {
         var validator = function() {};
