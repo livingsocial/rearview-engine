@@ -59,7 +59,6 @@ define([
             _.bindAll(this);
             // check authorization
             this.auth();
-            console.log(CronUtil.dayRegex);
 
             // these views are evergreen, so on initialize of the app this is alright
             this.alert();

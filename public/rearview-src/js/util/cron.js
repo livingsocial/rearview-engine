@@ -8,9 +8,9 @@ function(_){
 
       //TODO this just checks that the characters are in the valid
       //set but does not assert the syntax of cron
-      dayRegex : RegExp(/^(\*|\?|[0-9]|[1-5][0-9])$/),
-      minuteRegex : RegExp(/^(\*|\?|[0-9]|[1-5][0-9])$/),
-      hourRegex : RegExp(/^(\*|\?|[0-9]|[1-5][0-9])$/),
+      minuteRegex : RegExp(/^[0-9\*\-,\/]+$/),
+      hourRegex : RegExp(/^[0-9\*\-,\/]+$/),
+      dayRegex : RegExp(/^[0-9\*\-,\/,LW]+$/i),
 
       parsleyValidator : function(cb) {
         var validator = function() {};
