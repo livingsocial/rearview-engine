@@ -61,8 +61,12 @@ describe Graphite::Client do
       @client.stubs(:connection).returns(@connection_stub)
     end
     context 'true' do
-      it 'when response is 200, content-type is application/json, and json is a non-empty array' do
+      it 'when response is 200, content-type is "application/json", and json is a non-empty array' do
         @request_stubs.get('/metrics/find?query=stats.my_count') {[ 200, { 'content-type' => 'application/json' }, '[ {"leaf": 1, "context": {}, "text": "my_count", "expandable": 0, "id": "stats.my_count", "allowChildren": 0} ]' ]}
+        expect(@client.metric_exists?('stats.my_count')).to be_true
+      end
+      it 'when response is 200, content-type is "application/json; charset=utf-8", and json is a non-empty array' do
+        @request_stubs.get('/metrics/find?query=stats.my_count') {[ 200, { 'content-type' => 'application/json; charset=utf-8' }, '[ {"leaf": 1, "context": {}, "text": "my_count", "expandable": 0, "id": "stats.my_count", "allowChildren": 0} ]' ]}
         expect(@client.metric_exists?('stats.my_count')).to be_true
       end
     end
@@ -92,6 +96,10 @@ describe Graphite::Client do
     end
     it 'is true when response is 200, content is image/png, and content-length > 0' do
       @request_stubs.get('/render') {[ 200, { 'content-type' => 'image/png', 'content-length' => '123' }, '' ]}
+      expect(@client.reachable?).to be_true
+    end
+    it 'is true when response is 200, content is "image/png; charset=bogus", and content-length > 0' do
+      @request_stubs.get('/render') {[ 200, { 'content-type' => 'image/png; charset=bogus', 'content-length' => '123' }, '' ]}
       expect(@client.reachable?).to be_true
     end
     it 'is false when response is not 200' do
