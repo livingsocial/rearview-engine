@@ -1,13 +1,18 @@
 define([
     'view/base',
     'view/deletemonitor',
-    'model/monitor'
+    'model/monitor',
+    'util/cron',
+    'parsley'
 ], function(
     BaseView,
     DeleteMonitorView,
-    JobModel
+    JobModel,
+    CronUtil
 ){
     var ExpandedMonitorView = BaseView.extend({
+
+        cronScheduleFormValid : true,
 
         events : {
             'click .name-save'            : 'updateMonitorName',
@@ -47,7 +52,6 @@ define([
             this.categories  = categories;
             this.categoryId  = categoryId;
             this.dashboardId = dashboardId;
-
             this.initMonitor();
         },
         /**
@@ -120,6 +124,7 @@ define([
 
                         // inline help
                         self.setHelp();
+                        self.setCronScheduleValidation(); 
 
                         // dynamically set the heights to maximum screen utilization
                         self._setExpandedViewHeight();
@@ -128,6 +133,27 @@ define([
                 });
             });
 
+
+        },
+
+        setCronScheduleValidation : function() {
+            this.cronScheduleForm = $('#cronScheduleFormEdit');
+            var validator = CronUtil.parsleyValidator();
+            _.extend(validator,{
+                errors: {
+                  container: function (parsleyElement, parsleyTemplate, isRadioOrCheckbox) {
+                    var container = $('#cronScheduleFormEditErrors');
+                    container.append(parsleyTemplate);
+                    return container;
+                  }
+                },
+                listeners: {
+                    onFormSubmit : function ( isFormValid, event, ParsleyForm ) {
+                      this.cronScheduleFormValid = isFormValid;
+                    }.bind(this)
+                }
+            });
+            this.cronScheduleForm.parsley(validator);
         },
 
         getGraphData : function(monitorId, cb) {
@@ -388,32 +414,37 @@ define([
                 toDate      = e.data.toDate,
                 output      = e.data.output;
 
-            monitor = self._setMetrics(monitor);
-            monitor = self._setSchedule(monitor);
-            monitor = self._setSettings(monitor);
+            this.cronScheduleForm.parsley('validate');
+            if(this.cronScheduleFormValid) {
+            
+              monitor = self._setMetrics(monitor);
+              monitor = self._setSchedule(monitor);
+              monitor = self._setSettings(monitor);
 
-            monitor.save(null, {
-                success : function(model, response, options) {
-                    Backbone.Mediator.pub('view:expandedmonitor:save', {
-                        'model'     : self.model,
-                        'message'   : "The monitor '" + model.get('name') + "' was saved.",
-                        'attention' : 'Monitor Saved!',
-                        'status'    : 'success'
-                    });
+              monitor.save(null, {
+                  success : function(model, response, options) {
+                      Backbone.Mediator.pub('view:expandedmonitor:save', {
+                          'model'     : self.model,
+                          'message'   : "The monitor '" + model.get('name') + "' was saved.",
+                          'attention' : 'Monitor Saved!',
+                          'status'    : 'success'
+                      });
 
-                    // quit out of the edit monitor view
-                    self.exit(monitor);
-                    self.updateGraph(monitor);
-                },
-                error : function(model, xhr, options) {
-                    Backbone.Mediator.pub('view:expandedmonitor:save', {
-                        'model'     : self.model,
-                        'tryJSON'   : xhr.responseText,
-                        'attention' : 'Monitor Saved Error!',
-                        'status'    : 'error'
-                    });
-                }
-            });
+                      // quit out of the edit monitor view
+                      self.exit(monitor);
+                      self.updateGraph(monitor);
+                  },
+                  error : function(model, xhr, options) {
+                      Backbone.Mediator.pub('view:expandedmonitor:save', {
+                          'model'     : self.model,
+                          'tryJSON'   : xhr.responseText,
+                          'attention' : 'Monitor Saved Error!',
+                          'status'    : 'error'
+                      });
+                  }
+              });
+
+            }
         },
         /**
          * ExpandedMonitorView#deleteMonitor(e)

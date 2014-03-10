@@ -104,50 +104,77 @@
                 </form>
             </div>
             <div class='tab-pane' id='viewSchedule'>
-                <span title="" data-original-title="" class="help label label-info"><i class="icon-info-sign"></i></span>
-                <div class='monitor-schedule'>
-                    <fieldset class='form-horizontal'>
-                        <div class='control-group'>
-                            <label for='inputMinutes'>Minutes</label>
-                            <input type='text' id='inputMinutes' name='inputMinutes' value='*' class='input-mini'>
-                        </div>
-                        <div class='control-group'>
-                            <label for='inputHours'>Hours</label>
-                            <input type='text' id='inputHours' name='inputHours' value='*' class='input-mini'>
-                        </div>
-                        <div class='control-group'>
-                            <label for='inputDays'>Days</label>
-                            <input type='text' id='inputDays' name='inputDays' value='*' class='input-mini'>
-                        </div>
-                    </fieldset>
-                    <fieldset class='day-month-picker'>
-                        <label>Weekday</label>
-                        <div class='day-picker btn-group' data-toggle='buttons-checkbox'>
-                            <button type='button' class='sun btn btn-inverse' data-value='1'>Sun</button>
-                            <button type='button' class='mon btn btn-inverse' data-value='2'>Mon</button>
-                            <button type='button' class='tue btn btn-inverse' data-value='3'>Tue</button>
-                            <button type='button' class='wed btn btn-inverse' data-value='4'>Wed</button>
-                            <button type='button' class='thu btn btn-inverse' data-value='5'>Thu</button>
-                            <button type='button' class='fri btn btn-inverse' data-value='6'>Fri</button>
-                            <button type='button' class='sat btn btn-inverse' data-value='7'>Sat</button>
-                        </div>
-                        <label>Month</label>
-                        <div class='month-picker btn-group' data-toggle='buttons-checkbox'>
-                            <button type='button' class='jan btn btn-inverse' data-value='1'>Jan</button>
-                            <button type='button' class='feb btn btn-inverse' data-value='2'>Feb</button>
-                            <button type='button' class='mar btn btn-inverse' data-value='3'>Mar</button>
-                            <button type='button' class='apr btn btn-inverse' data-value='4'>Apr</button>
-                            <button type='button' class='may btn btn-inverse' data-value='5'>May</button>
-                            <button type='button' class='jun btn btn-inverse' data-value='6'>Jun</button>
-                            <button type='button' class='jul btn btn-inverse' data-value='7'>Jul</button>
-                            <button type='button' class='aug btn btn-inverse' data-value='8'>Aug</button>
-                            <button type='button' class='sep btn btn-inverse' data-value='9'>Sep</button>
-                            <button type='button' class='oct btn btn-inverse' data-value='10'>Oct</button>
-                            <button type='button' class='nov btn btn-inverse' data-value='11'>Nov</button>
-                            <button type='button' class='dec btn btn-inverse' data-value='12'>Dec</button>
-                        </div>
-                    </fieldset>
-                </div>
+                <form id='cronScheduleFormEdit' class='clearfix'>
+                  <span title='' data-original-title='' class='help label label-info'><i class='icon-info-sign'></i></span>
+                  <div class='monitor-schedule'>
+                      <fieldset class='form-horizontal'>
+                          <div class='control-group'>
+                              <label for='inputMinutes'>Minutes</label>
+                              <input  type='text' 
+                                        id='inputMinutes' 
+                                        name='inputMinutes' 
+                                        value='0'
+                                        class='input-mini' 
+                                        data-trigger='blur mouseout'
+                                        data-error-message="Not a valid value for cron field 'minutes'"
+                                        data-cronfield='minute'
+                                        required='required'>
+                          </div>
+                          <div class='control-group'>
+                              <label for='inputHours'>Hours</label>
+                              <input  type='text' 
+                                      id='inputHours' 
+                                      name='inputHours' 
+                                      value='*' 
+                                      class='input-mini' 
+                                      data-trigger='blur mouseout'
+                                      data-error-message="Not a valid value for cron field 'hours'"
+                                      data-cronfield='hour'
+                                      required='required'>
+                          </div>
+                          <div class='control-group'>
+                              <label for='inputDays'>Days</label>
+                              <input  type='text' 
+                                      id='inputDays' 
+                                      name='inputDays' 
+                                      value='*' 
+                                      class='input-mini' 
+                                      data-trigger='blur mouseout'
+                                      data-error-message="Not a valid value for cron field 'days'"
+                                      data-cronfield='day'
+                                      required='required'>
+                          </div>
+                      </fieldset>
+                      <fieldset class='day-month-picker'>
+                          <label>Weekday</label>
+                          <div class='day-picker btn-group' data-toggle='buttons-checkbox'>
+                              <button type='button' class='sun btn btn-inverse' data-value='1'>Sun</button>
+                              <button type='button' class='mon btn btn-inverse' data-value='2'>Mon</button>
+                              <button type='button' class='tue btn btn-inverse' data-value='3'>Tue</button>
+                              <button type='button' class='wed btn btn-inverse' data-value='4'>Wed</button>
+                              <button type='button' class='thu btn btn-inverse' data-value='5'>Thu</button>
+                              <button type='button' class='fri btn btn-inverse' data-value='6'>Fri</button>
+                              <button type='button' class='sat btn btn-inverse' data-value='7'>Sat</button>
+                          </div>
+                          <label>Month</label>
+                          <div class='month-picker btn-group' data-toggle='buttons-checkbox'>
+                              <button type='button' class='jan btn btn-inverse' data-value='1'>Jan</button>
+                              <button type='button' class='feb btn btn-inverse' data-value='2'>Feb</button>
+                              <button type='button' class='mar btn btn-inverse' data-value='3'>Mar</button>
+                              <button type='button' class='apr btn btn-inverse' data-value='4'>Apr</button>
+                              <button type='button' class='may btn btn-inverse' data-value='5'>May</button>
+                              <button type='button' class='jun btn btn-inverse' data-value='6'>Jun</button>
+                              <button type='button' class='jul btn btn-inverse' data-value='7'>Jul</button>
+                              <button type='button' class='aug btn btn-inverse' data-value='8'>Aug</button>
+                              <button type='button' class='sep btn btn-inverse' data-value='9'>Sep</button>
+                              <button type='button' class='oct btn btn-inverse' data-value='10'>Oct</button>
+                              <button type='button' class='nov btn btn-inverse' data-value='11'>Nov</button>
+                              <button type='button' class='dec btn btn-inverse' data-value='12'>Dec</button>
+                          </div>
+                      </fieldset>
+                  </div>
+                </form>
+                <div id="cronScheduleFormEditErrors"></div>
             </div>
             <div class='tab-pane' id='viewSettings'>
                 <div class='clearfix'>

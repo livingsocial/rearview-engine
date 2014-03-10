@@ -109,6 +109,12 @@ input, button, select, textarea {
 
     @import "header.less";
 
+    input.parsley-error {
+      background-color: #F2DEDE !important;
+      border: 1px solid #EED3D7 !important;
+      color: #B94A48 !important;
+    }
+
     /* alert timeline styles */
     .alert-timeline {
         position   : relative;
@@ -1087,6 +1093,10 @@ input, button, select, textarea {
         }
         .tooltip.in {
             opacity : 0.9 !important;
+        }
+        .parsley-error-list li {
+            font-weight : bold;
+            font-size : larger;
         }
     }
 
