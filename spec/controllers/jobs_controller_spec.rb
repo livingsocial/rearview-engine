@@ -71,6 +71,14 @@ describe Rearview::JobsController do
       put :update, job_json
       expect(response).to render_template("rearview/jobs/show")
     end
+    it "allows the alert keys to be emptied" do
+      job_json = JsonFactory::Job.update(job)
+      job_json["alertKeys"] = nil
+      put :update, job_json
+      job.reload
+      expect(job.alert_keys).to eq([])
+      expect(response).to render_template("rearview/jobs/show")
+    end
   end
 
   context "DELETE /jobs/:id" do

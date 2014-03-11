@@ -36,6 +36,7 @@ module Rearview
       if dashboard_id.present? && dashboard_id.to_i!=@job.app_id
         @job.dashboard = Rearview::Dashboard.find(dashboard_id.to_i)
       end
+      params["alert_keys"] = [] if params["alert_keys"].blank?
       if @job.update_attributes(job_update_params)
         @job.sync_monitor_service
         render :show
