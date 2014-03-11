@@ -9,8 +9,9 @@ Bugfixes:
 - improved error message when no metrics are provided (@talbright)
 - add missing tooltips and help content (@talbright)
 - content-type check in Graphite client was to strict (@talbright,issue #3)
-- client side cron field validation 
-- prevent potential for allowing invalid cron expressions being submitted; in cases where one or more weekdays is selected, the day field is forced to '?'
+- client side cron field validation (@talbright)
+- prevent potential for allowing invalid cron expressions being submitted; in cases where one or more weekdays is selected, the day field is forced to '?' (@talbright)
+- alert keys couldn't be emptied out when editing a monitor (@talbright)
 
 ## 1.2.0 (2014-02-28)
 
