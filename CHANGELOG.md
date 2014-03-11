@@ -1,3 +1,17 @@
+## 1.2.1 (unreleased)
+
+Features:
+
+none
+
+Bugfixes:
+
+- improved error message when no metrics are provided (@talbright)
+- add missing tooltips and help content (@talbright)
+- content-type check in Graphite client was to strict (@talbright,issue #3)
+- client side cron field validation 
+- prevent potential for allowing invalid cron expressions being submitted; in cases where one or more weekdays is selected, the day field is forced to '?'
+
 ## 1.2.0 (2014-02-28)
 
 Features:
