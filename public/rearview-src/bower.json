@@ -1,0 +1,27 @@
+{
+  "name": "rearview",
+  "version": "1.2.0",
+  "description": "Rearview Backbone UI",
+  "main": "js/main.js",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "none"
+  ],
+  "authors": [
+    "trent.albright@gmail.com"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "parsleyjs": "~> 2.0.0"
+  }
+}

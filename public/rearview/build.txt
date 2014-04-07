@@ -243,6 +243,10 @@ vendor/jquery/plugins/timepicker-ui/css/jquery.timepicker.css
 ----------------
 vendor/jquery/plugins/timepicker-ui/css/jquery.timepicker.css
 
+vendor/parsleyjs/src/parsley.css
+----------------
+vendor/parsleyjs/src/parsley.css
+
 vendor/timeline/timeline.css
 ----------------
 vendor/timeline/timeline.css
@@ -271,7 +275,7 @@ js/model/monitor.js
 vendor/codemirror/lib/codemirror.js
 vendor/codemirror/mode/ruby/ruby.js
 vendor/jquery/plugins/jquery.validate.js
-vendor/parsley/js/parsley.js
+vendor/parsleyjs/dist/parsley.js
 js/view/addmonitor.js
 js/collection/monitor.js
 js/view/smallmonitor.js

@@ -14,7 +14,7 @@ require.config({
         'jquery-validate'       : '../vendor/jquery/plugins/jquery.validate',
         'jquery-ui'             : '../vendor/jquery/plugins/jquery-ui/js/jquery-ui-1.10.3.custom.min',
         'jquery-timepicker'     : '../vendor/jquery/plugins/timepicker-ui/js/jquery.timepicker',
-        'parsley'               : '../vendor/parsley/js/parsley',
+        'parsley'               : '../vendor/parsleyjs/dist/parsley',
         'underscore'            : '../vendor/underscore/js/underscore',
         'underscore-string'     : '../vendor/underscore/plugins/underscore-string/js/underscore.string',
         'xdate'                 : '../vendor/xdate/js/xdate',
