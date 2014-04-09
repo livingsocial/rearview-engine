@@ -17,10 +17,8 @@ define([
         scheduleViewInitialized       : false,
         metricsViewInitialized        : false,
         scheduleView                  : true,
-        cronScheduleFormValid         : false,
         cronScheduleWeekdaysSelected  : false,
         cronScheduleDaysDisabled      : false,
-        namePagerFormValid            : false,
 
         el : '.add-monitor-wrap',
 
@@ -143,9 +141,8 @@ define([
          * view.
          **/
         advanceToMetrics : function() {
-            this.namePagerForm.parsley('validate');
-            this.cronScheduleForm.parsley('validate');
-            if(this.namePagerFormValid && this.cronScheduleFormValid) {
+            if(this.namePagerForm.parsley().validate() &&
+               this.cronScheduleForm.parsley().validate()) {
               this._setSchedule();
               this._setupMetricsView();
             }
@@ -261,33 +258,10 @@ define([
          **/
         setNamePagerValidation : function() {
             this.namePagerForm = $('#namePagerForm');
-            var validator = this.namePagerForm.parsley({
-                listeners: {
-                    onFormSubmit : function ( isFormValid, event, ParsleyForm ) {
-                      this.namePagerFormValid = isFormValid;
-                    }.bind(this)
-                }
-            });
         },
         setCronScheduleValidation : function() {
             this.cronScheduleForm = $('#cronScheduleForm');
-            var validator = CronUtil.parsleyValidator();
-            _.extend(validator,{
-                errors: {
-                  container: function (parsleyElement, parsleyTemplate, isRadioOrCheckbox) {
-                    var container = $('#cronScheduleFormErrors');
-                    container.append(parsleyTemplate);
-                    return container;
-                  }
-                },
-                listeners: {
-                    onFormSubmit : function ( isFormValid, event, ParsleyForm ) {
-                      this.cronScheduleFormValid = isFormValid;
-                    }.bind(this)
-                }
-            });
-            this.cronScheduleForm.parsley(validator);
-
+            CronUtil.registerParsleyValidator();
         },
         setMetricsValidation : function() {
             $.validator.addMethod('code', function(value, element) {

@@ -4,7 +4,7 @@
         <form id='namePagerForm' class='clearfix'>
             <fieldset class='monitor-name control-group'>
                 <label for='monitorName' class='control-label'>Monitor Name:</label>
-                    <input type='text' id='monitorName' name='monitorName' required='required' />
+                    <input type='text' id='monitorName' name='monitorName' data-parsley-required='true' />
             </fieldset>
             <fieldset class='description control-group'>
                 <label for='description' class='control-label'>Monitor Description (Not Required):</label>
@@ -35,10 +35,8 @@
                                   name='inputMinutes' 
                                   value='0'
                                   class='input-mini' 
-                                  data-trigger='blur mouseout'
-                                  data-error-message="Not a valid value for cron field 'minutes'"
-                                  data-cronfield='minute'
-                                  required='required'>
+                                  data-parsley-required='true'
+                                  data-parsley-cronfield='minute'>
                     </div>
                 </div>
                 <div class='control-group'>
@@ -49,10 +47,8 @@
                                 name='inputHours' 
                                 value='*' 
                                 class='input-mini' 
-                                data-trigger='blur mouseout'
-                                data-error-message="Not a valid value for cron field 'hours'"
-                                data-cronfield='hour'
-                                required='required'>
+                                data-parsley-required='true'
+                                data-parsley-cronfield='hour'>
                     </div>
                 </div>
                 <div class='control-group'>
@@ -63,10 +59,8 @@
                                 name='inputDays' 
                                 value='*' 
                                 class='input-mini' 
-                                data-trigger='blur mouseout'
-                                data-error-message="Not a valid value for cron field 'days'"
-                                data-cronfield='day'
-                                required='required'>
+                                data-parsley-required='true'
+                                data-parsley-cronfield='day'>
                     </div>
                 </div>
             </fieldset>

@@ -12,37 +12,29 @@ function(_){
       hourRegex : RegExp(/^[0-9\*\-,\/]+$/),
       dayRegex : RegExp(/^[\?0-9\*\-,\/,LW]+$/i),
 
-      parsleyValidator : function(cb) {
-        var validator = function() {};
-        _.extend(validator, {
-          validationMinlength: 1,
-          validators : {
-            cronfield : function (val,param) {
-              var valid = null;
-              switch(param) {
-                case 'day':
-                  valid = val.match(this.dayRegex);
-                break;
-                case 'hour':
-                  valid = val.match(this.hourRegex);
-                break;
-                case 'minute':
-                  valid = val.match(this.minuteRegex);
-                break;
-              }
-              if(_.isFunction(cb)) {
-                valid = cb(val,param,valid);
-              }
-              return valid!=null;
-            }.bind(this)
-          },
-          messages : {
-            cronfield : "Not a valid value for cron field '%s'" 
-          }
-        });
-        return validator;
-      }
+      isFieldValid : function(field,value) {
+        var valid = null;
+        switch(field) {
+          case 'day':
+            valid = value.match(this.dayRegex);
+          break;
+          case 'hour':
+            valid = value.match(this.hourRegex);
+          break;
+          case 'minute':
+            valid = value.match(this.minuteRegex);
+          break;
+        }
+        return valid!=null;
+      },
 
+      registerParsleyValidator : function() {
+        window.ParsleyValidator.addValidator('cronfield',function(value,field) {
+          return this.isFieldValid(field,value);
+        }.bind(this),32)
+        .addMessage('en', 'cronfield', 'This value is incorrect for cronfield: %s');
+      }
+      
     }); 
     
     return CronUtil;
