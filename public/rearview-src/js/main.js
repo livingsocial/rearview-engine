@@ -15,6 +15,7 @@ require.config({
         'jquery-ui'             : '../vendor/jquery/plugins/jquery-ui/js/jquery-ui-1.10.3.custom.min',
         'jquery-timepicker'     : '../vendor/jquery/plugins/timepicker-ui/js/jquery.timepicker',
         'parsley'               : '../vendor/parsleyjs/dist/parsley',
+        'parsley-remote'        : '../vendor/parsleyjs/dist/parsley.remote',
         'underscore'            : '../vendor/underscore/js/underscore',
         'underscore-string'     : '../vendor/underscore/plugins/underscore-string/js/underscore.string',
         'xdate'                 : '../vendor/xdate/js/xdate',
@@ -65,6 +66,9 @@ require.config({
         },
         'parsley' : {
             deps    : ['jquery']
+        },
+        'parsley-remote' : {
+            deps    : ['parsley']
         },
         'timeline' : {
             deps    : ['xdate'],

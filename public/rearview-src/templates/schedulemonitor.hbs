@@ -14,7 +14,12 @@
                 <label for='pagerDuty' class='control-label'>Add Alert URIs (Not Required):
                 <span class="help label label-info" data-original-title="" title=""><i class="icon-info-sign"></i></span> 
                 </label>
-                <textarea rows='3' id='pagerDuty' name='pagerDuty' placeholder='Multiple alert URIs can be entered (separated by a space, comma or new line).'>{{#user.preferences.alertKeys}}{{this}}
+                <textarea 
+                  rows='3' 
+                  id='pagerDuty' 
+                  name='pagerDuty' 
+                  data-parsley-remote='/jobs/validate.json' 
+                  placeholder='Multiple alert URIs can be entered (separated by a space, comma or new line).'>{{#user.preferences.alertKeys}}{{this}}
 {{/user.preferences.alertKeys}}</textarea>
             </fieldset>
         </form>

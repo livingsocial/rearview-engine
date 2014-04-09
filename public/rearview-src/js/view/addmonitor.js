@@ -5,7 +5,8 @@ define([
     'util/cron',
     'codemirror-ruby',
     'jquery-validate',
-    'parsley'
+    'parsley',
+    'parsley-remote'
 ], function(
     BaseView,
     MonitorModel,
@@ -60,7 +61,7 @@ define([
             this.templar.render({
                 path : 'addmonitor',
                 el   : this.$el,
-                data : {}
+                data : { }
             });
 
             this.templar.render({
@@ -141,6 +142,11 @@ define([
          * view.
          **/
         advanceToMetrics : function() {
+            this.alertKeys = this.parseAlertKeys(this.$el.find('#pagerDuty').val());
+            if(!_.isEmpty(this.alertKeys)) {
+              //TODO deal with jQuery promise
+              this.$el.find('#pagerDuty').parsley().asyncValidate();
+            }
             if(this.namePagerForm.parsley().validate() &&
                this.cronScheduleForm.parsley().validate()) {
               this._setSchedule();
@@ -258,6 +264,14 @@ define([
          **/
         setNamePagerValidation : function() {
             this.namePagerForm = $('#namePagerForm');
+            $('#pagerDuty').parsley().subscribe('parsley:field:validate',function(field) {
+              var datum = { 
+                data: {
+                  pagerDuty: this.alertKeys
+                } 
+              };
+              $('#pagerDuty').attr('data-parsley-remote-options',JSON.stringify(datum));
+            }.bind(this));
         },
         setCronScheduleValidation : function() {
             this.cronScheduleForm = $('#cronScheduleForm');
