@@ -163,7 +163,7 @@ define([
                 .fail(function() {
                   window.ParsleyUI.removeError(this, "remote");
                   var resp = $.parseJSON(this._xhr.responseText);
-                  var msg = "Invalid URIs";
+                  var msg = "Invalid URI(s)";
                   if(resp.errors.alert_keys) {
                     msg = msg + ": " + resp.errors.alert_keys.join(", ");
                   }

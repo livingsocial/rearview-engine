@@ -115,6 +115,12 @@ input, button, select, textarea {
       color: #B94A48 !important;
     }
 
+    textarea.parsley-error {
+      background-color: #F2DEDE !important;
+      border: 1px solid #EED3D7 !important;
+      color: #B94A48 !important;
+    }
+
     /* alert timeline styles */
     .alert-timeline {
         position   : relative;
@@ -477,6 +483,7 @@ input, button, select, textarea {
 
         fieldset.day-month-picker {
             margin-right  : 0;
+            margin-left   : 45px;
             margin-bottom : 10px;
             float         : left;
             display       : block;
@@ -1104,7 +1111,7 @@ input, button, select, textarea {
         .tooltip.in {
             opacity : 0.9 !important;
         }
-        .parsley-error-list li {
+        .parsley-errors-list li {
             font-weight : bold;
             font-size : larger;
         }
@@ -1138,8 +1145,6 @@ input, button, select, textarea {
         outline      : 0 none;
     }
 
-
-
     .control-group.error input,
     .control-group.error select,
     .control-group.error textarea {
@@ -1153,7 +1158,7 @@ input, button, select, textarea {
         border-color : #B94A48;
         box-shadow   : 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(185, 74, 74, 0.7);
     }
-    .parsley-error-list {
+    .parsley-errors-list {
         margin : 0;
 
         li {

@@ -32,42 +32,45 @@
                 </label>
             </fieldset>
             <fieldset class='form-horizontal'>
-                <div class='control-group'>
-                    <label class='control-label' for='inputMinutes'>Minutes</label>
-                    <div class='controls'>
+              <div class="row-fluid">
+                <div class="span4">
+                        <label  for='inputMinutes'>Minutes</label>
                         <input  type='text' 
-                                  id='inputMinutes' 
-                                  name='inputMinutes' 
-                                  value='0'
-                                  class='input-mini' 
-                                  data-parsley-required='true'
-                                  data-parsley-cronfield='minute'>
-                    </div>
+                          id='inputMinutes' 
+                          name='inputMinutes' 
+                          value='0'
+                          class='input-mini' 
+                          data-parsley-errors-container='#cron-field-parsley-error-container'
+                          data-parsley-required='true'
+                          data-parsley-cronfield='minute'>
                 </div>
-                <div class='control-group'>
-                    <label class='control-label' for='inputHours'>Hours</label>
-                    <div class='controls'>
+                <div class="span4">
+                        <label  for='inputHours'>Hours</label>
                         <input  type='text' 
                                 id='inputHours' 
                                 name='inputHours' 
                                 value='*' 
                                 class='input-mini' 
+                                data-parsley-errors-container='#cron-field-parsley-error-container'
                                 data-parsley-required='true'
                                 data-parsley-cronfield='hour'>
-                    </div>
                 </div>
-                <div class='control-group'>
-                    <label class='control-label' for='inputDays'>Days</label>
-                    <div class='controls'>
+                <div class="span4">
+                        <label  for='inputDays'>Days</label>
                         <input  type='text' 
                                 id='inputDays' 
                                 name='inputDays' 
                                 value='*' 
                                 class='input-mini' 
+                                data-parsley-errors-container='#cron-field-parsley-error-container'
                                 data-parsley-required='true'
                                 data-parsley-cronfield='day'>
-                    </div>
                 </div>
+              </div>
+              <div class="row-fluid">
+                <div id="cron-field-parsley-error-container" class="span12">
+                </div>
+              </div>
             </fieldset>
             <fieldset class='day-month-picker'>
                 <label>Weekday</label>
