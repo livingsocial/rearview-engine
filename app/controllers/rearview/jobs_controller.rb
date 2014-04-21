@@ -1,8 +1,8 @@
 module Rearview
   class JobsController < Rearview::ApplicationController
     respond_to :json
-    before_action :underscore_params, only: [:create,:update]
-    before_action only: [:create, :update] do
+    before_action :underscore_params, only: [:create,:update,:validate]
+    before_action only: [:create, :update, :validate] do
       clean_empty_array_vals(:metrics)
       clean_empty_array_vals(:alert_keys)
     end
@@ -72,6 +72,18 @@ module Rearview
       @job_errors = Rearview::JobError.calculate_durations(Rearview::JobError.search(params).load)
     end
 
+    def validate
+      @validation_fields = job_validate_params
+      @job = Rearview::Job.new(@validation_fields)
+      @job.deep_validation = true
+      status = if @job.valid? || @validation_fields.keys.detect { |f| !@job.errors[f].empty? }.nil?
+                 200
+               else
+                 406
+               end
+      render :validate, :status => status 
+    end
+
     private
 
     def job_update_params
@@ -80,6 +92,10 @@ module Rearview
 
     def job_create_params
       params.permit(:dashboard_id,:name,:active,{ :alert_keys => []},:cron_expr,:error_timeout,:minutes,{ :metrics => [] },:monitor_expr,:to_date,:description)
+    end
+
+    def job_validate_params
+      params.permit(:name,:active,{ :alert_keys => []},:cron_expr,:error_timeout,:minutes,{ :metrics => [] },:monitor_expr,:to_date,:description)
     end
 
   end

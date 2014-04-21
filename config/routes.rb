@@ -16,6 +16,9 @@ Rearview::Engine.routes.draw do
     member do
       put 'reset'
     end
+    collection do
+      get 'validate'
+    end
   end
 
   resource :monitor, only: [:create], :controller => :monitor

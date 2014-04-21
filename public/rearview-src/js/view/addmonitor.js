@@ -143,14 +143,38 @@ define([
          **/
         advanceToMetrics : function() {
             this.alertKeys = this.parseAlertKeys(this.$el.find('#pagerDuty').val());
-            if(!_.isEmpty(this.alertKeys)) {
-              //TODO deal with jQuery promise
-              this.$el.find('#pagerDuty').parsley().asyncValidate();
-            }
+            var that = this;
             if(this.namePagerForm.parsley().validate() &&
                this.cronScheduleForm.parsley().validate()) {
-              this._setSchedule();
-              this._setupMetricsView();
+              if(!_.isEmpty(this.alertKeys)) {
+                var payload = { 
+                  data: {
+                    alertKeys: this.alertKeys,
+                    pagerDuty: null
+                  } 
+                };
+                $('#pagerDuty').attr('data-parsley-remote-options',JSON.stringify(payload));
+                this.$el.find('#pagerDuty').parsley().asyncIsValid()
+                .done(function() {
+                  window.ParsleyUI.removeError(this, "remote");
+                  that._setSchedule();
+                  that._setupMetricsView();
+                })
+                .fail(function() {
+                  window.ParsleyUI.removeError(this, "remote");
+                  var resp = $.parseJSON(this._xhr.responseText);
+                  var msg = "Invalid URIs";
+                  if(resp.errors.alert_keys) {
+                    msg = msg + ": " + resp.errors.alert_keys.join(", ");
+                  }
+                  window.ParsleyUI.addError(this, "remote", msg);
+                });
+              }
+              else {
+                window.ParsleyUI.removeError(this, "remote");
+                this._setSchedule();
+                this._setupMetricsView();
+              }
             }
         },
         /**
@@ -264,14 +288,6 @@ define([
          **/
         setNamePagerValidation : function() {
             this.namePagerForm = $('#namePagerForm');
-            $('#pagerDuty').parsley().subscribe('parsley:field:validate',function(field) {
-              var datum = { 
-                data: {
-                  pagerDuty: this.alertKeys
-                } 
-              };
-              $('#pagerDuty').attr('data-parsley-remote-options',JSON.stringify(datum));
-            }.bind(this));
         },
         setCronScheduleValidation : function() {
             this.cronScheduleForm = $('#cronScheduleForm');
