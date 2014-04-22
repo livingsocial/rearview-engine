@@ -101,4 +101,15 @@ describe Rearview::JobsController do
     end
   end
 
+  context "GET /jobs/validate" do
+    it "renders the validate view" do
+      get :validate, alert_keys: ["abc","123"], format: :json
+      expect(response).to render_template("rearview/jobs/validate")
+    end
+    it "handles no params" do
+      get :validate, format: :json
+      expect(response).to render_template("rearview/jobs/validate")
+    end
+  end
+
 end

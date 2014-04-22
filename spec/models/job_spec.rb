@@ -36,13 +36,13 @@ describe Rearview::Job do
         keys = ["htptptptpt://not_a_uri"]
         job.alert_keys=keys
         expect(job.valid?).to be_false
-        expect(job.errors[:alert_keys]).to include("#{keys.first} is an invalid URI")
+        expect(job.errors[:alert_keys]).to include("invalid URI: '#{keys.first}'")
       end
       it "should require it to be one of the supported schemes" do
         keys = ["http://www.google.com"]
         job.alert_keys=keys
         expect(job.valid?).to be_false
-        expect(job.errors[:alert_keys]).to include("#{keys.first} is not a supported alert type")
+        expect(job.errors[:alert_keys]).to include("not a supported alert type: '#{keys.first}'")
       end
       it "should validate the scheme against the corresponding alert" do
         keys = ["pagerduty:10101010101010101010101010101010","mailto:first.last@hungrymachine.com","campfire://first.last@hungrymachine.com?token=123&room=text"]
@@ -53,19 +53,19 @@ describe Rearview::Job do
         keys = ["pagerduty:abcdefg"]
         job.alert_keys=keys
         expect(job.valid?).to be_false
-        expect(job.errors[:alert_keys]).to include("#{keys.first} is invalid for supported alert type")
+        expect(job.errors[:alert_keys]).to include("invalid key for supported alert type: '#{keys.first}'")
       end
       it "should detect an invalid mail URI" do
         keys = ["mailto:abcdefg"]
         job.alert_keys=keys
         expect(job.valid?).to be_false
-        expect(job.errors[:alert_keys]).to include("#{keys.first} is invalid for supported alert type")
+        expect(job.errors[:alert_keys]).to include("invalid key for supported alert type: '#{keys.first}'")
       end
       it "should detect an invalid campfire URI" do
         keys = ["campfire://first.last@hungrymachine.com"]
         job.alert_keys=keys
         expect(job.valid?).to be_false
-        expect(job.errors[:alert_keys]).to include("#{keys.first} is invalid for supported alert type")
+        expect(job.errors[:alert_keys]).to include("invalid key for supported alert type: '#{keys.first}'")
       end
     end
   end
