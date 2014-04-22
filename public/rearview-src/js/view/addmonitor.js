@@ -142,40 +142,45 @@ define([
          * view.
          **/
         advanceToMetrics : function() {
+
+            this.$el.find('#pagerDuty').parsley().reset();
             this.alertKeys = this.parseAlertKeys(this.$el.find('#pagerDuty').val());
             var that = this;
-            if(this.namePagerForm.parsley().validate() &&
-               this.cronScheduleForm.parsley().validate()) {
-              if(!_.isEmpty(this.alertKeys)) {
-                var payload = { 
-                  data: {
-                    alertKeys: this.alertKeys,
-                    pagerDuty: null
-                  } 
-                };
-                $('#pagerDuty').attr('data-parsley-remote-options',JSON.stringify(payload));
-                this.$el.find('#pagerDuty').parsley().asyncIsValid()
-                .done(function() {
-                  window.ParsleyUI.removeError(this, "remote");
-                  that._setSchedule();
-                  that._setupMetricsView();
-                })
-                .fail(function() {
-                  window.ParsleyUI.removeError(this, "remote");
-                  var resp = $.parseJSON(this._xhr.responseText);
-                  var msg = "Invalid URI(s)";
-                  if(resp.errors.alert_keys) {
-                    msg = msg + ": " + resp.errors.alert_keys.join(", ");
-                  }
-                  window.ParsleyUI.addError(this, "remote", msg);
-                });
-              }
-              else {
+            var payload = { 
+              data: {
+                alertKeys: this.alertKeys,
+                pagerDuty: null
+              } 
+            };
+            $('#pagerDuty').attr('data-parsley-remote-options',JSON.stringify(payload));
+            this.cronScheduleFormValid = this.cronScheduleForm.parsley().validate();
+            this.namePagerFormValid = this.namePagerForm.parsley().validate();
+            if(!_.isEmpty(this.alertKeys)) {
+              this.$el.find('#pagerDuty').parsley().asyncIsValid()
+              .done(function() {
+                this.$el.find('#pagerDuty').parsley().reset();
+                if(this.cronScheduleFormValid && this.namePagerFormValid) {
+                  this._setSchedule();
+                  this._setupMetricsView();
+                }
+              }.bind(this))
+              .fail(function() {
                 window.ParsleyUI.removeError(this, "remote");
+                var resp = $.parseJSON(this._xhr.responseText);
+                var msg = "Invalid URI(s)";
+                if(resp.errors.alert_keys) {
+                  msg = msg + ": " + resp.errors.alert_keys.join(", ");
+                }
+                window.ParsleyUI.addError(this, "remote", msg);
+              });
+            }
+            else {
+              if(this.cronScheduleFormValid && this.namePagerFormValid) {
                 this._setSchedule();
                 this._setupMetricsView();
               }
             }
+
         },
         /**
          * AddMonitorView#backToSchedule()
@@ -288,6 +293,13 @@ define([
          **/
         setNamePagerValidation : function() {
             this.namePagerForm = $('#namePagerForm');
+            this.$el.find('#pagerDuty').on('change',this.clearPagerDutyErrors);
+            this.$el.find('#pagerDuty').on('keyup',this.clearPagerDutyErrors);
+        },
+        clearPagerDutyErrors : function(event) {
+            if(this.$el.find('#pagerDuty').val()=="") {
+              this.$el.find('#pagerDuty').parsley().reset();
+            }
         },
         setCronScheduleValidation : function() {
             this.cronScheduleForm = $('#cronScheduleForm');
