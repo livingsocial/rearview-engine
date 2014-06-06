@@ -596,3 +596,4 @@
 - alias(transformNull(smartSummarize(stats_counts.merchant_center.jobs.roi.watson.watson_consumer_connect_mail_stats.updated, "10min", "sum")), "changed")
 - alias(hitcount(stats.monocle.indexer.deals.update.start,"10min"), "deals updates in 10 min period")
 - alias(stats.monocle.indexer.deals.update.start, "drawAsInfinite(update)")
+- averageSeriesWithWildcards(host.cpu-[0-7].cpu-{user,system}.value, 1)

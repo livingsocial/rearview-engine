@@ -63,7 +63,7 @@ describe Graphite::TargetParser do
 
   context 'expression' do
     context 'is parseable' do
-      it 'for all values in metrics.yml' do
+      it 'using comprehensive list of metrics in metrics.yml' do
         metrics = YAML.load_file("spec/data/metrics.yml")
         parser = Graphite::TargetParser.new
         metrics.each do |m|
