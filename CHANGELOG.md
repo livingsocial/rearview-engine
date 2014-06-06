@@ -1,3 +1,13 @@
+## 1.2.2 (not released)
+
+Features:
+
+none
+
+Bugfixes:
+
+- support for [] and {} wildcards in graphite metrics (@talbright,livingsocial/rearview#42)
+
 ## 1.2.1 (2014-03-24)
 
 Features:
