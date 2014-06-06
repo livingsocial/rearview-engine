@@ -21,7 +21,7 @@ grammar TargetGrammer
   end
 
   rule path_segment
-    [a-zA-Z0-9_\*\-]+ <Graphite::TargetGrammer::PathSegment>
+    [a-zA-Z0-9_\[\]\{\}\*\-]+ <Graphite::TargetGrammer::PathSegment>
   end
 
   rule comment
