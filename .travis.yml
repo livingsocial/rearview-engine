@@ -4,6 +4,7 @@ language: ruby
 services: mysql
 rvm:
   - jruby-1.7.10
+  - jruby-1.7.2
   - jruby-head
 #  - jruby-head-d20
 #  - jruby-head-d21
