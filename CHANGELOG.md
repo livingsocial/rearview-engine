@@ -7,6 +7,8 @@ none
 Bugfixes:
 
 - support for [] and {} wildcards in graphite metrics (@talbright,livingsocial/rearview#42)
+- fix graphite client reachable? method, which could create incorrect validation check failures (@talbright,livingsocial/rearview#44)
+
 
 ## 1.2.1 (2014-03-24)
 
