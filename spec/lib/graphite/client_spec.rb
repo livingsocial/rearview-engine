@@ -94,24 +94,24 @@ describe Graphite::Client do
       end
       @client.stubs(:connection).returns(@connection_stub)
     end
-    it 'is true when response is 200, content is image/png, and content-length > 0' do
-      @request_stubs.get('/render') {[ 200, { 'content-type' => 'image/png', 'content-length' => '123' }, '' ]}
+    it 'is true when response is 200, content is image/png, and body length > 0' do
+      @request_stubs.get('/render') {[ 200, { 'content-type' => 'image/png', 'content-length' => '123' }, 'body' ]}
       expect(@client.reachable?).to be_true
     end
-    it 'is true when response is 200, content is "image/png; charset=bogus", and content-length > 0' do
-      @request_stubs.get('/render') {[ 200, { 'content-type' => 'image/png; charset=bogus', 'content-length' => '123' }, '' ]}
+    it 'is true when response is 200, content is "image/png; charset=bogus", and body length > 0' do
+      @request_stubs.get('/render') {[ 200, { 'content-type' => 'image/png; charset=bogus' }, 'body' ]}
       expect(@client.reachable?).to be_true
     end
     it 'is false when response is not 200' do
-      @request_stubs.get('/render') {[ 500, { }, '' ]}
+      @request_stubs.get('/render') {[ 500, { 'content-type' => 'image/png' }, 'body' ]}
       expect(@client.reachable?).to be_false
     end
     it 'is false when content-type is not image/png' do
-      @request_stubs.get('/render') {[ 200, { 'content-type' => 'text/html', 'content-length' => '123' }, '' ]}
+      @request_stubs.get('/render') {[ 200, { 'content-type' => 'text/html' }, 'body' ]}
       expect(@client.reachable?).to be_false
     end
-    it 'is false when content-length is 0' do
-      @request_stubs.get('/render') {[ 200, { 'content-type' => 'image/png', 'content-length' => '0' }, '' ]}
+    it 'is false when body length is 0' do
+      @request_stubs.get('/render') {[ 200, { 'content-type' => 'image/png' }, '' ]}
       expect(@client.reachable?).to be_false
     end
   end

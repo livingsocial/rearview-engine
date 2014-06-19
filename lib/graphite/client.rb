@@ -35,7 +35,7 @@ module Graphite
       reachable = false
       begin
         response = connection.get('/render')
-        reachable = response.status==200 && response.headers['content-type'].include?('image/png') && response.headers['content-length'].to_i > 0
+        reachable = response.status==200 && response.headers['content-type'].include?('image/png') && response.body.length > 0
       rescue Exception => e
       end
       reachable
