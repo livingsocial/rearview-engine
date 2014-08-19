@@ -13,6 +13,7 @@ PATH
       rails (~> 4.0.2)
       state_machine (~> 1.2.0)
       statsd-ruby (~> 1.2.1)
+      timers (~> 2.0.0)
       treetop (~> 1.4.15)
 
 GEM

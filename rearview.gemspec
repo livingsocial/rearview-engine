@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "protected_attributes", "~> 1.0.5"
   s.add_dependency "httparty", "~> 0.12.0"
   s.add_dependency "celluloid", "~> 0.14.1"
+  s.add_dependency "timers", "~> 2.0.0"
   s.add_dependency "broach", "~> 0.3.0"
   s.add_dependency "jbuilder", "~> 1.5.2"
   s.add_dependency "statsd-ruby", "~> 1.2.1"
