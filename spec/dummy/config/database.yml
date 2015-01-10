@@ -2,19 +2,22 @@ development:
   adapter: mysql
   database: rearview_ruby_development
   username: root
-  password:
-  host: localhost
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
 
 test:
   adapter: mysql
   database: rearview_ruby_test
   username: root
-  password:
-  host: localhost
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
 
 production:
   adapter: mysql
   database: rearview_ruby_production
   username: root
-  password:
-  host: localhost
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
