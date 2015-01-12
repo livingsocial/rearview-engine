@@ -1,11 +1,11 @@
 app:
   build: .
   environment:
-    DATABASE_HOST:     database
+    DATABASE_HOST:     db
     DATABASE_PASSWORD: 'fooby'
     DATABASE_PORT:     3306
   links:
-   - db:database
+    - db
   volumes:
     - .:/usr/src/app
 
