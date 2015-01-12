@@ -1,0 +1,17 @@
+app:
+  build: .
+  environment:
+    DATABASE_HOST:     db
+    DATABASE_PASSWORD: 'fooby'
+    DATABASE_PORT:     3306
+  links:
+    - db
+  volumes:
+    - .:/usr/src/app
+
+db:
+  image: mysql:latest
+  environment:
+    MYSQL_ROOT_PASSWORD: 'fooby'
+  expose:
+    - "3306"
