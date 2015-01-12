@@ -1,4 +1,4 @@
-web:
+app:
   build: .
   environment:
     DATABASE_HOST:     database
@@ -6,8 +6,6 @@ web:
     DATABASE_PORT:     3306
   links:
    - db:database
-  ports:
-   - "3000:3000"
   volumes:
     - .:/usr/src/app
 

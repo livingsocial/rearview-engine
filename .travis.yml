@@ -3,8 +3,8 @@ before_script: bundle exec rake ci:before
 language: ruby
 services: mysql
 rvm:
-  - jruby-1.7.10
-  - jruby-head
+  - jruby-1.7.18
+#  - jruby-head
 #  - jruby-head-d20
 #  - jruby-head-d21
 jdk:
@@ -12,8 +12,8 @@ jdk:
   - openjdk7
 matrix:
   exclude:
-    - rvm: jruby-head
-      jdk: openjdk6
+#    - rvm: jruby-head
+#      jdk: openjdk6
 #    - rvm: jruby-head-d20
 #      jdk: openjdk6
 #    - rvm: jruby-head-d21

@@ -61,16 +61,8 @@ COPY spec/dummy/sandbox/* /usr/src/app/spec/dummy/sandbox/
 RUN bundle install
 RUN /bin/bash --login -c "cd /usr/src/app/spec/dummy/sandbox; rvm use 1.9.3-p448@rearview-sandbox; bundle install"
 
-# The ENV
-# Expose the mailcatcher port
-EXPOSE 1080
-
-# Expose the application port
-EXPOSE 3000
-
 # Copy app
 COPY . /usr/src/app
 
 # Default Command
-ENV RAILS_ENV development
 CMD [""]
