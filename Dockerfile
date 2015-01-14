@@ -1,6 +1,6 @@
 FROM centos:centos6
 
-MAINTAINER Cory Flanigan
+MAINTAINER Cory Flanigan <cory.flanigan@livingsocial.com>
 
 # Update package manager cache and local dependencies
 RUN yum -y update && yum -y groupinstall 'Development Tools'
